@@ -2,6 +2,7 @@
 namespace BWB\Framework\mvc;
 
 use BWB\Framework\mvc\SecurityMiddleware;
+use BWB\Framework\mvc\Helpers;
 
 /**
  * 
@@ -84,11 +85,17 @@ abstract class Controller {
      * @param array $datas La valeur par defaut permet de retourner des vues statiques
      */
     final protected function render($pathToView,$datas=null) {
+
+        $helper = new Helpers();
+
         if(is_array($datas)){
             foreach ($datas as $key => $value) {
                 $$key = $value;
             }
         }
+        
+        include './views/layouts/header.php';
         include './views/' . $pathToView . ".php";
+        include './views/layouts/footer.php';
     }
 }

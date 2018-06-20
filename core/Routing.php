@@ -87,7 +87,7 @@ class Routing {
         if (is_array($value)) {
             return (isset($value[$this->method])) ? $value[$this->method] : null;
         } else {
-            return "BWB\\Framework\\mvc\\controllers\\" . $value;
+            return $value;
         }
     }
 
@@ -126,7 +126,9 @@ class Routing {
     private function invoke() {
         $elements = explode(":", $this->controller);
 
-        $object = new $elements[0]();
+        $namespace = "BWB\\Framework\\mvc\\controllers\\".$elements[0];
+
+        $object = new $namespace();
 
         return call_user_func_array(array($object, $elements[1]), $this->args);
     }
