@@ -7,7 +7,7 @@ class Helpers {
     /**
      * Return l'url de base du site
      */
-    public function base_url(String $action)
+    public function base_url(String $action = null)
     {
         return "http://" . $_SERVER['SERVER_NAME'] . "/" . $action;
     }
