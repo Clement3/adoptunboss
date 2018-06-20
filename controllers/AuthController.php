@@ -28,7 +28,17 @@ class AuthController extends Controller
                 
                 if ($user) {
                     if (password_verify($_POST['password'], $user['password'])) {
-                        echo 'Work';
+
+                        $_SESSION['user'] = [
+                            'id' => $user['id'],
+                            'is_admin' => $user['is_admin'],
+                            'is_recruiter' => $user['is_recruiter'],
+                            'is_premium' => $user['is_premium']
+                        ];
+
+                        $this->helper()->redirect();
+
+                        // Vous êtes bien connecter
                     }
 
                     // Mot de passe incorrect
@@ -45,11 +55,18 @@ class AuthController extends Controller
 
     public function getRegister()
     {
-
+        $this->render("auth/register");
     }
 
     public function postRegister()
     {
 
+    }
+
+    public function logout()
+    {
+        unset($_SESSION['user']);
+
+        $this->helper()->redirect('login');
     }
 }

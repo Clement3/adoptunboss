@@ -22,5 +22,6 @@
         </p>
       </div>
     </footer>  
+    <script src="<?= $helper->base_url('/assets/app.js') ?>"></script>
   </body>
 </html>

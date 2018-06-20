@@ -1,1 +1,5 @@
-<h1>Caca</h1>
+<?php if ($helper->is_premium()) {
+    echo 'Recruiter';
+}
+
+?>

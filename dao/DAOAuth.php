@@ -37,7 +37,7 @@ class DAOAuth extends DAO
 
     public function login(Array $array)
     {
-        $sql = $this->getPdo()->prepare('SELECT email, password FROM users WHERE email = :email');
+        $sql = $this->getPdo()->prepare('SELECT id, email, password, is_admin, is_recruiter, is_premium FROM users WHERE email = :email');
         $sql->bindParam(':email', $array['email']);
         $sql->execute();
 

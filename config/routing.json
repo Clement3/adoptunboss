@@ -1,8 +1,15 @@
 {
     "/": "PagesController:home",
     "/test": "PagesController:test",
-    "/login":{
+    "/login": 
+    {
         "GET":"AuthController:getLogin",
         "POST":"AuthController:postLogin"
-    }
+    },
+    "/register":
+    {
+        "GET":"AuthController:getRegister",
+        "POST":"AuthController:postRegister"
+    },
+    "/logout": "AuthController:logout"
 }

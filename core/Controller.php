@@ -77,6 +77,16 @@ abstract class Controller {
     }
     
     /**
+     * Initialise le helper dans le controller
+     */
+    protected function helper()
+    {
+        $helper = new Helpers();
+        
+        return $helper;
+    }
+
+    /**
      * La methode render afficher la vue selectionnée grace au premier argument
      * La methode utilise les indirection pour generer dynamiquement les noms des variables
      * utilisées dans la vue.

@@ -12,7 +12,7 @@
   <div class="columns is-centered">
     <div class="column is-half is-narrow">
       <section class="section">
-        <div class="box"
+        <div class="box">
           <form method="POST" action="<?= $helper->base_url('login') ?>">
             <div class="field">
               <label class="label">E-mail</label>
@@ -29,7 +29,7 @@
               <button type="submit" class="button is-primary full-width">Se connecter</button>    
           </form>
           <p class="has-text-centered login-register">
-            Vous n'avez pas de compte ? <a href="">Créer un compte</a>.
+            Vous n'avez pas de compte ? <a href="<?= $helper->base_url('register') ?>">Créer un compte</a>.
           </p>          
         </div>
       </section>
