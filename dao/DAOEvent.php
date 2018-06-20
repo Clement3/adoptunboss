@@ -16,9 +16,10 @@ class DAOEvent extends DAO
         
     }
 
-    public function getAll() {
-    
-
+    public function getAll() 
+    {
+        $sql = $this->getPdo()->query('SELECT * FROM events');
+        return $sql->fetchAll();
     }
 
     public function getAllBy($filter) {
