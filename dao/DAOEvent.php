@@ -26,7 +26,8 @@ class DAOEvent extends DAO
     }
 
     public function retrieve($id) {
-        
+        $sql = $this->getPdo()->query('SELECT * FROM events WHERE id = '. $id .'');
+        return $sql->fetch();
     }
 
     public function update($array) {

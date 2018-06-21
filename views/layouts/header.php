@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>AdoptUnBoss</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link rel="stylesheet" href="<?= $helper->base_url('/assets/app.css') ?>">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
@@ -12,7 +12,8 @@
   <nav class="navbar is-transparent">
     <div class="navbar-brand">
       <a class="navbar-item" href="<?= $helper->base_url() ?>">
-        <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+        <img src="../assets/img/logo_black.png" alt="Logo : adopte un boss">
+        AdoptUnBoss
       </a>
       <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
         <span></span>
@@ -29,7 +30,7 @@
         <a class="navbar-item" href="">
           Comment ça marche ?
         </a>
-        <a class="navbar-item" href="">
+        <a class="navbar-item" href="<?= $helper->base_url('events') ?>">
           Evenement
         </a>        
       </div>
