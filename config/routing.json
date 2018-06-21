@@ -4,5 +4,6 @@
     "/login":{
         "GET":"AuthController:getLogin",
         "POST":"AuthController:postLogin"
-    }
+    },
+    "/events":"EventsController:index"
 }

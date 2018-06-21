@@ -3,6 +3,6 @@
     "host" : "localhost",
     "port" : "3306",
     "dbname" : "adoptunboss",
-    "username" : "root",
+    "username" : "chris",
     "password" : "root"
 }
