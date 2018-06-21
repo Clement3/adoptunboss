@@ -43,4 +43,28 @@ class DAOAuth extends DAO
 
         return $sql->fetch();
     }
+
+    public function register(Array $array)
+    {
+        $sql = $this->getPdo()->prepare('INSERT INTO users (email, password, firstname, lastname, created_date, is_recruiter) VALUES (:email, :password, :firstname, :lastname, NOW(), :is_recruiter)');
+        $sql->bindParam(':email', $array['email']);
+        $sql->bindParam(':password', $array['password']);
+        $sql->bindParam(':firstname', $array['firstname']);
+        $sql->bindParam(':lastname', $array['lastname']);
+        $sql->bindParam(':is_recruiter', $array['is_recruiter']);
+        $sql->execute();
+
+        var_dump($sql);
+        
+        return true;
+    }
+
+    public function isUnique($key, $value)
+    {
+        $sql = $this->getPdo()->prepare('SELECT count(*) FROM users WHERE '. $key .' =  :'. $key .'');
+        $sql->bindParam(':'. $key .'', $value);
+        $sql->execute();
+
+        return $sql->fetchColumn();
+    }
 }

@@ -13,6 +13,11 @@
     <div class="column is-half is-narrow">
       <section class="section">
         <div class="box">
+          <?php if ($helper->has('flash')) { ?>
+            <div class="notification <?= $helper->session['class'] ?>">
+              <span><?= $helper->session['message'] ?>
+            </div>            
+          <?php } ?>
           <form method="POST" action="<?= $helper->base_url('login') ?>">
             <div class="field">
               <label class="label">E-mail</label>

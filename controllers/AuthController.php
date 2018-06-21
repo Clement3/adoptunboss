@@ -4,6 +4,8 @@ namespace BWB\Framework\mvc\controllers;
 
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\dao\DAOAuth;
+use BWB\Framework\mvc\Validation;
+use BWB\Framework\mvc\Session;
 
 /**
  * Description of ViewController
@@ -59,8 +61,46 @@ class AuthController extends Controller
     }
 
     public function postRegister()
-    {
+    {        
+        $dao = new DAOAuth();
 
+        $names = [
+            'email' => 'e-mail',
+            'firstname' => 'prénom',
+            'lastname' => 'nom de famille',
+            'password' => 'mot de passe',
+            'repeat_password' => 'confirmer le mot de passe',
+            'is_recruiter' => 'recruteur',
+        ];
+
+        $validation = new Validation($_POST, $names, $dao);
+
+        $validation->field('email')->notEmpty()->isEmail()->isUnique();
+        $validation->field('firstname')->notEmpty();
+        $validation->field('lastname')->notEmpty();
+        $validation->field('password')->notEmpty()->same('repeat_password');
+        $validation->field('repeat_password')->notEmpty();
+        $validation->field('is_recruiter')->isRecruiter();
+
+        if ($validation->isValid()) {
+            
+            $register = $dao->register([
+                'email' => $_POST['email'],
+                'firstname' => $_POST['firstname'],
+                'lastname' => $_POST['lastname'],
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
+                'is_recruiter' => (int)$_POST['is_recruiter'],
+            ]);
+
+            if ($register) {
+                $this->helper()->with('flash', [
+                    'class' => 'is-success',
+                    'message' => 'Vous pouvez vous connecter !'
+                ])->redirect('login');
+            }
+        }
+        
+        $this->helper()->withErrors($validation->errors)->redirect('register');
     }
 
     public function logout()

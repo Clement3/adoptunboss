@@ -38,6 +38,8 @@ abstract class DAO implements CRUDInterface, RepositoryInterface{
                     . ";dbname=" . $config['dbname']
                     . ";charset=utf8", $config['username'], $config['password']
             );
+            // Remove this in production
+            DAO::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }       
     }
     
@@ -52,5 +54,4 @@ abstract class DAO implements CRUDInterface, RepositoryInterface{
     protected function getPdo() : PDO{
         return DAO::$pdo;
     }
-
 }
