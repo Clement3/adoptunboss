@@ -1,2 +1,1 @@
-
-<h1 class="title is-1">Bienvenue sur AdoptUnBoss!</h1>
+<h1>Caca</h1>
