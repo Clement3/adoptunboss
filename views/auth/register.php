@@ -15,11 +15,18 @@
         <div class="box">
           <div class="tabs is-centered">
             <ul id="tabs-register">
-              <li class="is-active"><a>Candidat</a></li>
-              <li><a>Recruteur</a></li>
+              <li id="tabs-candidate" class="is-active"><a>Candidat</a></li>
+              <li id="tabs-recruiter"><a>Recruteur</a></li>
             </ul>
-          </div>        
+          </div>       
+          <?php if ($helper->hasErrors()) { ?>
+            <?php foreach ($helper->errors() as $error) { ?>
+              <?= $error ?>
+            <?php } ?>
+          <?php } ?>
           <form method="POST" action="<?= $helper->base_url('register') ?>">
+            <input class="register-radio" id="radio-candidate" type="radio" name="is_recruiter" value="0" checked>   
+            <input class="register-radio" id="radio-recruiter" type="radio" name="is_recruiter" value="1">          
             <div class="field">
               <label class="label">E-mail</label>
               <div class="control">

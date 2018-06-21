@@ -4,6 +4,8 @@ namespace BWB\Framework\mvc;
 
 class Helpers 
 {
+    public $session = [];
+
     /**
      * Return l'url de base du site
      * @param string $url
@@ -21,6 +23,47 @@ class Helpers
     public function redirect(String $url = null)
     {
         header('Location: http://' . $_SERVER['SERVER_NAME'] . '/' . $url .'');
+
+        exit();
+
+        return $this;
+    }
+
+    public function withErrors(Array $errors)
+    {
+        $_SESSION['errors'] = $errors;
+
+        return $this;
+    }
+
+    public function hasErrors()
+    {
+        return isset($_SESSION['errors']);
+    }
+
+    public function errors()
+    {
+        $errors = $_SESSION['errors'];
+        unset($_SESSION['errors']);
+
+        return $errors;
+    }
+
+    public function with(String $key, Array $data)
+    {
+        $_SESSION[$key] = $data;
+
+        return $this;
+    }
+
+    public function has(String $key)
+    {
+        if (isset($_SESSION[$key])) {
+            $this->session = $_SESSION[$key];
+            unset($_SESSION[$key]);
+
+            return true;
+        }
     }
 
     /**
@@ -67,5 +110,5 @@ class Helpers
     public function is_admin(): Bool
     {
         return isset($_SESSION['user']['is_admin']) && $_SESSION['user']['is_admin'];
-    }
+    }  
 }
