@@ -19,11 +19,7 @@
               <li id="tabs-recruiter"><a>Recruteur</a></li>
             </ul>
           </div>       
-          <?php if ($helper->hasErrors()) { ?>
-            <?php foreach ($helper->errors() as $error) { ?>
-              <?= $error ?>
-            <?php } ?>
-          <?php } ?>
+          <?php include('./views/helpers/notifications.php') ?>
           <form method="POST" action="<?= $helper->base_url('register') ?>">
             <input class="register-radio" id="radio-candidate" type="radio" name="is_recruiter" value="0" checked>   
             <input class="register-radio" id="radio-recruiter" type="radio" name="is_recruiter" value="1">          

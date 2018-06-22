@@ -44,5 +44,10 @@
         "GET":"NewsController:show"
     },
     "/new/(:)/delete":"NewsController:delete",
+    "/dashboard": "UsersController:dashboard",
+    "/settings": {
+        "GET": "UsersController:getSettings",
+        "POST": "UsersController:postSettings"
+    },
     "/admin/dashboard": "AdminController:dashboard"
 }

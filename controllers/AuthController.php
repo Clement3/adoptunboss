@@ -21,37 +21,41 @@ class AuthController extends Controller
     {
         $dao = new DAOAuth();
 
-        if (isset($_POST['email']) && !empty($_POST['email'])) {
-            if (isset($_POST['password']) && !empty($_POST['password'])) {
-                $user = $dao->login([
-                    'email' => $_POST['email']
-                ]);
+        $names = [
+            'email' => 'e-mail',
+            'password' => 'mot de passe'
+        ];
+
+        $validation = new Validation($_POST, $names, $dao);
+
+        $validation->field('email')->notEmpty()->isEmail()->exist('users');
+        $validation->field('password')->notEmpty();
+
+        if ($validation->isValid()) {
+
+            $user = $dao->login([
+                'email' => $_POST['email']
+            ]);
+            
+            if (password_verify($_POST['password'], $user['password'])) {
+
+                $_SESSION['user'] = [
+                    'id' => $user['id'],
+                    'is_admin' => $user['is_admin'],
+                    'is_recruiter' => $user['is_recruiter'],
+                    'is_premium' => $user['is_premium']
+                ];  
                 
-                if ($user) {
-                    if (password_verify($_POST['password'], $user['password'])) {
-
-                        $_SESSION['user'] = [
-                            'id' => $user['id'],
-                            'is_admin' => $user['is_admin'],
-                            'is_recruiter' => $user['is_recruiter'],
-                            'is_premium' => $user['is_premium']
-                        ];
-
-                        $this->helper()->redirect();
-
-                        // Vous êtes bien connecter
-                    }
-
-                    // Mot de passe incorrect
-                }
-
-                // L'email n'existe pas
+                $this->helper()->redirect();
             }
 
-            // Password est vide
+            $this->helper()->with('flash', [
+                'class' => 'is-danger',
+                'message' => 'Le mot de passe est incorrecte.'
+            ])->redirect('login');            
         }
 
-        // Email est vide
+        $this->helper()->withErrors($validation->errors)->redirect('login');
     }
 
     public function getRegister()
@@ -74,7 +78,7 @@ class AuthController extends Controller
 
         $validation = new Validation($_POST, $names, $dao);
 
-        $validation->field('email')->notEmpty()->isEmail()->isUnique();
+        $validation->field('email')->notEmpty()->isEmail()->isUnique('users');
         $validation->field('firstname')->notEmpty();
         $validation->field('lastname')->notEmpty();
         $validation->field('password')->notEmpty()->same('repeat_password');
@@ -94,7 +98,7 @@ class AuthController extends Controller
             if ($register) {
                 $this->helper()->with('flash', [
                     'class' => 'is-success',
-                    'message' => 'Vous pouvez vous connecter !'
+                    'message' => 'Vous pouvez maintenant vous connecter !'
                 ])->redirect('login');
             }
         }
@@ -106,6 +110,9 @@ class AuthController extends Controller
     {
         unset($_SESSION['user']);
 
-        $this->helper()->redirect('login');
+        $this->helper()->with('flash', [
+            'class' => 'is-success',
+            'message' => 'Vous avez bien été déconnecter.'
+        ])->redirect('login');
     }
 }

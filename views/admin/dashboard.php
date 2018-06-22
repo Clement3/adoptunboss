@@ -8,11 +8,18 @@
   </div>
 </section>
 
+<?php 
+var_dump($users);
+?>
+
 <section class="section">
   <div class="columns">
     <div class="column">
       <div class="box">
         <h6 class="title is-6">Dernières offres</h6>
+        <p>
+
+        </p>
       </div>
     </div>
     <div class="column">
