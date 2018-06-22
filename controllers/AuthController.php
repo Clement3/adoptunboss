@@ -5,7 +5,6 @@ namespace BWB\Framework\mvc\controllers;
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\dao\DAOAuth;
 use BWB\Framework\mvc\Validation;
-use BWB\Framework\mvc\Session;
 
 /**
  * Description of ViewController
