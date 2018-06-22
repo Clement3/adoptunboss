@@ -2,7 +2,7 @@
     "driver" : "mysql",
     "host" : "localhost",
     "port" : "3306",
-    "dbname" : "adoptunboss",
-    "username" : "chris",
-    "password" : "root"
+    "dbname" : "projet_adoptunboss",
+    "username" : "root",
+    "password" : ""
 }

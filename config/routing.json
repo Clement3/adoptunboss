@@ -18,8 +18,7 @@
     {
         "GET":"EventsController:show"
     },
-    "/event/delete":"EventsController:delete",
-    "/event/update":"EventsController:edit"
-    
-    
+    "/event/delete": "EventsController:delete",
+    "/event/update": "EventsController:edit",
+    "/dashboard/offers": "OffersController:index"  
 }
