@@ -11,5 +11,15 @@
         "GET":"AuthController:getRegister",
         "POST":"AuthController:postRegister"
     },
-    "/logout": "AuthController:logout"
+    "/logout": "AuthController:logout",
+    "/events": "EventsController:index", 
+    "/event/create":"EventsController:create",
+    "/event/show/(:)":
+    {
+        "GET":"EventsController:show"
+    },
+    "/event/delete":"EventsController:delete",
+    "/event/update":"EventsController:edit"
+    
+    
 }
