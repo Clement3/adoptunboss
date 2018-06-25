@@ -4,6 +4,8 @@ namespace BWB\Framework\mvc;
 
 class Helpers 
 {
+    public $session = [];
+
     /**
      * Return l'url de base du site
      * @param string $url
@@ -21,6 +23,69 @@ class Helpers
     public function redirect(String $url = null)
     {
         header('Location: http://' . $_SERVER['SERVER_NAME'] . '/' . $url .'');
+
+        exit();
+
+        return $this;
+    }
+
+    /**
+     * Pour envoyer des erreurs avec une redirection
+     * @param array $errors
+     * @return void
+     */
+    public function withErrors(Array $errors)
+    {
+        $_SESSION['errors'] = $errors;
+
+        return $this;
+    }
+
+    /**
+     * Si il y à des erreurs
+     * @return bool
+     */
+    public function hasErrors(): Bool
+    {
+        return isset($_SESSION['errors']);
+    }
+
+    /**
+     * Récupère toutes les erreurs et les enlèves de la session
+     */
+    public function errors()
+    {
+        $errors = $_SESSION['errors'];
+        unset($_SESSION['errors']);
+
+        return $errors;
+    }
+
+    /**
+     * Stock dans la session des données
+     * @param string $key
+     * @param array $data
+     * @return void
+     */
+    public function with(String $key, Array $data)
+    {
+        $_SESSION[$key] = $data;
+
+        return $this;
+    }
+
+    /**
+     * Si la session existe
+     * @param string $key
+     */
+    public function has(String $key)
+    {
+        if (isset($_SESSION[$key])) {
+            $this->session = $_SESSION[$key];
+            unset($_SESSION[$key]);
+
+            return true;
+        }
     }
 
     /**

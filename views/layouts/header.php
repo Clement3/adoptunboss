@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>AdoptUnBoss</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link rel="stylesheet" href="<?= $helper->base_url('/assets/app.css') ?>">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
@@ -12,7 +12,8 @@
   <nav class="navbar is-transparent">
     <div class="navbar-brand">
       <a class="navbar-item" href="<?= $helper->base_url() ?>">
-        <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+        <img src="../assets/img/logo_black.png" alt="Logo : adopte un boss">
+        AdoptUnBoss
       </a>
       <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
         <span></span>
@@ -29,8 +30,11 @@
         <a class="navbar-item" href="">
           Comment ça marche ?
         </a>
-        <a class="navbar-item" href="">
+        <a class="navbar-item" href="<?= $helper->base_url('events') ?>">
           Evenement
+        </a>
+        <a class="navbar-item" href="<?= $helper->base_url('news') ?>">
+          News
         </a>        
       </div>
 
@@ -38,16 +42,55 @@
         <div class="navbar-item">
           <div class="field is-grouped">
             <?php if ($helper->is_auth()) { ?>
-            <p class="control">
-              <a class="button" href="">
-                <span>Mon compte</span>
+            <?php if ($helper->is_admin()) { ?>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Administration
               </a>
-            </p>    
-            <p class="control">
-              <a class="button" href="<?= $helper->base_url('logout') ?>">
-                <span>Déconnexion</span>
+
+              <div class="navbar-dropdown">
+                <a href="<?= $helper->base_url('admin/dashboard') ?>" class="navbar-item">
+                  Dashboard
+                </a>
+                <a href="<?= $helper->base_url('admin/offers'); ?>" class="navbar-item">
+                  Utilisateurs
+                </a>                
+                <a href="<?= $helper->base_url('admin/offers'); ?>" class="navbar-item">
+                  Offres
+                </a>
+                <a href="<?= $helper->base_url('admin/events'); ?>" class="navbar-item">
+                  Evenements
+                </a>
+                <a href="<?= $helper->base_url('admin/news'); ?>" class="navbar-item">
+                  News
+                </a>
+                <a href="<?= $helper->base_url('admin/newsletters'); ?>" class="navbar-item">
+                  Newsletters
+                </a>                
+                <a href="<?= $helper->base_url('admin/contacts'); ?>" class="navbar-item">
+                  Contacts
+                </a>                                
+              </div>            
+            </div>
+            <?php } ?>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Mon compte
               </a>
-            </p>                    
+
+              <div class="navbar-dropdown">
+                <a href="<?= $helper->base_url('dashboard'); ?>" class="navbar-item">
+                  Dashboard
+                </a>
+                <a href="<?= $helper->base_url('settings'); ?>" class="navbar-item">
+                  Paramètres
+                </a>
+                <hr class="navbar-divider">
+                <a href="<?= $helper->base_url('logout'); ?>" class="navbar-item">
+                  Déconnexion
+                </a>
+              </div>            
+            </div>                    
             <?php } else { ?>
             <p class="control">
               <a class="button" href="<?= $helper->base_url('login') ?>">

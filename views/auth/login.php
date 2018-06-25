@@ -13,6 +13,7 @@
     <div class="column is-half is-narrow">
       <section class="section">
         <div class="box">
+          <?php include('./views/helpers/notifications.php') ?>        
           <form method="POST" action="<?= $helper->base_url('login') ?>">
             <div class="field">
               <label class="label">E-mail</label>

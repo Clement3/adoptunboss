@@ -11,5 +11,45 @@
         "GET":"AuthController:getRegister",
         "POST":"AuthController:postRegister"
     },
-    "/logout": "AuthController:logout"
+    "/logout": "AuthController:logout",
+
+
+    "/events": "EventsController:index", 
+    "/event/create":
+    {
+        "GET":"EventsController:create",
+        "POST":"EventsController:store"
+    },
+    "/event/(:)/update":
+    {
+        "GET":"EventsController:edit",
+        "POST":"EventsController:update"
+    },        
+    "/event/(:)":
+    {
+        "GET":"EventsController:show"
+    },
+    "/event/(:)/delete":"EventsController:delete",
+    "/news": "NewsController:index", 
+    "/new/create":
+    {
+        "GET":"NewsController:create",
+        "POST":"NewsController:store"
+    },
+    "/new/(:)/edit":
+    {
+        "GET":"NewsController:edit",
+        "POST":"NewsController:update"
+    },        
+    "/new/(:)":
+    {
+        "GET":"NewsController:show"
+    },
+    "/new/(:)/delete":"NewsController:delete",
+    "/dashboard": "UsersController:dashboard",
+    "/settings": {
+        "GET": "UsersController:getSettings",
+        "POST": "UsersController:postSettings"
+    },
+    "/admin/dashboard": "AdminController:dashboard"
 }

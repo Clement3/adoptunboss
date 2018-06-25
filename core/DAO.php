@@ -38,6 +38,8 @@ abstract class DAO implements CRUDInterface, RepositoryInterface{
                     . ";dbname=" . $config['dbname']
                     . ";charset=utf8", $config['username'], $config['password']
             );
+            // Remove this in production
+            DAO::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }       
     }
     
@@ -53,4 +55,29 @@ abstract class DAO implements CRUDInterface, RepositoryInterface{
         return DAO::$pdo;
     }
 
+    public function exist(String $table, String $field, String $value)
+    {
+        $sql = $this->getPdo()->prepare('SELECT count(*) FROM '. $table .' WHERE '. $field .' = :'. $field.'');
+        $sql->bindParam(':'. $field .'', $value);
+        $sql->execute();
+
+        if ($sql->fetchColumn() >= 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function unique(String $table, String $field, String $value)
+    {
+        $sql = $this->getPdo()->prepare('SELECT count(*) FROM '. $table .' WHERE '. $field .' = :'. $field.'');
+        $sql->bindParam(':'. $field .'', $value);
+        $sql->execute();
+
+        if ($sql->fetchColumn() <= 0) {
+            return true;
+        }
+
+        return false;
+    }    
 }
