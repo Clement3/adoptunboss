@@ -152,6 +152,6 @@ class Validation {
      */
     public function isValid(): Bool
     {
-        return empty($this->errors);
+        return empty($this->errors) || count($this->errors) <= 0;
     }
 }

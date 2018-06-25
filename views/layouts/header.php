@@ -12,7 +12,7 @@
   <nav class="navbar is-transparent">
     <div class="navbar-brand">
       <a class="navbar-item" href="<?= $helper->base_url() ?>">
-        <img src="../assets/img/logo_black.png" alt="Logo : adopte un boss">
+        <img src="<?= $helper->base_url("assets/img/logo_black.png") ?>" alt="Logo : adopte un boss">
         AdoptUnBoss
       </a>
       <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
@@ -52,7 +52,7 @@
                 <a href="<?= $helper->base_url('admin/dashboard') ?>" class="navbar-item">
                   Dashboard
                 </a>
-                <a href="<?= $helper->base_url('admin/offers'); ?>" class="navbar-item">
+                <a href="<?= $helper->base_url('admin/users'); ?>" class="navbar-item">
                   Utilisateurs
                 </a>                
                 <a href="<?= $helper->base_url('admin/offers'); ?>" class="navbar-item">
@@ -82,6 +82,11 @@
                 <a href="<?= $helper->base_url('dashboard'); ?>" class="navbar-item">
                   Dashboard
                 </a>
+                <?php if ($helper->is_recruiter()) { ?>
+                <a href="" class="navbar-item">
+                  Créer une offre
+                </a>
+                <?php } ?>              
                 <a href="<?= $helper->base_url('settings'); ?>" class="navbar-item">
                   Paramètres
                 </a>

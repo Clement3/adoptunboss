@@ -1,7 +1,36 @@
-<h1>créer une new</h1>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Créer une actualité
+      </h1>
+    </div>
+  </div>
+</section>
 
-<form method="post" action="<?= $helper->base_url('create/'.$data['id'].'') ?>">
-    <input name="title" type="text" value="<?= $data['title'] ?>">
-    <textarea name="content" row="10"><?= $data['content'] ?></textarea>
-    <input type="submit" value="envoyer">
-</form>
+<div class="container">
+  <section class="section">
+    <div class="columns">
+      <div class="column">
+        <div class="box">
+          <?php include('./views/helpers/notifications.php') ?>
+          <form method="POST" action="<?= $helper->base_url('news/create') ?>">
+            <div class="field">
+              <label class="label">Titre</label>
+              <div class="control">
+                <input class="input" type="text" name="title">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Contenu</label>
+              <div class="control">
+                <textarea class="textarea" name="content"></textarea>
+              </div>
+            </div>  
+            <button type="submit" class="button is-primary full-width">Envoyer</button>                     
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

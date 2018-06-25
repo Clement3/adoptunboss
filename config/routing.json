@@ -1,6 +1,5 @@
 {
     "/": "PagesController:home",
-    "/test": "PagesController:test",
     "/login": 
     {
         "GET":"AuthController:getLogin",
@@ -31,25 +30,49 @@
     },
     "/event/(:)/delete":"EventsController:delete",
     "/news": "NewsController:index", 
-    "/new/create":
+    "/news/create":
     {
         "GET":"NewsController:create",
         "POST":"NewsController:store"
     },
-    "/new/(:)/edit":
+    "/news/(:)/edit":
     {
         "GET":"NewsController:edit",
         "POST":"NewsController:update"
     },        
-    "/new/(:)":
+    "/news/(:)":
     {
         "GET":"NewsController:show"
     },
-    "/new/(:)/delete":"NewsController:delete",
+    "/news/(:)/delete":"NewsController:delete",
+    "/dashboard/offers":
+    {
+        "GET":"OffersController:index",
+        "POST":"OffersController:store"
+    },
+    "/dashboard/offers/(:)/update":
+    {
+        "GET":"OffersController:edit",
+        "POST":"OffersController:update"
+    },
+    "/dashboard/offers/(:)/delete":
+    {
+        "GET":"OffersController:delete"
+    },    
     "/dashboard": "UsersController:dashboard",
     "/settings": {
         "GET": "UsersController:getSettings",
         "POST": "UsersController:postSettings"
     },
-    "/admin/dashboard": "AdminController:dashboard"
+    "/profile": {
+        "GET": "ProfilesController:getProfile",
+        "POST": "ProfilesController:postProfile"
+    },
+    "/admin/dashboard": "AdminController:dashboard",
+    "/admin/users": "UsersController:index",
+    "/admin/users/(:)/edit": {
+        "GET":"UsersController:edit",
+        "POST":"UsersController:update"
+    },
+    "/admin/users/(:)/delete": "UsersController:delete"
 }

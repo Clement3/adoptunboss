@@ -16,10 +16,4 @@ class PagesController extends Controller {
     {
         $this->render("home");
     }
-
-    public function test()
-    {
-        $dao = new DAOTest();
-        return var_dump($dao->getAll());
-    }
 }

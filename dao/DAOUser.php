@@ -9,17 +9,23 @@ use BWB\Framework\mvc\DAO;
  */
 class DAOUser extends DAO 
 {
-    public function create($array) {
+    public function create($array) 
+    {
         
     }
 
-    public function delete($id) {
+    public function delete($id) 
+    {
+        $sql = 'DELETE FROM users WHERE id = :id';
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':id', $id);
         
+        return $req->execute();
     }
 
     public function getAll() 
     {
-        $sql = 'SELECT id, email FROM users ORDER BY created_date DESC LIMIT 0,10';
+        $sql = 'SELECT id, email, firstname, lastname, is_recruiter, is_admin FROM users ORDER BY created_date DESC LIMIT 0,10';
         $req = $this->getPdo()->query($sql);
         
         return $req->fetchAll();
@@ -31,7 +37,7 @@ class DAOUser extends DAO
 
     public function retrieve($id) 
     {
-        $sql = 'SELECT id, email, firstname, lastname, zip_code, tel, birthday FROM users WHERE id = :id';
+        $sql = 'SELECT id, email, firstname, lastname, zip_code, tel, birthday, is_admin, is_recruiter FROM users WHERE id = :id';
         $req = $this->getPdo()->prepare($sql);
         $req->bindParam(':id', $id);
         $req->execute();

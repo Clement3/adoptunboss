@@ -8,8 +8,8 @@ class DAONews extends DAO
 {
 
     public function create($array) {
-        $sql = $this->getPdo()->exec('CREATE FROM news SET title = :title, content = :content');
-        $sql->exec($array);
+        $sql = $this->getPdo()->prepare('INSERT INTO news (title, content) VALUES (:title, :content)');
+        $sql->execute($array);
         
     }
 
