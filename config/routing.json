@@ -12,6 +12,8 @@
         "POST":"AuthController:postRegister"
     },
     "/logout": "AuthController:logout",
+
+
     "/events": "EventsController:index", 
     "/event/create":
     {
