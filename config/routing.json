@@ -12,13 +12,25 @@
         "POST":"AuthController:postRegister"
     },
     "/logout": "AuthController:logout",
+
+
     "/events": "EventsController:index", 
-    "/event/create":"EventsController:create",
-    "/event/show/(:)":
+    "/event/create":
+    {
+    "GET":"EventsController:create",
+    "POST":"EventsController:store"
+    },
+    "/event/(:)/edit":
+    {
+        "GET":"EventsController:edit",
+        "POST":"EventsController:update"
+    },
+    "/event/(:)":
     {
         "GET":"EventsController:show"
     },
-    "/event/delete": "EventsController:delete",
-    "/event/update": "EventsController:edit",
-    "/dashboard/offers": "OffersController:index"  
+    "/event/(:)/delete":"EventsController:delete"
+
+    
+    
 }
