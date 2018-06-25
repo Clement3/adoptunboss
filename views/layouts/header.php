@@ -32,6 +32,9 @@
         </a>
         <a class="navbar-item" href="<?= $helper->base_url('events') ?>">
           Evenement
+        </a>
+        <a class="navbar-item" href="<?= $helper->base_url('news') ?>">
+          News
         </a>        
       </div>
 
@@ -39,16 +42,55 @@
         <div class="navbar-item">
           <div class="field is-grouped">
             <?php if ($helper->is_auth()) { ?>
-            <p class="control">
-              <a class="button" href="">
-                <span>Mon compte</span>
+            <?php if ($helper->is_admin()) { ?>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Administration
               </a>
-            </p>    
-            <p class="control">
-              <a class="button" href="<?= $helper->base_url('logout') ?>">
-                <span>Déconnexion</span>
+
+              <div class="navbar-dropdown">
+                <a href="<?= $helper->base_url('admin/dashboard') ?>" class="navbar-item">
+                  Dashboard
+                </a>
+                <a href="<?= $helper->base_url('admin/offers'); ?>" class="navbar-item">
+                  Utilisateurs
+                </a>                
+                <a href="<?= $helper->base_url('admin/offers'); ?>" class="navbar-item">
+                  Offres
+                </a>
+                <a href="<?= $helper->base_url('admin/events'); ?>" class="navbar-item">
+                  Evenements
+                </a>
+                <a href="<?= $helper->base_url('admin/news'); ?>" class="navbar-item">
+                  News
+                </a>
+                <a href="<?= $helper->base_url('admin/newsletters'); ?>" class="navbar-item">
+                  Newsletters
+                </a>                
+                <a href="<?= $helper->base_url('admin/contacts'); ?>" class="navbar-item">
+                  Contacts
+                </a>                                
+              </div>            
+            </div>
+            <?php } ?>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Mon compte
               </a>
-            </p>                    
+
+              <div class="navbar-dropdown">
+                <a href="<?= $helper->base_url('dashboard'); ?>" class="navbar-item">
+                  Dashboard
+                </a>
+                <a href="<?= $helper->base_url('settings'); ?>" class="navbar-item">
+                  Paramètres
+                </a>
+                <hr class="navbar-divider">
+                <a href="<?= $helper->base_url('logout'); ?>" class="navbar-item">
+                  Déconnexion
+                </a>
+              </div>            
+            </div>                    
             <?php } else { ?>
             <p class="control">
               <a class="button" href="<?= $helper->base_url('login') ?>">

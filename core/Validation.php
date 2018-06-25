@@ -28,6 +28,21 @@ class Validation {
     }
 
     /**
+     * Si la valeur d'un champ existe dans la base de donnée
+     * @param string $table
+     */
+    public function exist(String $table)
+    {
+        if ($this->dao->exist($table, $this->field, $this->post[$this->field])) {
+            return $this;
+        }
+        
+        $this->errors[] = 'La valeur du champ '. $this->field .' n\'existe pas dans notre base de données.';
+
+        return $this;        
+    }
+
+    /**
      * Si la valeur d'un champ n'est pas vide
      */
     public function notEmpty()
@@ -57,10 +72,11 @@ class Validation {
 
     /**
      * Si un champ est unique
+     * @param string $table
      */
-    public function isUnique()
+    public function isUnique(String $table)
     {
-        if ($this->dao->isUnique($this->field, $this->post[$this->field]) <= 0) {
+        if ($this->dao->unique($table, $this->field, $this->post[$this->field])) {
             return $this;
         }
 

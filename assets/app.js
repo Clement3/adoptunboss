@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    deleteNotification();
     tabsRegister();
 
     function tabsRegister() {
@@ -19,5 +20,18 @@ $(document).ready(function() {
             recruiter.addClass('is-active');
             radioRecruiter.prop('checked', true)
         });
+    }
+
+    function deleteNotification() {
+        var deleteButton = $('#notification-delete');
+
+        deleteButton.click(function(e) {
+            e.preventDefault();
+            $(this).parent().remove();
+        });
+    }
+
+    function pagination() {
+        
     }
 });

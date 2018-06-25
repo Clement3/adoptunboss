@@ -29,6 +29,11 @@ class Helpers
         return $this;
     }
 
+    /**
+     * Pour envoyer des erreurs avec une redirection
+     * @param array $errors
+     * @return void
+     */
     public function withErrors(Array $errors)
     {
         $_SESSION['errors'] = $errors;
@@ -36,11 +41,18 @@ class Helpers
         return $this;
     }
 
-    public function hasErrors()
+    /**
+     * Si il y à des erreurs
+     * @return bool
+     */
+    public function hasErrors(): Bool
     {
         return isset($_SESSION['errors']);
     }
 
+    /**
+     * Récupère toutes les erreurs et les enlèves de la session
+     */
     public function errors()
     {
         $errors = $_SESSION['errors'];
@@ -49,6 +61,12 @@ class Helpers
         return $errors;
     }
 
+    /**
+     * Stock dans la session des données
+     * @param string $key
+     * @param array $data
+     * @return void
+     */
     public function with(String $key, Array $data)
     {
         $_SESSION[$key] = $data;
@@ -56,6 +74,10 @@ class Helpers
         return $this;
     }
 
+    /**
+     * Si la session existe
+     * @param string $key
+     */
     public function has(String $key)
     {
         if (isset($_SESSION[$key])) {
@@ -110,5 +132,5 @@ class Helpers
     public function is_admin(): Bool
     {
         return isset($_SESSION['user']['is_admin']) && $_SESSION['user']['is_admin'];
-    }  
+    }
 }

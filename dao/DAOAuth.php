@@ -58,13 +58,4 @@ class DAOAuth extends DAO
         
         return true;
     }
-
-    public function isUnique($key, $value)
-    {
-        $sql = $this->getPdo()->prepare('SELECT count(*) FROM users WHERE '. $key .' =  :'. $key .'');
-        $sql->bindParam(':'. $key .'', $value);
-        $sql->execute();
-
-        return $sql->fetchColumn();
-    }
 }
