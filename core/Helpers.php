@@ -36,8 +36,10 @@ class Helpers
      */
     public function withErrors(Array $errors)
     {
-        $_SESSION['errors'] = $errors;
-
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+        }
+        
         return $this;
     }
 

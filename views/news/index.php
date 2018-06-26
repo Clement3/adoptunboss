@@ -1,52 +1,39 @@
-<div>
-<h2>Ajouté une nouveauté</h2>
-    <div class="field">
-        <div class="control">
-            <input class="input" type="text" name="titre" placeholder="titre">
-        </div>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Actualités
+      </h1>
     </div>
-    <div class="field">
-        <div class="file">
-            <label class="file-label">
-                <input class="file-input" type="file" name="resume">
-                <span class="file-cta">
-                <span class="file-icon">
-                    <i class="fas fa-upload"></i>
-                </span>
-                <span class="file-label">
-                    Image
-                </span>
-                </span>
-            </label>
-        </div>
-    </div>
-    <div class="field">
-        <div class="control">
-        <textarea class="textarea" name="content1" placeholder="texte" rows="10"></textarea>
-        </div>
-    </div>
-    <div class="field is-grouped is-grouped-centered">
-        <p class="control">
-        <a class="button is-primary">
-        Valider
-    </a>
-  </p>
-</div>
+  </div>
+</section>
 
-<div>
-<h2>Liste des news</h2>
-    <?php
-        foreach($data as $new){
-            ?>
-                <div>
-                    <h2><?= $new['title']; ?></h2>
-                    <p><?= $new['content']; ?></p>
-                    <i><?= $new['created_date']; ?></i>
-                    <a href="<?= $helper->base_url('edit/'. $new['id'].'') ?>">modifier</a>
-                    <a href="<?= $helper->base_url('delete/'. $new['id'].'') ?>">supprimer</a>
-                </div>
-                <br/>
-            <?php
-        }
-    ?>
+<div class="container">
+  <section class="section">
+    <div class="columns">
+      <div class="column">
+        <?php include('./views/helpers/notifications.php') ?>
+        <?php if (empty($news)) { ?>
+          <h2 class="is-size-2 has-text-centered">Il n'y à aucune actualités.</h2>
+        <?php } ?>
+        <?php foreach ($news as $new) { ?>
+        <article class="message is-dark">
+          <div class="message-header">
+            <p><?= $new['title']; ?></p>
+            <span class="has-text-right">
+              <span class="has-text-weight-light"><?= $new['created_date']; ?></span>
+              <?php if ($helper->is_admin()) { ?>
+              <a href="<?= $helper->base_url('news/'. $new['id'].'/edit') ?>"><i class="fas fa-edit"></i></a>
+              <a href="<?= $helper->base_url('news/'. $new['id'].'/delete') ?>"><i class="fas fa-trash-alt"></i></a>
+              <?php } ?>
+            </span>
+          </div>
+          <div class="message-body">
+            <?= $new['content']; ?>
+          </div>
+        </article>
+        <?php } ?>
+      </div>
+    </div>
+  </section>
 </div>

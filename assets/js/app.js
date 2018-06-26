@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+    $('#skills').multiSelect({ 
+        keepOrder: true,
+        selectableHeader: "<p>Compétences disponibles</p>",
+        selectionHeader: "<p>Compétences sélectionnés</p>",
+    });
+
     deleteNotification();
     tabsRegister();
 

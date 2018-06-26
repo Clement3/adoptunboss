@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AdoptUnBoss</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <link rel="stylesheet" href="<?= $helper->base_url('/assets/app.css') ?>">
+    <link rel="stylesheet" href="<?= $helper->base_url('assets/css/multi-select.css') ?>">
+    <link rel="stylesheet" href="<?= $helper->base_url('assets/css/app.css') ?>">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   </head>
   <body>
   <nav class="navbar is-transparent">
     <div class="navbar-brand">
       <a class="navbar-item" href="<?= $helper->base_url() ?>">
-        <img src="../assets/img/logo_black.png" alt="Logo : adopte un boss">
+        <img src="<?= $helper->base_url("assets/img/logo_black.png") ?>" alt="Logo : adopte un boss">
         AdoptUnBoss
       </a>
       <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
@@ -24,10 +25,10 @@
 
     <div id="navbarExampleTransparentExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item" href="">
-          Nos offres
+        <a class="navbar-item" href="<?= $helper->base_url('premium') ?>">
+          Premium
         </a>
-        <a class="navbar-item" href="">
+        <a class="navbar-item" href="<?= $helper->base_url('how') ?>">
           Comment ça marche ?
         </a>
         <a class="navbar-item" href="<?= $helper->base_url('events') ?>">
@@ -52,17 +53,14 @@
                 <a href="<?= $helper->base_url('admin/dashboard') ?>" class="navbar-item">
                   Dashboard
                 </a>
-                <a href="<?= $helper->base_url('admin/offers'); ?>" class="navbar-item">
+                <a href="<?= $helper->base_url('admin/skills'); ?>" class="navbar-item">
+                  Compétences
+                </a>                
+                <a href="<?= $helper->base_url('admin/users'); ?>" class="navbar-item">
                   Utilisateurs
                 </a>                
                 <a href="<?= $helper->base_url('admin/offers'); ?>" class="navbar-item">
                   Offres
-                </a>
-                <a href="<?= $helper->base_url('admin/events'); ?>" class="navbar-item">
-                  Evenements
-                </a>
-                <a href="<?= $helper->base_url('admin/news'); ?>" class="navbar-item">
-                  News
                 </a>
                 <a href="<?= $helper->base_url('admin/newsletters'); ?>" class="navbar-item">
                   Newsletters
@@ -82,6 +80,11 @@
                 <a href="<?= $helper->base_url('dashboard'); ?>" class="navbar-item">
                   Dashboard
                 </a>
+                <?php if ($helper->is_recruiter()) { ?>
+                <a href="<?= $helper->base_url('offers/create'); ?>" class="navbar-item">
+                  Créer une offre
+                </a>
+                <?php } ?>              
                 <a href="<?= $helper->base_url('settings'); ?>" class="navbar-item">
                   Paramètres
                 </a>

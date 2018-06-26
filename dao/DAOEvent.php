@@ -6,14 +6,26 @@ use BWB\Framework\mvc\DAO;
 
 class DAOEvent extends DAO
 {
+    public function limit($number)
+    {
+        $sql = 'SELECT * FROM events ORDER BY id DESC LIMIT 0, ' . $number . '  ';
 
-    public function create($array) {
-        
+        $req = $this->getPdo()->prepare($sql);
+        $req->execute();
+
+        return $req->fetchAll();      
     }
 
-    public function delete($id) {
+    public function create($array) 
+    {
+        $sql = $this->getPdo()->prepare('INSERT INTO events (`title`, `description`, `content`, `start_date`, `end_date`, `created_date`, `locations_id`) VALUES(:title, :description, :content, :start_date, :end_date, NOW(),1)');
+        $sql->execute($array);        
+    }
+
+    public function delete($id) 
+    {
         $sql = $this->getPdo()->query('DELETE FROM events WHERE id = '. $id .'');
-       // $sql->execute($id);
+        $sql->execute($id);
     }
 
     public function getAll() 
@@ -31,17 +43,27 @@ class DAOEvent extends DAO
         return $sql->fetch();
     }
 
-    public function update($id) {
+    public function update($array) {
        
-        $sql = $this->getPdo()->prepare('UPDATE events SET `title`=`:title` ,`description`= `:description` ,`content`= `:content`,`start_date`= `:start_date`,`end_date`= `:end_date`,`created_date`= `:created_date`,`updated_date`=`NOW()`,`locations_id`= `1`  WHERE id = '. $id .'');
-        $sql->execute($id);
+        $sql = $this->getPDO()->prepare('
+            UPDATE events 
+            SET 
+                title = :title,
+                description = :description,
+                content = :content,
+                start_date = :start_date,
+                end_date = :end_date,
+                updated_date = NOW()
+                WHERE id = :id
+            ');
+        $sql->bindParam(':title', $array['title']);
+        $sql->bindParam(':description' , $array['description']);
+        $sql->bindParam(':content', $array['content']);
+        $sql->bindParam(':start_date', $array['start_date']);
+        $sql->bindParam('end_date', $array['end_date']);
+        $sql->bindParam('id', $array['id']);
+        var_dump($array);
+        $sql->execute();
+        
     }
-
-
-    public function store(array $array) {
-        $sql = $this->getPdo()->prepare('INSERT INTO events (`title`, `description`, `content`, `start_date`, `end_date`, `created_date`, `locations_id`) VALUES(:title, :description, :content, :start_date, :end_date, NOW(),1)');
-       $sql->execute($array);
-    }
-    
-
 }

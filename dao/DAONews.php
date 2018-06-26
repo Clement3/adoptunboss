@@ -6,14 +6,24 @@ use BWB\Framework\mvc\DAO;
 
 class DAONews extends DAO
 {
+    public function limit($number)
+    {
+        $sql = 'SELECT * FROM news ORDER BY id DESC LIMIT 0, ' . $number . '  ';
 
-    public function create($array) {
-        $sql = $this->getPdo()->exec('CREATE FROM news SET title = :title, content = :content');
-        $sql->exec($array);
+        $req = $this->getPdo()->prepare($sql);
+        $req->execute();
         
+        return $req->fetchAll();      
     }
 
-    public function delete($id) {
+    public function create($array) 
+    {
+        $sql = $this->getPdo()->prepare('INSERT INTO news (title, content) VALUES (:title, :content)');
+        $sql->execute($array);
+    }
+
+    public function delete($id) 
+    {
         $sql = $this->getPdo()->exec('DELETE FROM news WHERE id = '. $id .'');
     }
 
@@ -23,16 +33,19 @@ class DAONews extends DAO
         return $sql->fetchAll();
     }
 
-    public function getAllBy($filter) {
+    public function getAllBy($filter) 
+    {
         
     }
 
-    public function retrieve($id) {
+    public function retrieve($id) 
+    {
         $sql = $this->getPdo()->query('SELECT * FROM news WHERE id = '. $id .'');
         return $sql->fetch();
     }
 
-    public function update($array) {
+    public function update($array) 
+    {
         $sql = $this->getPdo()->prepare('UPDATE news SET title = :title, content = :content, updated_date = NOW() WHERE id = :id');
         $sql->execute($array);
     }

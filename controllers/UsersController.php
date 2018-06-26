@@ -20,6 +20,85 @@ class UsersController extends Controller
         $this->dao_user = new DAOUser();
     }
 
+    public function index()
+    {
+        if ($this->helper()->is_admin()) {
+
+            $this->render('users/index', [
+                'users' => $this->dao_user->getAll()
+            ]);
+        }
+    }
+
+    public function edit($id)
+    {
+        if ($this->helper()->is_admin()) {
+
+            $this->render('users/edit', [
+                'user' => $this->dao_user->retrieve($id)
+            ]);
+        }        
+    }
+
+    public function update($id)
+    {
+        if ($this->helper()->is_admin()) {
+            
+            $validation = new Validation($_POST, $this->dao_user);
+
+            $validation->field('email', 'e-mail')->isEmail();
+    
+            if ($validation->isValid()) {
+                
+                $admin = 0;
+
+                if ($_POST['is_admin'] === '1') {
+                    $admin = 1;
+                }
+
+                $rank = 0;
+
+                if ($_POST['rank'] === '1') {
+                    $rank = 1;
+                }
+
+                $request = $this->dao_user->update([
+                    'id' => $id,
+                    'email' => $_POST['email'],
+                    'firstname' => $_POST['firstname'],
+                    'lastname' => $_POST['lastname'],
+                    'zip_code' => $_POST['zip_code'],
+                    'is_admin' => $admin,
+                    'is_recruiter' => $rank
+                ]);
+                    
+                if ($request) {
+                    // Regenerate Session
+                    $this->helper()->with('flash', [
+                        'class' => 'is-success',
+                        'message' => 'L\'utilisateur à bien été modifier.'
+                    ])->redirect('admin/users/'. $id .'/edit');    
+                }
+            }
+    
+            $this->helper()->withErrors($validation->errors)->redirect('admin/users/'. $id .'/edit');            
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($this->helper()->is_admin()) {
+            $user = $this->dao_user->delete($id);
+
+            if ($user) {
+                $this->helper()->with('flash', [
+                    'class' => 'is-success',
+                    'message' => 'L\'utilisateur à bien été supprimer.'
+                ])->redirect('admin/users');
+            }
+        }
+    }
+
     public function dashboard()
     {
         $this->render('users/dashboard', [
@@ -36,18 +115,9 @@ class UsersController extends Controller
 
     public function postSettings()
     {
-        $names = [
-            'email' => 'e-mail',
-            'firstname' => 'prénom',
-            'lastname' => 'nom de famille',
-            'zip_code' => 'code postal',
-            'birthday' => 'date de naissance',
-            'phone' => 'téléphone'
-        ];
+        $validation = new Validation($_POST, $this->dao_user);
 
-        $validation = new Validation($_POST, $names, $this->dao_user);
-
-        $validation->field('email')->isEmail();
+        $validation->field('email', 'e-mail')->isEmail();
 
         if ($validation->isValid()) {
             

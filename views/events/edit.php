@@ -1,27 +1,52 @@
-<h2 class="title is-2" >Mettre à jour l'évènement</h2>
+<div class="container">
+  <div class="notification">
 
-<form method="POST" action="<?= $helper->base_url('event/'.$event['id'].'/update') ?>">
 
-        <p><label>Nom de l'évènement</label></p>
-        <p><input type="text" name="title" id="title" value="<?= $event['title']?>" required/></p>
+        <h2 class="title is-2" >Mettre à jour l'évènement</h2>
 
-        <p><label>Description de l'évènement</label></p>
-        <p><textarea id='description' name='description' required><?= $event['description'] ?></textarea></p>
+        <form method="POST">
+                <div class="field">
+                <label class="label">Nom de l'évènement</label>
+                <div class="control">
+                <input class="input" type="text" name="title" id="title" value="<?= $event['title']?>" required>
+                </div>
+                </div>
 
-        <p><label>Détail de l'évènement</label></p>
-        <p><textarea id='content' name='content' required><?= $event['content']?></textarea></p>
+                <div class="field ">
+                <label class="label">Description de l'évènement</label>
+                <div class="control">
+                <input class="input" type="text" id="description" value= "<?= $event['description'] ?>"  name="description" required> 
+                </div>
+                </div>
 
-        <p><label>Date de début </label></p>
-        <p><input type="date" id='start_date' name='start_date' value="<?= $event['start_date']?>" required/></p>
+                <div class="field">
+                <label class="label">Détail de l'évènement </label>
+                <div class="control"> 
+                <textarea class="textarea" placeholder="Textarea" id='content' name='content' required><?= $event['content']?></textarea>
+                </div>
+                </div>
 
-        <p><label>Date de fin </label></p>
-        <p><input type="date" id='end_date' name='end_date' value="<?=$event['end_date']?>" required/></p>
-        
-        <!--<p><label>Lieu</label></p>
-        <select name="location_id" id="location_id">
-        <option></option>
-        </select>-->
+                <div class="field is-grouped">
+                <label class="label">Date de début : </label>
+                  <div class="control">
+                  <input type="date" id='start_date' name='start_date' value="<?= $event['start_date']?>" required/>
+                  </div>
+                <label class="label">Date de fin :</label>
+                  <div class="control">
+                  <input type="date" id='end_date' name='end_date' value="<?= $event['end_date']?>" required/>
+                  </div>
+                </div>
+                </div>
 
-        <p><button type="submit">Valider</button> </p>
-        
-</form>
+                <div class="field is-grouped">
+                <div class="control">
+                <button class="button is-link" type="submit" >Submit</button>
+                </div>
+                <div class="control">
+                <button class="button is-text">Cancel</button>
+                </div>
+                 </div>
+        </form> <br>
+
+  </div>
+</div>

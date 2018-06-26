@@ -1,24 +1,27 @@
 {
     "/": "PagesController:home",
-    "/test": "PagesController:test",
+    "/how": "PagesController:how",
+    "/premium": "PagesController:premium",
+    "/terms": "PagesController:terms",
     "/login": 
     {
-        "GET":"AuthController:getLogin",
-        "POST":"AuthController:postLogin"
+        "GET": "AuthController:getLogin",
+        "POST": "AuthController:postLogin"
     },
     "/register":
     {
-        "GET":"AuthController:getRegister",
-        "POST":"AuthController:postRegister"
+        "GET": "AuthController:getRegister",
+        "POST": "AuthController:postRegister"
     },
     "/logout": "AuthController:logout",
-
-
     "/events": "EventsController:index", 
+    "/newsletter": {
+        "POST": "NewslettersController:store"
+    },
     "/event/create":
     {
-        "GET":"EventsController:create",
-        "POST":"EventsController:store"
+        "GET": "EventsController:create",
+        "POST": "EventsController:store"
     },
     "/event/(:)/update":
     {
@@ -27,29 +30,102 @@
     },        
     "/event/(:)":
     {
-        "GET":"EventsController:show"
+        "GET": "EventsController:show"
     },
-    "/event/(:)/delete":"EventsController:delete",
+    "/event/(:)/delete": "EventsController:delete",
     "/news": "NewsController:index", 
-    "/new/create":
+    "/news/create":
     {
-        "GET":"NewsController:create",
-        "POST":"NewsController:store"
+        "GET": "NewsController:create",
+        "POST": "NewsController:store"
     },
-    "/new/(:)/edit":
+    "/news/(:)/edit":
     {
-        "GET":"NewsController:edit",
-        "POST":"NewsController:update"
+        "GET": "NewsController:edit",
+        "POST": "NewsController:update"
     },        
-    "/new/(:)":
+    "/news/(:)":
     {
-        "GET":"NewsController:show"
+        "GET": "NewsController:show"
     },
-    "/new/(:)/delete":"NewsController:delete",
+    "/news/(:)/delete": "NewsController:delete",
+    "/offers": "OffersController:index",
+    "/offers/create":
+    {
+        "GET": "OffersController:create",
+        "POST": "OffersController:store"
+    },
+    "/offers/(:)/edit":
+    {
+        "GET": "OffersController:edit",
+        "POST": "OffersController:update"
+    },
+    "/offers/(:)/delete":
+    {
+        "GET": "OffersController:delete"
+    },
+    "/offers/(:)/apply": {
+        "GET": "OffersController:getApply",
+        "POST": "OffersController:postApply"
+    },
+    "/matchs": "MatchsController:matchs",
     "/dashboard": "UsersController:dashboard",
     "/settings": {
         "GET": "UsersController:getSettings",
         "POST": "UsersController:postSettings"
     },
-    "/admin/dashboard": "AdminController:dashboard"
+    "/profile": {
+        "GET": "ProfilesController:getProfile",
+        "POST": "ProfilesController:postProfile"
+    },
+    "/contacts": {
+        "GET": "ContactsController:create",
+        "POST": "ContactsController:store"
+    },    
+    "/admin/dashboard": "AdminController:dashboard",
+    "/admin/users": "UsersController:index",
+    "/admin/users/(:)/edit": {
+        "GET":"UsersController:edit",
+        "POST":"UsersController:update"
+    },
+    "/admin/users/(:)/delete": "UsersController:delete",
+    "/admin/offers": "OffersController:index",
+    "/admin/offers/(:)/edit": {
+        "GET": "OffersController:edit",
+        "POST": "OffersController:store"
+    },
+    "/admin/offers/(:)/delete": "OffersController:delete",
+    "/admin/contacts": "ContactsController:index",
+    "/admin/newsletters": "NewslettersController:index",
+    "/admin/newsletters/(:)/delete": "NewsletterController:delete",
+    "/admin/skills": "SkillsController:index",
+    "/admin/skills/(:)/edit": {
+        "GET": "SkillsController:edit",
+        "POST": "SkillsController:update"
+    },
+    "/admin/skills/create": {
+        "GET": "SkillsController:create",
+        "POST": "SkillsController:store"
+    },
+    "/admin/skills/(:)/delete": "SkillsController:delete",
+    "/admin/activities": "ActivitiesController:index",
+    "/admin/activities/(:)/edit": {
+        "GET": "ActivitiesController:edit",
+        "POST": "ActivitiesController:update"
+    },
+    "/admin/activities/(:)/create": {
+        "GET": "ActivitiesController:create",
+        "POST": "ActivitiesController:store"
+    },
+    "/admin/activities/(:)/delete": "ActivitiesController:delete",
+    "/admin/employments": "EmploymentsController:index",
+    "/admin/employments/(:)/edit": {
+        "GET": "EmploymentsController:edit",
+        "POST": "EmploymentsController:update"
+    },
+    "/admin/employments/(:)/create": {
+        "GET": "EmploymentsController:create",
+        "POST": "EmploymentsController:store"
+    },
+    "/admin/employments/(:)/delete": "EmploymentsController:delete"     
 }
