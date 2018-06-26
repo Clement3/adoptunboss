@@ -33,13 +33,9 @@ Class SkillsController extends Controller
 
     public function store()
     {
-        $names = [
-            'name' => 'nom'
-        ];
+        $validation = new Validation($_POST, $this->dao);
 
-        $validation = new Validation($_POST, $names, $this->dao);
-
-        $validation->field('name')->notEmpty()->isUnique('skills');
+        $validation->field('name', 'nom')->notEmpty()->isUnique('skills');
 
         if ($validation->isValid()) {
 
@@ -68,13 +64,9 @@ Class SkillsController extends Controller
 
     public function update($id)
     {
-        $names = [
-            'name' => 'nom'
-        ];
+        $validation = new Validation($_POST, $this->dao);
 
-        $validation = new Validation($_POST, $names, $this->dao);
-
-        $validation->field('name')->notEmpty()->isUnique('skills');
+        $validation->field('name', 'nom')->notEmpty()->isUnique('skills');
 
         if ($validation->isValid()) {
             $skill = $this->dao->update([

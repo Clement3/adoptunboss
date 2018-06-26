@@ -6,10 +6,6 @@ use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\dao\DAOAuth;
 use BWB\Framework\mvc\Validation;
 
-/**
- * Description of ViewController
- *
- */
 class AuthController extends Controller
 {
     public function getLogin()
@@ -21,15 +17,10 @@ class AuthController extends Controller
     {
         $dao = new DAOAuth();
 
-        $names = [
-            'email' => 'e-mail',
-            'password' => 'mot de passe'
-        ];
+        $validation = new Validation($_POST, $dao);
 
-        $validation = new Validation($_POST, $names, $dao);
-
-        $validation->field('email')->notEmpty()->isEmail()->exist('users');
-        $validation->field('password')->notEmpty();
+        $validation->field('email', 'e-mail')->notEmpty()->isEmail()->exist('users');
+        $validation->field('password', 'mot de passe')->notEmpty();
 
         if ($validation->isValid()) {
 
@@ -67,23 +58,14 @@ class AuthController extends Controller
     {        
         $dao = new DAOAuth();
 
-        $names = [
-            'email' => 'e-mail',
-            'firstname' => 'prénom',
-            'lastname' => 'nom de famille',
-            'password' => 'mot de passe',
-            'repeat_password' => 'confirmer le mot de passe',
-            'is_recruiter' => 'recruteur',
-        ];
+        $validation = new Validation($_POST, $dao);
 
-        $validation = new Validation($_POST, $names, $dao);
-
-        $validation->field('email')->notEmpty()->isEmail()->isUnique('users');
-        $validation->field('firstname')->notEmpty();
-        $validation->field('lastname')->notEmpty();
-        $validation->field('password')->notEmpty()->same('repeat_password');
-        $validation->field('repeat_password')->notEmpty();
-        $validation->field('is_recruiter')->isRecruiter();
+        $validation->field('email', 'e-mail')->notEmpty()->isEmail()->isUnique('users');
+        $validation->field('firstname', 'prénom')->notEmpty();
+        $validation->field('lastname', 'nom de famille')->notEmpty();
+        $validation->field('password', 'mot de passe')->notEmpty()->same('repeat_password', 'confirmation du mot de passe');
+        $validation->field('repeat_password', 'confirmation du mot de passe')->notEmpty();
+        $validation->field('is_recruiter', 'recruteur')->isRecruiter();
 
         if ($validation->isValid()) {
             

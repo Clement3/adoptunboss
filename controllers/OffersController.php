@@ -77,27 +77,16 @@ Class OffersController extends Controller
     {        
         $dao = new DAOOffer();
 
-        $names = [
-            'title' => 'titre',
-            'content' => 'contenu',
-            'zip_code' => 'code postal',
-            'salary_min' => 'salaire débutant',
-            'salary_max' => 'salaire confirmé',
-            'experience' => 'experience requise',
-            'period' => 'durée du contrat',
-        ];
+        $validation  = new Validation($_POST, $dao);
 
-        $validation  = new Validation($_POST, $names, $dao);
-
-        $validation->field('title')->notEmpty();
-        $validation->field('content')->notEmpty();
-        $validation->field('zip_code')->notEmpty();
-        $validation->field('salary_min')->notEmpty();
-        $validation->field('salary_max')->notEmpty();
+        $validation->field('title', 'titre')->notEmpty();
+        $validation->field('content', 'contenu')->notEmpty();
+        $validation->field('zip_code', 'code postal')->notEmpty();
+        $validation->field('salary_min', 'salaire min')->notEmpty();
+        $validation->field('salary_max', 'salaire max')->notEmpty();
 
         if ($validation->isValid()) {
             $offer = [
-                // ! les champs avec clefs etrangère sont à configurer une fois la bdd compète !
                 'title' => $_POST['title'],
                 'content' => $_POST['content'],
                 'zip_code' => $_POST['zip_code'],
@@ -108,8 +97,8 @@ Class OffersController extends Controller
                 'employments_id' => 1,
                 'skills' => $_POST['skills']
             ];
-
-            var_dump($dao->create($offer));
+			
+			// redirect success
 
         } else {
             $this->helper()->withErrors($validation->errors)->redirect('dashboard/offers');

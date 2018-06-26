@@ -4,26 +4,27 @@ namespace BWB\Framework\mvc;
 
 class Validation {
 
-    public $post = [];
-    public $fields = [];
-    public $errors = [];
-    public $field;
-    public $dao;
+    private $post = [];
+    private $errors = [];
+    private $field;
+	private $field_name;
+    private $dao;
 
-    public function __construct(Array $post, $fields, $dao = null) {
+    public function __construct(Array $post, $dao = null) {
         $this->post = $post;
-        $this->fields = $fields;
         $this->dao = $dao;
     }
     
     /**
      * On défini le champ sur lequel la validation fonctionnera
      * @param string $field
+	 * @param string $field_name
      */
-    public function field(String $field)
+    public function field(String $field, String $field_name)
     {
         $this->field = $field;
-
+		$this->field_name = $field_name;
+		
         return $this;
     }
 
@@ -37,7 +38,7 @@ class Validation {
             return $this;
         }
         
-        $this->errors[] = 'La valeur du champ '. $this->field .' n\'existe pas dans notre base de données.';
+        $this->errors[] = 'La valeur du champ '. $this->field_name .' n\'existe pas dans notre base de données.';
 
         return $this;        
     }
@@ -51,7 +52,7 @@ class Validation {
             return $this;
         }
 
-        $this->errors[] = 'Le champ '. $this->fields[$this->field] .' ne peut être vide.';
+        $this->errors[] = 'Le champ '. $this->field_name .' ne peut être vide.';
 
         return $this;
     }
@@ -65,7 +66,7 @@ class Validation {
             return $this;
         }
 
-        $this->errors[] = 'Le champ '. $this->fields[$this->field] .' n\'est pas valide.';
+        $this->errors[] = 'Le champ '. $this->field_name .' n\'est pas valide.';
 
         return $this;
     }
@@ -80,7 +81,7 @@ class Validation {
             return $this;
         }
 
-        $this->errors[] = 'Le champ '. $this->fields[$this->field] .' doit être unique.';
+        $this->errors[] = 'Le champ '. $this->field_name .' doit être unique.';
 
         return $this;
     }
@@ -95,7 +96,7 @@ class Validation {
             return $this;
         }
 
-        $this->errors[] = 'Le champ '. $this->fields[$this->field] .' doit faire minimun '. $min .' caractères.';
+        $this->errors[] = 'Le champ '. $this->field_name .' doit faire minimun '. $min .' caractères.';
 
         return $this;
     }
@@ -110,22 +111,23 @@ class Validation {
             return $this;
         }
 
-        $this->errors[] = 'Le champ '. $this->fields[$this->field] .' doit faire maximun '. $max .' caractères.';
+        $this->errors[] = 'Le champ '. $this->field_name .' doit faire maximun '. $max .' caractères.';
 
         return $this;
     }
     
     /**
      * Si la valeur d'un champ est égale à la valeur d'un autre champ
-     * @param string $key
+     * @param string $field
+	 * @param string $field_name
      */
-    public function same(String $key)
+    public function same(String $field, String $field_name)
     {
-        if ($this->post[$this->field] === $this->post[$key]) {
+        if ($this->post[$field] === $this->post[$field]) {
             return $this;
         }
 
-        $this->errors[] = 'Le champ '. $this->fields[$this->field] .' doit être le même que le champ '. $fields[$key];
+        $this->errors[] = 'Le champ '. $this->field_name .' doit être le même que le champ '. $field_name;
 
         return $this;
     }
@@ -141,7 +143,7 @@ class Validation {
             return $this;
         }
 
-        $this->errors[] = 'Le champ '. $this->fields[$this->field] .' doit être vrai ou faux.';
+        $this->errors[] = 'Le champ '. $this->field_name .' doit être vrai ou faux.';
 
         return $this;
     }

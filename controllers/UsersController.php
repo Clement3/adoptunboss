@@ -43,20 +43,10 @@ class UsersController extends Controller
     public function update($id)
     {
         if ($this->helper()->is_admin()) {
-            $names = [
-                'email' => 'e-mail',
-                'firstname' => 'prénom',
-                'lastname' => 'nom de famille',
-                'zip_code' => 'code postal',
-                'birthday' => 'date de naissance',
-                'phone' => 'téléphone',
-                'is_admin' => 'admin',
-                'rank' => 'grade'
-            ];
             
-            $validation = new Validation($_POST, $names, $this->dao_user);
+            $validation = new Validation($_POST, $this->dao_user);
 
-            $validation->field('email')->isEmail();
+            $validation->field('email', 'e-mail')->isEmail();
     
             if ($validation->isValid()) {
                 
@@ -125,18 +115,9 @@ class UsersController extends Controller
 
     public function postSettings()
     {
-        $names = [
-            'email' => 'e-mail',
-            'firstname' => 'prénom',
-            'lastname' => 'nom de famille',
-            'zip_code' => 'code postal',
-            'birthday' => 'date de naissance',
-            'phone' => 'téléphone'
-        ];
+        $validation = new Validation($_POST, $this->dao_user);
 
-        $validation = new Validation($_POST, $names, $this->dao_user);
-
-        $validation->field('email')->isEmail();
+        $validation->field('email', 'e-mail')->isEmail();
 
         if ($validation->isValid()) {
             

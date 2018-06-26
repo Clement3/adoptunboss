@@ -39,15 +39,10 @@ Class NewsController extends Controller{
 
             $dao = new DAONews();
 
-            $names = [
-                'title' => 'titre',
-                'content' => 'contenu'
-            ];
-            
-            $validation = new Validation($_POST, $names, $dao);
+            $validation = new Validation($_POST, $dao);
 
-            $validation->field('title')->notEmpty();
-            $validation->field('content')->notEmpty();
+            $validation->field('title', 'titre')->notEmpty();
+            $validation->field('content', 'contenu')->notEmpty();
 
             if ($validation->isValid()) {
 
@@ -84,15 +79,10 @@ Class NewsController extends Controller{
         if ($this->helper()->is_admin()) {
             $dao = new DAONews();
 
-            $names = [
-                'title' => 'titre',
-                'content' => 'contenu'
-            ];
-            
-            $validation = new Validation($_POST, $names, $dao);
+            $validation = new Validation($_POST, $dao);
 
-            $validation->field('title')->notEmpty();
-            $validation->field('content')->notEmpty();
+            $validation->field('title', 'titre')->notEmpty();
+            $validation->field('content', 'contenu')->notEmpty();
 
             if ($validation->isValid()) {
 
