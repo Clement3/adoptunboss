@@ -49,7 +49,9 @@ class UsersController extends Controller
                 'lastname' => 'nom de famille',
                 'zip_code' => 'code postal',
                 'birthday' => 'date de naissance',
-                'phone' => 'téléphone'
+                'phone' => 'téléphone',
+                'is_admin' => 'admin',
+                'rank' => 'grade'
             ];
             
             $validation = new Validation($_POST, $names, $this->dao_user);
@@ -58,15 +60,30 @@ class UsersController extends Controller
     
             if ($validation->isValid()) {
                 
+                $admin = 0;
+
+                if ($_POST['is_admin'] === '1') {
+                    $admin = 1;
+                }
+
+                $rank = 0;
+
+                if ($_POST['rank'] === '1') {
+                    $rank = 1;
+                }
+
                 $request = $this->dao_user->update([
                     'id' => $id,
                     'email' => $_POST['email'],
                     'firstname' => $_POST['firstname'],
                     'lastname' => $_POST['lastname'],
                     'zip_code' => $_POST['zip_code'],
+                    'is_admin' => $admin,
+                    'is_recruiter' => $rank
                 ]);
                     
                 if ($request) {
+                    // Regenerate Session
                     $this->helper()->with('flash', [
                         'class' => 'is-success',
                         'message' => 'L\'utilisateur à bien été modifier.'

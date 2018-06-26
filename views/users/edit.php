@@ -55,7 +55,7 @@
               <div class="control is-expanded">
                 <label class="label">Admin</label>
                 <div class="select full-width">
-                  <select class="full-width">
+                  <select class="full-width" name="is_admin">
                     <option value="1" <?php if ($user['is_admin']) { ?>selected<?php } ?>>Oui</option>
                     <option value="0" <?php if (!$user['is_admin']) { ?>selected<?php } ?>>Non</option>
                   </select>
@@ -64,7 +64,7 @@
               <div class="control is-expanded">
                 <label class="label">Grade</label>
                 <div class="select full-width">
-                  <select class="full-width">
+                  <select class="full-width" name="rank">
                     <option value="0" <?php if (!$user['is_recruiter']) { ?>selected<?php } ?>>Membre</option>
                     <option value="1" <?php if ($user['is_recruiter']) { ?>selected<?php } ?>>Recruteur</option>
                   </select>

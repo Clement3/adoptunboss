@@ -24,10 +24,10 @@
 
     <div id="navbarExampleTransparentExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item" href="">
-          Nos offres
+        <a class="navbar-item" href="<?= $helper->base_url('premium') ?>">
+          Premium
         </a>
-        <a class="navbar-item" href="">
+        <a class="navbar-item" href="<?= $helper->base_url('how') ?>">
           Comment ça marche ?
         </a>
         <a class="navbar-item" href="<?= $helper->base_url('events') ?>">
@@ -52,17 +52,14 @@
                 <a href="<?= $helper->base_url('admin/dashboard') ?>" class="navbar-item">
                   Dashboard
                 </a>
+                <a href="<?= $helper->base_url('admin/skills'); ?>" class="navbar-item">
+                  Compétences
+                </a>                
                 <a href="<?= $helper->base_url('admin/users'); ?>" class="navbar-item">
                   Utilisateurs
                 </a>                
                 <a href="<?= $helper->base_url('admin/offers'); ?>" class="navbar-item">
                   Offres
-                </a>
-                <a href="<?= $helper->base_url('admin/events'); ?>" class="navbar-item">
-                  Evenements
-                </a>
-                <a href="<?= $helper->base_url('admin/news'); ?>" class="navbar-item">
-                  News
                 </a>
                 <a href="<?= $helper->base_url('admin/newsletters'); ?>" class="navbar-item">
                   Newsletters

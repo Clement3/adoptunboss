@@ -31,10 +31,28 @@ class DAOEvent extends DAO
         return $sql->fetch();
     }
 
-    public function update($id) {
+    public function update($array) {
        
-        $sql = $this->getPdo()->prepare('UPDATE events SET `title`=`:title` ,`description`= `:description` ,`content`= `:content`,`start_date`= `:start_date`,`end_date`= `:end_date`,`created_date`= `:created_date`,`updated_date`=`NOW()`,`locations_id`= `1`  WHERE id = '. $id .'');
-        $sql->execute($id);
+        $sql = $this->getPDO()->prepare('
+            UPDATE events 
+            SET 
+                title = :title,
+                description = :description,
+                content = :content,
+                start_date = :start_date,
+                end_date = :end_date,
+                updated_date = NOW()
+                WHERE id = :id
+            ');
+        $sql->bindParam(':title', $array['title']);
+        $sql->bindParam(':description' , $array['description']);
+        $sql->bindParam(':content', $array['content']);
+        $sql->bindParam(':start_date', $array['start_date']);
+        $sql->bindParam('end_date', $array['end_date']);
+        $sql->bindParam('id', $array['id']);
+        var_dump($array);
+        $sql->execute();
+        
     }
 
 

@@ -47,7 +47,17 @@ class DAOUser extends DAO
 
     public function update($array) 
     {
-        $sql = 'UPDATE users SET email = :email, firstname = :firstname, lastname = :lastname, zip_code = :zip_code, tel = :tel, birthday = :birthday, updated_date = NOW() WHERE id = :id';
+        $sql = 'UPDATE users SET email = :email, 
+                                firstname = :firstname, 
+                                lastname = :lastname, 
+                                zip_code = :zip_code, 
+                                tel = :tel, 
+                                birthday = :birthday, 
+                                is_admin = :is_admin,
+                                is_recruiter = :is_recruiter,
+                                updated_date = NOW() 
+                                WHERE
+                                id = :id';
         $req = $this->getPdo()->prepare($sql);
         $req->bindParam(':email', $array['email']);
         $req->bindParam(':firstname', $array['firstname']);
@@ -55,6 +65,8 @@ class DAOUser extends DAO
         $req->bindParam(':zip_code', $array['zip_code']);
         $req->bindParam(':tel', $array['phone']);
         $req->bindParam(':birthday', $array['birthday']);
+        $req->bindParam(':is_admin', $array['is_admin']);
+        $req->bindParam(':is_recruiter', $array['is_recruiter']);
         $req->bindParam(':id', $array['id']);
         return $req->execute();
     }
