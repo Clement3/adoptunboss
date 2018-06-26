@@ -97,6 +97,7 @@
     "/admin/offers/(:)/delete": "OffersController:delete",
     "/admin/contacts": "ContactsController:index",
     "/admin/newsletters": "NewslettersController:index",
+    "/admin/newsletters/(:)/delete": "NewsletterController:delete",
     "/admin/skills": "SkillsController:index",
     "/admin/skills/(:)/edit": {
         "GET": "SkillsController:edit",
