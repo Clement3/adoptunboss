@@ -6,14 +6,26 @@ use BWB\Framework\mvc\DAO;
 
 class DAOEvent extends DAO
 {
+    public function limit($number)
+    {
+        $sql = 'SELECT * FROM events ORDER BY id DESC LIMIT 0, ' . $number . '  ';
 
-    public function create($array) {
-        
+        $req = $this->getPdo()->prepare($sql);
+        $req->execute();
+
+        return $req->fetchAll();      
     }
 
-    public function delete($id) {
+    public function create($array) 
+    {
+        $sql = $this->getPdo()->prepare('INSERT INTO events (`title`, `description`, `content`, `start_date`, `end_date`, `created_date`, `locations_id`) VALUES(:title, :description, :content, :start_date, :end_date, NOW(),1)');
+        $sql->execute($array);        
+    }
+
+    public function delete($id) 
+    {
         $sql = $this->getPdo()->query('DELETE FROM events WHERE id = '. $id .'');
-       // $sql->execute($id);
+        $sql->execute($id);
     }
 
     public function getAll() 
@@ -54,12 +66,4 @@ class DAOEvent extends DAO
         $sql->execute();
         
     }
-
-
-    public function store(array $array) {
-        $sql = $this->getPdo()->prepare('INSERT INTO events (`title`, `description`, `content`, `start_date`, `end_date`, `created_date`, `locations_id`) VALUES(:title, :description, :content, :start_date, :end_date, NOW(),1)');
-       $sql->execute($array);
-    }
-    
-
 }

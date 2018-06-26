@@ -57,7 +57,7 @@ Class EventsController extends Controller
             "start_date" => $_POST["start_date"],
             "end_date" => $_POST["end_date"],
         ];
-        $data = array("event" =>$dao->store($newEvent));
+        $data = array("event" =>$dao->create($newEvent));
         header('Location: /events');
     }
 

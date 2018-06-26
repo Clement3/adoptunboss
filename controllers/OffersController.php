@@ -4,6 +4,7 @@ namespace BWB\Framework\mvc\controllers;
 
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\dao\DAOOffer;
+use BWB\Framework\mvc\dao\DAOSkill;
 use BWB\Framework\mvc\Validation;
 
 Class OffersController extends Controller 
@@ -65,11 +66,15 @@ Class OffersController extends Controller
 
     public function create() 
     {
-  
+        $dao_skills = new DAOSkill();
+        
+        $this->render('offers/create', [
+            'skills' => $dao_skills->getAll()
+        ]);
     }
 
     public function store() 
-    {
+    {        
         $dao = new DAOOffer();
 
         $names = [
@@ -83,31 +88,29 @@ Class OffersController extends Controller
         ];
 
         $validation  = new Validation($_POST, $names, $dao);
+
         $validation->field('title')->notEmpty();
         $validation->field('content')->notEmpty();
         $validation->field('zip_code')->notEmpty();
         $validation->field('salary_min')->notEmpty();
         $validation->field('salary_max')->notEmpty();
-        $validation->field('experience')->notEmpty();
-        $validation->field('period')->notEmpty();
 
         if ($validation->isValid()) {
-            $newOffer = [
+            $offer = [
                 // ! les champs avec clefs etrangère sont à configurer une fois la bdd compète !
                 'title' => $_POST['title'],
                 'content' => $_POST['content'],
                 'zip_code' => $_POST['zip_code'],
                 'salary_min' => $_POST['salary_min'],
                 'salary_max' => $_POST['salary_max'],
+                'users_id' => $_SESSION['user']['id'],
                 'activities_id' => 1,
-                'experience' => $_POST['experience'],
-                'closed' => 0,
-                'period' => $_POST['period'],
-                'users_id' => 2,
-                'employments_id' => 1
+                'employments_id' => 1,
+                'skills' => $_POST['skills']
             ];
-            $dao->create($newOffer);
-            header('Location: /dashboard/offers');
+
+            var_dump($dao->create($offer));
+
         } else {
             $this->helper()->withErrors($validation->errors)->redirect('dashboard/offers');
         } 

@@ -14,8 +14,8 @@ class PagesController extends Controller {
         $events = new DAOEvent();
 
         $this->render('pages/home', [
-            'news' => $news->getAll(),
-            'events' => $events->getAll()
+            'news' => $news->limit(3),
+            'events' => $events->limit(3)
         ]);
     }
 
