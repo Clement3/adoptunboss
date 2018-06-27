@@ -3,6 +3,10 @@
     "/how": "PagesController:how",
     "/premium": "PagesController:premium",
     "/terms": "PagesController:terms",
+    "/contact": {
+        "GET": "ContactsController:create",
+        "POST": "ContactsController:store"
+    },
     "/login": 
     {
         "GET": "AuthController:getLogin",
@@ -96,6 +100,11 @@
     },
     "/admin/offers/(:)/delete": "OffersController:delete",
     "/admin/contacts": "ContactsController:index",
+    "/admin/contacts/(:)/reply": {
+        "GET": "ContactsController:getReply",
+        "POST": "ContactsController:postReply"
+    },
+    "/admin/contacts/(:)/delete": "ContactsController:delete",
     "/admin/newsletters": "NewslettersController:index",
     "/admin/newsletters/(:)/delete": "NewsletterController:delete",
     "/admin/skills": "SkillsController:index",
@@ -113,7 +122,7 @@
         "GET": "ActivitiesController:edit",
         "POST": "ActivitiesController:update"
     },
-    "/admin/activities/(:)/create": {
+    "/admin/activities/create": {
         "GET": "ActivitiesController:create",
         "POST": "ActivitiesController:store"
     },
@@ -123,7 +132,7 @@
         "GET": "EmploymentsController:edit",
         "POST": "EmploymentsController:update"
     },
-    "/admin/employments/(:)/create": {
+    "/admin/employments/create": {
         "GET": "EmploymentsController:create",
         "POST": "EmploymentsController:store"
     },

@@ -3,11 +3,18 @@
 namespace BWB\Framework\mvc\controllers;
 
 use BWB\Framework\mvc\Controller;
-use BWB\Framework\mvc\dao\DAOAuth;
+use BWB\Framework\mvc\dao\DAOUser;
 use BWB\Framework\mvc\Validation;
 
 class AuthController extends Controller
 {
+    private $dao;
+
+    public function __construct()
+    {
+        $this->dao = new DAOUser();
+    }
+
     public function getLogin()
     {
         $this->render("auth/login");
@@ -15,16 +22,14 @@ class AuthController extends Controller
 
     public function postLogin()
     {
-        $dao = new DAOAuth();
-
-        $validation = new Validation($_POST, $dao);
+        $validation = new Validation($_POST, $this->dao);
 
         $validation->field('email', 'e-mail')->notEmpty()->isEmail()->exist('users');
         $validation->field('password', 'mot de passe')->notEmpty();
 
         if ($validation->isValid()) {
 
-            $user = $dao->login([
+            $user = $this->dao->login([
                 'email' => $_POST['email']
             ]);
             
@@ -56,9 +61,7 @@ class AuthController extends Controller
 
     public function postRegister()
     {        
-        $dao = new DAOAuth();
-
-        $validation = new Validation($_POST, $dao);
+        $validation = new Validation($_POST, $this->dao);
 
         $validation->field('email', 'e-mail')->notEmpty()->isEmail()->isUnique('users');
         $validation->field('firstname', 'prénom')->notEmpty();
@@ -69,12 +72,13 @@ class AuthController extends Controller
 
         if ($validation->isValid()) {
             
-            $register = $dao->register([
+            $register = $this->dao->create([
                 'email' => $_POST['email'],
                 'firstname' => $_POST['firstname'],
                 'lastname' => $_POST['lastname'],
                 'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
                 'is_recruiter' => (int)$_POST['is_recruiter'],
+                'is_admin' => 0
             ]);
 
             if ($register) {

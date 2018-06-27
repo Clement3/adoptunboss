@@ -42,12 +42,32 @@
               </p>
             </div>
             <div class="field">
+              <p class="control">
+                <label class="label">Type de contrat</label>
+                <div class="select full-width">
+                  <select class="full-width" name="employment">
+                    <option value="1">Oui</option>
+                  </select>
+                </div>                
+              </p>              
+            </div>            
+            <div class="field">
+              <p class="control">
+                <label class="label">Activités</label>
+                <div class="select full-width">
+                  <select class="full-width" name="activitie">
+                    <option value="1">Oui</option>
+                  </select>
+                </div>                
+              </p> 
+            </div>             
+            <div class="field">
               <select multiple="multiple" id="skills" name="skills[]">
                 <?php foreach ($skills as $skill) { ?>
                   <option value="<?= $skill['id'] ?>"><?= $skill['name'] ?></option>
                 <?php } ?>
               </select>
-            </div>                                   
+            </div>                                  
             <div class="field">
               <label class="label">Description</label>
               <div class="control">

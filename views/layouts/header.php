@@ -52,9 +52,6 @@
               <div class="navbar-dropdown">
                 <a href="<?= $helper->base_url('admin/dashboard') ?>" class="navbar-item">
                   Dashboard
-                </a>
-                <a href="<?= $helper->base_url('admin/skills'); ?>" class="navbar-item">
-                  Compétences
                 </a>                
                 <a href="<?= $helper->base_url('admin/users'); ?>" class="navbar-item">
                   Utilisateurs
@@ -67,7 +64,16 @@
                 </a>                
                 <a href="<?= $helper->base_url('admin/contacts'); ?>" class="navbar-item">
                   Contacts
-                </a>                                
+                </a>
+                <a href="<?= $helper->base_url('admin/employments'); ?>" class="navbar-item">
+                  Type de contrat
+                </a>
+                <a href="<?= $helper->base_url('admin/activities'); ?>" class="navbar-item">
+                  Activités
+                </a>                
+                <a href="<?= $helper->base_url('admin/skills'); ?>" class="navbar-item">
+                  Compétences
+                </a>
               </div>            
             </div>
             <?php } ?>

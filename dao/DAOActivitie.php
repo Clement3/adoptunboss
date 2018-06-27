@@ -4,22 +4,21 @@ namespace BWB\Framework\mvc\dao;
 
 use BWB\Framework\mvc\DAO;
 
-class DAOSkill extends DAO
+class DAOActivitie extends DAO
 {
     public function create($array) 
     {
-        $sql = 'INSERT INTO skills (name, activities_id) VALUES (:name, :activities_id)';
+        $sql = 'INSERT INTO activities (name) VALUES (:name)';
 
         $req = $this->getPdo()->prepare($sql);
         $req->bindParam(':name', $array['name']);
-        $req->bindParam(':activities_id', $array['activitie']);
 
         return $req->execute();
     }
 
     public function delete($id) 
     {
-        $sql = 'DELETE FROM skills WHERE id = :id';
+        $sql = 'DELETE FROM activities WHERE id = :id';
 
         $req = $this->getPdo()->prepare($sql);
         $req->bindParam(':id', $id);
@@ -29,7 +28,7 @@ class DAOSkill extends DAO
 
     public function getAll() 
     {
-        $sql = 'SELECT s.id, s.name, a.name AS activitie_name FROM skills AS s INNER JOIN activities as a ON s.activities_id = a.id ORDER BY name DESC';
+        $sql = 'SELECT id, name FROM activities ORDER BY name DESC';
 
         $req = $this->getPdo()->prepare($sql);
         $req->execute();
@@ -44,7 +43,7 @@ class DAOSkill extends DAO
 
     public function retrieve($id) 
     {
-        $sql = 'SELECT id, name, activities_id FROM skills WHERE id = :id';
+        $sql = 'SELECT id, name FROM activities WHERE id = :id';
         $req = $this->getPdo()->prepare($sql);
         $req->bindParam(':id', $id);
         $req->execute();
@@ -54,7 +53,7 @@ class DAOSkill extends DAO
 
     public function update($array) 
     {
-        $sql = 'UPDATE skills SET name = :name WHERE id = :id';
+        $sql = 'UPDATE activities SET name = :name WHERE id = :id';
         
         $req = $this->getPdo()->prepare($sql);
         $req->bindParam(':name', $array['name']);

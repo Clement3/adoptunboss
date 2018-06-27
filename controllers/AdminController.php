@@ -4,7 +4,7 @@ namespace BWB\Framework\mvc\controllers;
 
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\Helper;
-use BWB\Framework\mvc\dao\DAOUser;
+use BWB\Framework\mvc\dao\DAONews;
 
 class AdminController extends Controller 
 {
@@ -18,10 +18,10 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $daoUser = new DAOUser();
+        $dao_news = new DAONews();
 
         $this->render('admin/dashboard', [
-            'users' => $daoUser->getAll()
+            'news' => $dao_news->getAll()
         ]);
     }
 }

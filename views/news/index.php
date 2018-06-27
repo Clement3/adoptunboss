@@ -14,7 +14,12 @@
       <div class="column">
         <?php include('./views/helpers/notifications.php') ?>
         <?php if (empty($news)) { ?>
-          <h2 class="is-size-2 has-text-centered">Il n'y à aucune actualités.</h2>
+          <div class="column">
+            <div class="has-text-centered">
+              <h4 class="title is-4">Il y à aucune actualités</h4>
+              <h1 class="title is-1"><i class="far fa-frown fa-3x"></i></h1>
+            </div>
+          </div>
         <?php } ?>
         <?php foreach ($news as $new) { ?>
         <article class="message is-dark">

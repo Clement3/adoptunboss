@@ -19,6 +19,18 @@
           <?php include('./views/helpers/notifications.php') ?>
           <form method="POST" action="<?= $helper->base_url('admin/skills/' . $skill['id'] . '/edit') ?>">
             <div class="field">
+              <p class="control">
+                <label class="label">Activité</label>
+                <div class="select full-width">
+                  <select class="full-width" name="activitie">
+                    <?php foreach ($activities as $activitie) { ?>
+                    <option value="<?= $activitie['id'] ?>" <?php if ($activitie['id'] === $skill['activities_id']) { ?> selected <?php } ?>><?= $activitie['name'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>                
+              </p>              
+            </div>                        
+            <div class="field">
               <label class="label">Nom</label>
               <div class="control">
                 <input class="input" type="text" name="name" value="<?= $skill['name'] ?>">

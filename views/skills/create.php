@@ -17,7 +17,25 @@
       <div class="column is-half is-narrow">
         <div class="box">
           <?php include('./views/helpers/notifications.php') ?>
+          <?php if (empty($activities)) { ?>
+          <div class="has-text-centered">
+            <p>Vous devez créer une activité pour créer une compétence.</p>
+            <a class="button is-primary" href="<?= $helper->base_url('admin/activities/create')?>">Créer une activité</a>
+          </div>
+          <?php } else { ?>
           <form method="POST" action="<?= $helper->base_url('admin/skills/create') ?>">
+            <div class="field">
+              <p class="control">
+                <label class="label">Activité</label>
+                <div class="select full-width">
+                  <select class="full-width" name="activitie">
+                    <?php foreach ($activities as $activitie) { ?>
+                      <option value="<?= $activitie['id'] ?>"><?= $activitie['name'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>                
+              </p>              
+            </div>            
             <div class="field">
               <label class="label">Nom</label>
               <div class="control">
@@ -26,6 +44,7 @@
             </div>
             <button type="submit" class="button is-primary full-width">Créer la compétence</button>                  
           </form>
+          <?php } ?>
         </div>      
       </div>
     </div>

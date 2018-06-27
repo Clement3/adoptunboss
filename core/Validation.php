@@ -4,8 +4,8 @@ namespace BWB\Framework\mvc;
 
 class Validation {
 
+    public $errors = [];
     private $post = [];
-    private $errors = [];
     private $field;
 	private $field_name;
     private $dao;

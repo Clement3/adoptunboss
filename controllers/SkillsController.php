@@ -4,11 +4,13 @@ namespace BWB\Framework\mvc\controllers;
 
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\dao\DAOSkill;
+use BWB\Framework\mvc\dao\DAOActivitie;
 use BWB\Framework\mvc\Validation;
 
 Class SkillsController extends Controller
 {
-    private $dao;
+    private $dao_skill;
+    private $dao_activitie;
 
     public function __construct()
     {
@@ -16,31 +18,36 @@ Class SkillsController extends Controller
             $this->helper()->redirect();
         }
 
-        $this->dao = new DAOSkill();
+        $this->dao_skill = new DAOSkill();
+        $this->dao_activitie = new DAOActivitie(); 
     }
 
     public function index()
     {
         $this->render('skills/index', [
-            'skills' => $this->dao->getAll()
+            'skills' => $this->dao_skill->getAll()
         ]);
     }
 
     public function create()
     {
-        $this->render('skills/create');
+        $this->render('skills/create', [
+            'activities' => $this->dao_activitie->getAll()
+        ]);
     }
 
     public function store()
-    {
-        $validation = new Validation($_POST, $this->dao);
+    {        
+        $validation = new Validation($_POST, $this->dao_skill);
 
         $validation->field('name', 'nom')->notEmpty()->isUnique('skills');
+        $validation->field('activitie', 'activité')->notEmpty();
 
         if ($validation->isValid()) {
 
-            $skill = $this->dao->create([
-                'name' => $_POST['name']
+            $skill = $this->dao_skill->create([
+                'name' => $_POST['name'],
+                'activitie' => $_POST['activitie']
             ]);
 
             if ($skill) {
@@ -58,18 +65,19 @@ Class SkillsController extends Controller
     public function edit($id)
     {
         $this->render('skills/edit', [
-            'skill' => $this->dao->retrieve($id)
+            'activities' => $this->dao_activitie->getAll(),
+            'skill' => $this->dao_skill->retrieve($id)
         ]);
     }
 
     public function update($id)
     {
-        $validation = new Validation($_POST, $this->dao);
+        $validation = new Validation($_POST, $this->dao_skill);
 
         $validation->field('name', 'nom')->notEmpty()->isUnique('skills');
 
         if ($validation->isValid()) {
-            $skill = $this->dao->update([
+            $skill = $this->dao_skill->update([
                 'id' => $id,
                 'name' => $_POST['name']
             ]);
@@ -87,7 +95,7 @@ Class SkillsController extends Controller
 
     public function delete($id)
     {
-        $dao = $this->dao->delete($id);
+        $dao = $this->dao_skill->delete($id);
         
         if ($dao) {
             $this->helper()->with('flash', [
