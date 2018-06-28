@@ -43,12 +43,14 @@ Class NewsController extends Controller{
 
             $validation->field('title', 'titre')->notEmpty();
             $validation->field('content', 'contenu')->notEmpty();
+            $validation->field('short_content', 'petit contenu')->notEmpty();
 
             if ($validation->isValid()) {
 
                 $update = $dao->update([
                     'id' => $id,
                     'title' => $_POST['title'],
+                    'short_content' => $_POST['short_content'],
                     'content' => $_POST['content']
                 ]);
 
@@ -83,11 +85,13 @@ Class NewsController extends Controller{
 
             $validation->field('title', 'titre')->notEmpty();
             $validation->field('content', 'contenu')->notEmpty();
+            $validation->field('short_content', 'petit contenu')->notEmpty();
 
             if ($validation->isValid()) {
 
                 $store = $dao->create([
                     'title' => $_POST['title'],
+                    'short_content' => $_POST['short_content'],
                     'content' => $_POST['content']
                 ]);
 

@@ -18,20 +18,10 @@
         "POST": "AuthController:postRegister"
     },
     "/logout": "AuthController:logout",
-    "/events": "EventsController:index", 
     "/newsletter": {
         "POST": "NewslettersController:store"
-    },
-    "/event/create":
-    {
-        "GET": "EventsController:create",
-        "POST": "EventsController:store"
-    },
-    "/event/(:)/update":
-    {
-        "GET":"EventsController:edit",
-        "POST":"EventsController:update"
-    },        
+    },   
+    "/events": "EventsController:index",    
     "/event/(:)":
     {
         "GET": "EventsController:show"
@@ -72,6 +62,7 @@
         "GET": "OffersController:getApply",
         "POST": "OffersController:postApply"
     },
+    "/offer/(:)": "OffersController:show",
     "/matchs": "MatchsController:matchs",
     "/dashboard": "UsersController:dashboard",
     "/settings": {
@@ -87,6 +78,14 @@
         "POST": "ContactsController:store"
     },    
     "/admin/dashboard": "AdminController:dashboard",
+    "/admin/events/create": {
+        "GET": "EventsController:create",
+        "POST": "EventsController:store"
+    },
+    "/admin/events/(:)/edit": {
+        "GET": "EventsController:edit",
+        "POST": "EventsController:update"
+    },    
     "/admin/users": "UsersController:index",
     "/admin/users/(:)/edit": {
         "GET":"UsersController:edit",
@@ -136,5 +135,6 @@
         "GET": "EmploymentsController:create",
         "POST": "EmploymentsController:store"
     },
-    "/admin/employments/(:)/delete": "EmploymentsController:delete"     
+    "/admin/employments/(:)/delete": "EmploymentsController:delete",
+    "/ajax/skills/(:)": "AjaxController:getSkills"   
 }

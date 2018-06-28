@@ -41,6 +41,8 @@
       </section>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDDCe2tIZ-OaMK4YAb2N9GxV-wycx0pmp4"></script>
+    <script src="<?= $helper->base_url('assets/js/jquery.geocomplete.min.js'); ?>"></script>
     <script src="<?= $helper->base_url('assets/js/jquery.multi-select.js'); ?>"></script>  
     <script src="<?= $helper->base_url('assets/js/app.js'); ?>"></script>    
   </body>

@@ -4,6 +4,9 @@
       <h1 class="title">
         Créer une offre
       </h1>
+      <h2 class="subtitle">
+        <a href="<?= $helper->base_url('offers')?>"><i class="fas fa-angle-right"></i> Mes offres</a>
+      </h2>      
     </div>
   </div>
 </section>
@@ -21,15 +24,13 @@
                 <input class="input" type="text" placeholder="Titre" name="title">
               </div>
             </div>
-            <div class="field is-grouped">
-              <p class="control is-expanded">
-                <label class="label">Code postal</label>
-                <input class="input" type="text" name="zip_code" placeholder="34000">
-              </p>
-              <p class="control is-expanded">
-                <label class="label">Ville</label>
-                <input class="input" type="text" name="city" placeholder="Montpellier">
-              </p>
+            <div class="field">
+              <label class="label">Localisation</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Titre" name="place" id="place">
+                <input type="text" class="hidden" id="lat" name="lat">
+                <input type="text" class="hidden" id="lng" name="lat">
+              </div>
             </div>
             <div class="field is-grouped">
               <p class="control is-expanded">
@@ -46,7 +47,9 @@
                 <label class="label">Type de contrat</label>
                 <div class="select full-width">
                   <select class="full-width" name="employment">
-                    <option value="1">Oui</option>
+                    <?php foreach ($employments as $employment) { ?>
+                      <option value="<?= $employment['id'] ?>"><?= $employment['name'] ?></option>
+                    <?php } ?>
                   </select>
                 </div>                
               </p>              
@@ -55,17 +58,16 @@
               <p class="control">
                 <label class="label">Activités</label>
                 <div class="select full-width">
-                  <select class="full-width" name="activitie">
-                    <option value="1">Oui</option>
+                  <select class="full-width" name="activitie" id="activitie">
+                    <?php foreach ($activities as $activitie) { ?>
+                      <option value="<?= $activitie['id'] ?>"><?= $activitie['name'] ?></option>
+                    <?php } ?>
                   </select>
                 </div>                
               </p> 
             </div>             
             <div class="field">
               <select multiple="multiple" id="skills" name="skills[]">
-                <?php foreach ($skills as $skill) { ?>
-                  <option value="<?= $skill['id'] ?>"><?= $skill['name'] ?></option>
-                <?php } ?>
               </select>
             </div>                                  
             <div class="field">

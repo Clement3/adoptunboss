@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link rel="stylesheet" href="<?= $helper->base_url('assets/css/multi-select.css') ?>">
     <link rel="stylesheet" href="<?= $helper->base_url('assets/css/app.css') ?>">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   </head>
   <body>
@@ -43,6 +44,15 @@
         <div class="navbar-item">
           <div class="field is-grouped">
             <?php if ($helper->is_auth()) { ?>
+            <?php if ($helper->is_recruiter()) { ?>
+            <p class="control">
+              <a href="<?= $helper->base_url('offers/create') ?>" class="button is-danger">Créer une offre</a>
+            </p> 
+            <?php } else { ?>
+            <p class="control">
+              <a class="button is-danger">Match</a>
+            </p> 
+            <?php } ?>                   
             <?php if ($helper->is_admin()) { ?>
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
@@ -87,8 +97,8 @@
                   Dashboard
                 </a>
                 <?php if ($helper->is_recruiter()) { ?>
-                <a href="<?= $helper->base_url('offers/create'); ?>" class="navbar-item">
-                  Créer une offre
+                <a href="<?= $helper->base_url('offers'); ?>" class="navbar-item">
+                  Mes offres
                 </a>
                 <?php } ?>              
                 <a href="<?= $helper->base_url('settings'); ?>" class="navbar-item">

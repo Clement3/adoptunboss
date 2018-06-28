@@ -33,16 +33,6 @@
             </div>
             <div class="field is-grouped">
               <p class="control is-expanded">
-                <label class="label">Code postal</label>
-                <input class="input" type="text" name="zip_code" value="<?= $user['zip_code'] ?>">
-              </p>
-              <p class="control is-expanded">
-                <label class="label">Ville</label>
-                <input class="input" type="text" name="city" value="">
-              </p>
-            </div>
-            <div class="field is-grouped">
-              <p class="control is-expanded">
                 <label class="label">Date de naissance</label>
                 <input class="input" type="date" name="birthday" value="<?= $user['birthday'] ?>">
               </p>

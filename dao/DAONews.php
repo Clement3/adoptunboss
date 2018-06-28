@@ -18,7 +18,7 @@ class DAONews extends DAO
 
     public function create($array) 
     {
-        $sql = $this->getPdo()->prepare('INSERT INTO news (title, content) VALUES (:title, :content)');
+        $sql = $this->getPdo()->prepare('INSERT INTO news (title, content, short_content) VALUES (:title, :content, :short_content)');
         $sql->execute($array);
     }
 
@@ -46,7 +46,7 @@ class DAONews extends DAO
 
     public function update($array) 
     {
-        $sql = $this->getPdo()->prepare('UPDATE news SET title = :title, content = :content, updated_date = NOW() WHERE id = :id');
+        $sql = $this->getPdo()->prepare('UPDATE news SET title = :title, short_content = :short_content content = :content, updated_date = NOW() WHERE id = :id');
         $sql->execute($array);
     }
 

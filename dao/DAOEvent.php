@@ -18,14 +18,14 @@ class DAOEvent extends DAO
 
     public function create($array) 
     {
-        $sql = $this->getPdo()->prepare('INSERT INTO events (`title`, `description`, `content`, `start_date`, `end_date`, `created_date`, `locations_id`) VALUES(:title, :description, :content, :start_date, :end_date, NOW(),1)');
-        $sql->execute($array);        
+        $sql = $this->getPdo()->prepare('INSERT INTO events (`title`, `short_content`, `content`, `start_date`, `end_date`, `created_date`) VALUES(:title, :short_content, :content, :start_date, :end_date, NOW())');
+        return $sql->execute($array);        
     }
 
     public function delete($id) 
     {
         $sql = $this->getPdo()->query('DELETE FROM events WHERE id = '. $id .'');
-        $sql->execute($id);
+        return $sql->execute($id);
     }
 
     public function getAll() 
@@ -49,7 +49,7 @@ class DAOEvent extends DAO
             UPDATE events 
             SET 
                 title = :title,
-                description = :description,
+                short_content = :short_content,
                 content = :content,
                 start_date = :start_date,
                 end_date = :end_date,
@@ -57,13 +57,12 @@ class DAOEvent extends DAO
                 WHERE id = :id
             ');
         $sql->bindParam(':title', $array['title']);
-        $sql->bindParam(':description' , $array['description']);
+        $sql->bindParam(':short_content' , $array['short_content']);
         $sql->bindParam(':content', $array['content']);
         $sql->bindParam(':start_date', $array['start_date']);
         $sql->bindParam('end_date', $array['end_date']);
         $sql->bindParam('id', $array['id']);
-        var_dump($array);
-        $sql->execute();
-        
+
+        return $sql->execute();
     }
 }

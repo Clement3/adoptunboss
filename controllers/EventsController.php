@@ -4,6 +4,7 @@ namespace BWB\Framework\mvc\controllers;
 
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\dao\DAOEvent;
+use BWB\Framework\mvc\Validation;
 
 Class EventsController extends Controller
 {
@@ -11,60 +12,107 @@ Class EventsController extends Controller
     public function index()
     {
         $dao = new DAOEvent();
-        $data = array("events" => $dao->getAll());
-        $this->render('events/index', $data);
+
+        $this->render('events/index', [
+            'events' => $dao->getAll()
+        ]);
     }
 
-    public function show($id) {
+    public function show($id) 
+    {
         $dao = new DAOEvent();
-        $data = array("event" => $dao->retrieve($id));
-        $this->render('events/show', $data);
+
+        $this->render('events/show', [
+            'event' => $dao->retrieve($id)
+        ]);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $dao = new DAOEvent();
-        $data = array("event" =>$dao->retrieve($id));
-        $this->render('events/edit', $data);
+
+        $this->render('events/edit', [
+            'event' => $dao->retrieve($id)
+        ]);
     }
 
-    public function update(){
-        
+    public function update($id)
+    {
         $dao = new DAOEvent(); 
-        $UpdateEvent = [
-            "id" => $id,
-            "title" => $_POST["title"],
-            "description" => $_POST["description"],
-            "content" => $_POST["content"],
-            "start_date" => $_POST["start_date"],
-            "end_date" => $_POST["end_date"],
-        ];
-        $dao->update($UpdateEvent);
-        header('Location: /events');
+
+        $validation = new Validation($_POST, $dao);
+
+        $validation->field('title','titre')->notEmpty()->isUnique('events')->max(50);
+        $validation->field('description','description')->notEmpty()->max(4000);
+        $validation->field('content','contenu')->notEmpty()->max(4000);
         
+        if ($validation->isValid()) {
+            $event = $dao->update([
+                "id" => $id,
+                "title" => $_POST["title"],
+                "short_content" => $_POST["description"],
+                "content" => $_POST["content"],
+                "start_date" => $_POST["start_date"],
+                "end_date" => $_POST["end_date"],
+            ]);
+            
+            if ($event) {
+                $this->helper()->with('flash', [
+                    'class' => 'is-danger',
+                    'message' => 'L\'évènement à bien été modifier !'
+                ])->redirect('admin/events/' . $id . '/edit');        
+            }
+        }
+
+        $this->helper()->withErrors($validation->errors)->redirect('admin/events/' . $id . '/edit');  
     }
 
-    public function create() {
+    public function create() 
+    {
         $this->render('events/create');
-        header('Location: /events');
     }
 
-    public function store() {
+    public function store() 
+    {
         $dao = new DAOEvent();
-        $newEvent = [
-            "title" => $_POST["title"],
-            "description" => $_POST["description"],
-            "content" => $_POST["content"],
-            "start_date" => $_POST["start_date"],
-            "end_date" => $_POST["end_date"],
-        ];
-        $data = array("event" =>$dao->create($newEvent));
-        header('Location: /events');
+
+        $validation = new Validation($_POST, $dao);
+
+        $validation->field('title','titre')->notEmpty()->isUnique('events')->max(50);
+        $validation->field('description','description')->notEmpty()->max(4000);
+        $validation->field('content','contenu')->notEmpty()->max(4000);
+        
+        if ($validation->isValid()) {
+            $event = $dao->create([
+                "title" => $_POST["title"],
+                "short_content" => $_POST["description"],
+                "content" => $_POST["content"],
+                "start_date" => $_POST["start_date"],
+                "end_date" => $_POST["end_date"],
+            ]);
+            
+            if ($event) {
+                $this->helper()->with('flash', [
+                    'class' => 'is-danger',
+                    'message' => 'L\'évènement à bien été créer !'
+                ])->redirect('events');        
+            }
+        }
+
+        $this->helper()->withErrors($validation->errors)->redirect('admin/events/create');
     }
 
-    public function delete($id) {
+    public function delete($id) 
+    {
         $dao = new DAOEvent();
-        $data = array("event" => $dao->delete($id));
-        $this->render('events/delete', $data);
-        header('Location: /events');
+
+        $event = $dao->delete($id);
+
+        if ($event) {
+            $this->helper()->with('flash', [
+                'class' => 'is-danger',
+                'message' => 'L\'évènement à bien été créer !'
+            ])->redirect('events');            
+        }
     }
 }

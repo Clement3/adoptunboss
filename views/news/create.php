@@ -22,6 +22,12 @@
               </div>
             </div>
             <div class="field">
+              <label class="label">Petit contenu</label>
+              <div class="control">
+                <textarea class="textarea" name="short_content"></textarea>
+              </div>
+            </div>            
+            <div class="field">
               <label class="label">Contenu</label>
               <div class="control">
                 <textarea class="textarea" name="content"></textarea>

@@ -51,7 +51,7 @@ class DAOUser extends DAO
 
     public function retrieve($id) 
     {
-        $sql = 'SELECT id, email, firstname, lastname, zip_code, tel, birthday, is_admin, is_recruiter FROM users WHERE id = :id';
+        $sql = 'SELECT id, email, firstname, lastname, tel, birthday, is_admin, is_recruiter FROM users WHERE id = :id';
         $req = $this->getPdo()->prepare($sql);
         $req->bindParam(':id', $id);
         $req->execute();
@@ -61,24 +61,22 @@ class DAOUser extends DAO
 
     public function update($array) 
     {
-        $sql = 'UPDATE users SET email = :email, 
-                                firstname = :firstname, 
-                                lastname = :lastname, 
-                                zip_code = :zip_code, 
-                                tel = :tel, 
-                                birthday = :birthday, 
-                                is_admin = :is_admin,
-                                is_recruiter = :is_recruiter,
-                                updated_date = NOW() 
-                                WHERE
-                                id = :id';
+        $sql = 'UPDATE users SET 
+            email = :email, 
+            firstname = :firstname, 
+            lastname = :lastname,
+            tel = :tel, 
+            birthday = :birthday, 
+            is_admin = :is_admin,
+            is_recruiter = :is_recruiter,
+            updated_date = NOW() 
+        WHERE id = :id';
 
         $req = $this->getPdo()->prepare($sql);
 
         $req->bindParam(':email', $array['email']);
         $req->bindParam(':firstname', $array['firstname']);
         $req->bindParam(':lastname', $array['lastname']);
-        $req->bindParam(':zip_code', $array['zip_code']);
         $req->bindParam(':tel', $array['phone']);
         $req->bindParam(':birthday', $array['birthday']);
         $req->bindParam(':is_admin', $array['is_admin']);

@@ -67,7 +67,6 @@ class UsersController extends Controller
                     'email' => $_POST['email'],
                     'firstname' => $_POST['firstname'],
                     'lastname' => $_POST['lastname'],
-                    'zip_code' => $_POST['zip_code'],
                     'is_admin' => $admin,
                     'is_recruiter' => $rank
                 ]);
@@ -126,7 +125,6 @@ class UsersController extends Controller
                 'email' => $_POST['email'],
                 'firstname' => $_POST['firstname'],
                 'lastname' => $_POST['lastname'],
-                'zip_code' => $_POST['zip_code'],
             ]);
                 
             if ($request) {

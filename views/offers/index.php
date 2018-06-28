@@ -1,41 +1,57 @@
-<h1><strong>DASHBOARD OFFRES</strong></h1>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Mes offres
+      </h1>
+      <h2 class="subtitle">
+        <a href="<?= $helper->base_url('offers/create')?>"><i class="fas fa-angle-right"></i> Créer une offre</a>
+      </h2>      
+    </div>
+  </div>
+</section>
 
-<div>
-    <h2><strong>Créer une offre</strong></h2>
-    <form method="post">
-        <input type="text" placeholder="Titre" name="title"><br/><br/>
-        <input type="number" placeholder="Code postale" name="zip_code"><br/><br/>
-        <textarea name="content" cols="30" rows="10" placeholder="Contenu"></textarea><br/><br/>
-        <input type="number" placeholder="Salaire max" name="salary_max"><br/><br/>
-        <input type="number" placeholder="Salaire min" name="salary_min"><br/><br/>
-        <input type="number" placeholder="Experience" name="experience"><br/><br/>
-        <input type="number" placeholder="Durée du contrat" name="period"><br/><br/>
-        <input type="submit" value="Poster l'offre">
-    </form>
-</div><br/><br/>
-
-<div>
-    <h2>Liste des offres</h2>
-    <?php 
-        foreach ($offers as $offer) {
-            ?>
-                <div>
-                <?= $offer['created_date']; ?><br/>
-                    <strong>Poste : </strong><?= $offer['title'] ?><br/> 
-                    <p><strong>Missions : </strong><?= $offer['content'] ?></p>
-                    <p><strong>Code postale : </strong><?= $offer['zip_code'] ?></p>
-                    <p><strong>Salaire débutant : </strong><?= $offer['salary_min'] ?></p>
-                    <p><strong>Salaire confirmé : </strong><?= $offer['salary_max'] ?></p>
-                    <p><strong>Expérience requise : </strong><?= $offer['experience'] ?> ans</p>
-                    <p><strong>Durée du contrat </strong><?= $offer['period'] ?> mois</p>
-                    <i>Date de création : <?= $offer['created_date'] ?></i>
-                    <i><?= $offer['updated_date'] ? " | Modifier le : " . $offer['updated_date']  : "" ?></i><br/> 
-                    <a href="<?= $helper->base_url('dashboard/offers/'. $offer['id'] .'/update') ?>">Modifier</a>
-                    <a href="<?= $helper->base_url('dashboard/offers/'. $offer['id'] .'/delete') ?>">Supprimer</a>
-                </div>
-                <br/>
-                <br/>
-            <?php
-        }
-    ?>
-</div>
+<section class="section">
+  <div class="container">
+    <div class="box">
+      <?php include('./views/helpers/notifications.php') ?>
+      <?php if (empty($offers)) { ?>
+      <div class="has-text-centered">
+        <p>Vous n'avez pas encore créer d'offre.</p>
+        <a href="<?= $helper->base_url('offers/create')?>">Créer une nouvelle offre</a>
+      </div>
+      <?php } else { ?>      
+      <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Secteur d'activité</th>
+            <th>Type de contrat</th>
+            <th>Créer le</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($offers as $offer) { ?>
+            <tr>
+              <th><?= $offer['title'] ?></th>
+              <td><?= $offer['activitie_name'] ?></td>
+              <td><?= $offer['employment_name'] ?></td>
+              <td><?= $offer['created_date'] ?></td>
+              <td>
+                <a href="<?= $helper->base_url('offer/'. $offer['id']) ?>" class="button is-small">Voir</a>
+                <a href="<?= $helper->base_url('offers/'. $offer['id'] .'/edit') ?>" class="button is-small has-text-info">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a href="<?= $helper->base_url('offers/'. $offer['id'] .'/delete') ?>" class="button is-small has-text-danger">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+              </td>              
+            </tr>
+          <?php } ?>
+        </tbody>      
+      </table>
+      <?php } ?>
+    </div>
+  </div>
+</section>

@@ -3,6 +3,7 @@
 namespace BWB\Framework\mvc\dao;
 
 use BWB\Framework\mvc\DAO;
+use PDO;
 
 class DAOSkill extends DAO
 {
@@ -61,5 +62,16 @@ class DAOSkill extends DAO
         $req->bindParam(':id', $array['id']);
 
         return $req->execute();
+    }
+
+    public function allSkillsByActivitieId($id)
+    {
+        $sql = 'SELECT id, name FROM skills WHERE activities_id = :activities_id';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':activities_id', $id);
+        $req->execute();
+
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 }

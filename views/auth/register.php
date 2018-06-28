@@ -21,8 +21,8 @@
           </div>       
           <?php include('./views/helpers/notifications.php') ?>
           <form method="POST" action="<?= $helper->base_url('register') ?>">
-            <input class="register-radio" id="radio-candidate" type="radio" name="is_recruiter" value="0" checked>   
-            <input class="register-radio" id="radio-recruiter" type="radio" name="is_recruiter" value="1">          
+            <input class="hidden" id="radio-candidate" type="radio" name="is_recruiter" value="0" checked>   
+            <input class="hidden" id="radio-recruiter" type="radio" name="is_recruiter" value="1">          
             <div class="field">
               <label class="label">E-mail</label>
               <div class="control">

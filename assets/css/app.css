@@ -6,11 +6,33 @@
     padding: 1rem;
 }
 
-.register-radio {
-    display: none;
-}
-
 .notification > .errors-list {
     margin-left: 1rem;
     font-size: .85rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.message .created-date {
+    padding-bottom: .5rem;
+}
+
+#map {
+    height: 200px;
+    width: 100%;
+}
+
+.offer .offer-content {
+    margin: .5rem;
+}
+.offer .offer-list {
+    margin: 1rem;
+}
+.offer .offer-list dl {
+    font-size: .85rem;
+}
+.offer .offer-list dt {
+    font-weight: bold;
 }
