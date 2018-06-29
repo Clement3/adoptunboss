@@ -28,8 +28,8 @@
             <span class="has-text-right">
               <span class="has-text-weight-light"><?= $new['created_date']; ?></span>
               <?php if ($helper->is_admin()) { ?>
-              <a href="<?= $helper->base_url('news/'. $new['id'].'/edit') ?>"><i class="fas fa-edit"></i></a>
-              <a href="<?= $helper->base_url('news/'. $new['id'].'/delete') ?>"><i class="fas fa-trash-alt"></i></a>
+              <a href="<?= $helper->base_url('admin/news/'. $new['id'].'/edit') ?>"><i class="fas fa-edit"></i></a>
+              <a href="<?= $helper->base_url('admin/news/'. $new['id'].'/delete') ?>"><i class="fas fa-trash-alt"></i></a>
               <?php } ?>
             </span>
           </div>

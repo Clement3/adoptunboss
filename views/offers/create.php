@@ -27,9 +27,9 @@
             <div class="field">
               <label class="label">Localisation</label>
               <div class="control">
-                <input class="input" type="text" placeholder="Titre" name="place" id="place">
+                <input class="input" type="text" placeholder="ex: Montpellier" name="place" id="place">
                 <input type="text" class="hidden" id="lat" name="lat">
-                <input type="text" class="hidden" id="lng" name="lat">
+                <input type="text" class="hidden" id="lng" name="lng">
               </div>
             </div>
             <div class="field is-grouped">

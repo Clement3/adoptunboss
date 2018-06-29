@@ -14,7 +14,7 @@
       <div class="column">
         <div class="box">
           <?php include('./views/helpers/notifications.php') ?>
-          <form method="POST" action="<?= $helper->base_url('news/'.$new['id'].'/edit') ?>">
+          <form method="POST" action="<?= $helper->base_url('admin/news/'.$new['id'].'/edit') ?>">
             <div class="field">
               <label class="label">Titre</label>
               <div class="control">

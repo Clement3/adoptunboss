@@ -3,6 +3,7 @@
 namespace BWB\Framework\mvc\dao;
 
 use BWB\Framework\mvc\DAO;
+use PDO;
 
 class DAONews extends DAO
 {
@@ -50,4 +51,14 @@ class DAONews extends DAO
         $sql->execute($array);
     }
 
+    public function getLastFive()
+    {
+        $sql = $this->getPDO()->query('
+            SELECT *
+            FROM news 
+            ORDER BY created_date DESC
+            LIMIT 5
+        ');
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

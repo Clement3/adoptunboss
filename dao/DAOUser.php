@@ -3,6 +3,7 @@
 namespace BWB\Framework\mvc\dao;
 
 use BWB\Framework\mvc\DAO;
+use PDO;
 
 /**
  * Users
@@ -94,4 +95,29 @@ class DAOUser extends DAO
 
         return $sql->fetch();
     }
+
+    public function getLastFiveRecruiters()
+    {
+        $sql = $this->getPDO()->query('
+            SELECT *
+            FROM users
+            WHERE is_recruiter = 1
+            ORDER BY created_date DESC
+            LIMIT 5
+        ');
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    } 
+
+    public function getLastFiveCandidates()
+    {
+        $sql = $this->getPDO()->query('
+            SELECT *
+            FROM users
+            WHERE is_recruiter = 0
+            AND is_admin = 0
+            ORDER BY created_date DESC
+            LIMIT 5
+        ');
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }       
 }

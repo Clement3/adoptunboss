@@ -84,6 +84,12 @@
                 <a href="<?= $helper->base_url('admin/skills'); ?>" class="navbar-item">
                   Compétences
                 </a>
+                <a href="<?= $helper->base_url('admin/events/create'); ?>" class="navbar-item">
+                  Créer un évènement
+                </a>
+                <a href="<?= $helper->base_url('admin/news/create'); ?>" class="navbar-item">
+                  Créer une actualité
+                </a>                                
               </div>            
             </div>
             <?php } ?>
@@ -99,6 +105,10 @@
                 <?php if ($helper->is_recruiter()) { ?>
                 <a href="<?= $helper->base_url('offers'); ?>" class="navbar-item">
                   Mes offres
+                </a>
+                <?php } else { ?>
+                <a href="<?= $helper->base_url('/profile'); ?>" class="navbar-item">
+                  Mon profil
                 </a>
                 <?php } ?>              
                 <a href="<?= $helper->base_url('settings'); ?>" class="navbar-item">

@@ -10,11 +10,11 @@
 
 <div class="container">
   <section class="section">
-    <div class="columns">
-      <div class="column">
+    <div class="columns is-centered">
+      <div class="column is-half is-narrow">
         <div class="box">
           <?php include('./views/helpers/notifications.php') ?>
-          <form method="POST" action="<?= $helper->base_url('news/create') ?>">
+          <form method="POST" action="<?= $helper->base_url('admin/news/create') ?>">
             <div class="field">
               <label class="label">Titre</label>
               <div class="control">

@@ -54,6 +54,8 @@ Class EventsController extends Controller
                 "content" => $_POST["content"],
                 "start_date" => $_POST["start_date"],
                 "end_date" => $_POST["end_date"],
+                "latitude" => $_POST['lat'],
+                "longitude" => $_POST['lng']                
             ]);
             
             if ($event) {
@@ -79,16 +81,21 @@ Class EventsController extends Controller
         $validation = new Validation($_POST, $dao);
 
         $validation->field('title','titre')->notEmpty()->isUnique('events')->max(50);
-        $validation->field('description','description')->notEmpty()->max(4000);
+        $validation->field('short_content','petit contenu')->notEmpty()->max(4000);
         $validation->field('content','contenu')->notEmpty()->max(4000);
-        
+        $validation->field('start_date', 'date du début')->notEmpty();
+        $validation->field('end_date', 'date de fin')->notEmpty();
+        $validation->field('place', 'localisation')->notEmpty();
+
         if ($validation->isValid()) {
             $event = $dao->create([
                 "title" => $_POST["title"],
-                "short_content" => $_POST["description"],
+                "short_content" => $_POST["short_content"],
                 "content" => $_POST["content"],
                 "start_date" => $_POST["start_date"],
                 "end_date" => $_POST["end_date"],
+                "latitude" => $_POST['lat'],
+                "longitude" => $_POST['lng']
             ]);
             
             if ($event) {
@@ -111,7 +118,7 @@ Class EventsController extends Controller
         if ($event) {
             $this->helper()->with('flash', [
                 'class' => 'is-danger',
-                'message' => 'L\'évènement à bien été créer !'
+                'message' => 'L\'évènement à bien été supprimer !'
             ])->redirect('events');            
         }
     }

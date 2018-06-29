@@ -1,15 +1,85 @@
-<div>
-    <h2>Modifier l'offre</h2>
-    <form method="post">
-        <input type="text" placeholder="Titre" name="title" value="<?= $offer['title'] ?>"><br/><br/>
-        <input type="number" placeholder="Code postale" name="zip_code" value="<?= $offer['zip_code'] ?>"><br/><br/>
-        <textarea name="content" cols="30" rows="10" placeholder="Contenu"><?= $offer['content'] ?></textarea><br/><br/>
-        <input type="number" placeholder="Salaire max" name="salary_max" value="<?= $offer['salary_max'] ?>"><br/><br/>
-        <input type="number" placeholder="Salaire min" name="salary_min" value="<?= $offer['salary_min'] ?>"><br/><br/>
-        <input type="number" placeholder="Experience" name="experience" value="<?= $offer['experience'] ?>"><br/><br/>
-        <input type="number" placeholder="Durée du contrat" name="period" value="<?= $offer['period'] ?>"><br/><br/>
-        <input type="submit" value="Mettre à jour l'offre">
-        <a href="/dashboard/offers">Revenir au dashbaord</a>
-    </form>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Editer <?= $offer['title'] ?>
+      </h1>
+      <h2 class="subtitle">
+        <a href="<?= $helper->base_url('offers')?>"><i class="fas fa-angle-right"></i> Mes offres</a>
+      </h2>      
+    </div>
+  </div>
+</section>
 
-</div>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half is-narrow">
+        <div class="box">
+          <?php include('./views/helpers/notifications.php') ?>
+          <form method="POST" action="<?= $helper->base_url('offers/'.$offer['id'].'/edit') ?>">
+            <div class="field">
+              <label class="label">Titre de l'offre</label>
+              <div class="control">
+                <input class="input" type="text" value="<?= $offer['title'] ?>" name="title">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Localisation</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Titre" name="place" id="place">
+                <input type="text" class="hidden" id="lat" name="lat">
+                <input type="text" class="hidden" id="lng" name="lat">
+              </div>
+            </div>
+            <div class="field is-grouped">
+              <p class="control is-expanded">
+                <label class="label">Salaire minimum /an</label>
+                <input class="input" type="number" name="salary_min" value="<?= $offer['salary_min'] ?>">
+              </p>
+              <p class="control is-expanded">
+                <label class="label">Salaire maximum /an</label>
+                <input class="input" type="number" name="salary_max" value="<?= $offer['salary_max'] ?>">
+              </p>
+            </div>
+            <div class="field">
+              <p class="control">
+                <label class="label">Type de contrat</label>
+                <div class="select full-width">
+                  <select class="full-width" name="employment">
+                    <?php foreach ($employments as $employment) { ?>
+                      <option value="<?= $employment['id'] ?>" <?php if ($offer['employment_name'] === $employment['name']) { ?> selected <?php } ?>><?= $employment['name'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>                
+              </p>              
+            </div>            
+            <div class="field">
+              <p class="control">
+                <label class="label">Activités</label>
+                <div class="select full-width">
+                  <select class="full-width" name="activitie" id="activitie">
+                    <?php foreach ($activities as $activitie) { ?>
+                      <option value="<?= $activitie['id'] ?>" <?php if ($offer['activitie_name'] === $activitie['name']) { ?> selected <?php } ?>><?= $activitie['name'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>                
+              </p> 
+            </div>             
+            <div class="field">
+              <select multiple="multiple" id="skills" name="skills[]">
+              </select>
+            </div>                                  
+            <div class="field">
+              <label class="label">Description</label>
+              <div class="control">
+              <textarea class="textarea" name="content" cols="30" rows="10" placeholder="Décrivez votre annonce"><?= $offer['content'] ?></textarea>
+              </div>
+            </div>             
+            <button type="submit" class="button is-primary full-width">Envoyer</button>                     
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

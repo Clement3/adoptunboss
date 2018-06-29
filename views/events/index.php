@@ -25,9 +25,9 @@
           <h3 class="title is-h3"><?= $event['title'] ?></h3>
           <p class="subtitle is-6">Commence le <?= $event['start_date'] ?> et ce termine le <?= $event['end_date']?></p>
           <p><?= $event['content']?></p>
-          <a href="<?= $helper->base_url('event/create') ?>">Créer un nouvel évènement</a>
-          <a href="<?= $helper->base_url('event/'.$event['id'].'/edit')?>"> Modifier</a> 
-          <a href="<?= $helper->base_url('event/'.$event['id'].'/delete') ?>">Supprimer</a> <br> <br>
+          <a href="<?= $helper->base_url('admin/events/create') ?>">Créer un nouvel évènement</a>
+          <a href="<?= $helper->base_url('admin/events/'.$event['id'].'/edit')?>"> Modifier</a> 
+          <a href="<?= $helper->base_url('admin/events/'.$event['id'].'/delete') ?>">Supprimer</a> <br> <br>
         </div>
       </div>
       <?php } ?>

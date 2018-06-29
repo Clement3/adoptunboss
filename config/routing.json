@@ -18,31 +18,22 @@
         "POST": "AuthController:postRegister"
     },
     "/logout": "AuthController:logout",
-    "/newsletter": {
+    "/newsletter/subscribe": {
         "POST": "NewslettersController:store"
-    },   
+    },
+    "/newsletter/(:)/unsubscribe": {
+        "GET": "NewslettersController:unsubscribe"
+    },       
     "/events": "EventsController:index",    
-    "/event/(:)":
+    "/events/(:)":
     {
         "GET": "EventsController:show"
     },
-    "/event/(:)/delete": "EventsController:delete",
-    "/news": "NewsController:index", 
-    "/news/create":
-    {
-        "GET": "NewsController:create",
-        "POST": "NewsController:store"
-    },
-    "/news/(:)/edit":
-    {
-        "GET": "NewsController:edit",
-        "POST": "NewsController:update"
-    },        
+    "/news": "NewsController:index",         
     "/news/(:)":
     {
         "GET": "NewsController:show"
     },
-    "/news/(:)/delete": "NewsController:delete",
     "/offers": "OffersController:index",
     "/offers/create":
     {
@@ -86,6 +77,7 @@
         "GET": "EventsController:edit",
         "POST": "EventsController:update"
     },    
+    "/admin/events/(:)/delete": "EventsController:delete",
     "/admin/users": "UsersController:index",
     "/admin/users/(:)/edit": {
         "GET":"UsersController:edit",
@@ -98,6 +90,17 @@
         "POST": "OffersController:store"
     },
     "/admin/offers/(:)/delete": "OffersController:delete",
+    "/admin/news/create":
+    {
+        "GET": "NewsController:create",
+        "POST": "NewsController:store"
+    },
+    "/admin/news/(:)/edit":
+    {
+        "GET": "NewsController:edit",
+        "POST": "NewsController:update"
+    },    
+    "/admin/news/(:)/delete": "NewsController:delete",
     "/admin/contacts": "ContactsController:index",
     "/admin/contacts/(:)/reply": {
         "GET": "ContactsController:getReply",
@@ -105,7 +108,7 @@
     },
     "/admin/contacts/(:)/delete": "ContactsController:delete",
     "/admin/newsletters": "NewslettersController:index",
-    "/admin/newsletters/(:)/delete": "NewsletterController:delete",
+    "/admin/newsletters/(:)/delete": "NewslettersController:delete",
     "/admin/skills": "SkillsController:index",
     "/admin/skills/(:)/edit": {
         "GET": "SkillsController:edit",

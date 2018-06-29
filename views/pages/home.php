@@ -69,13 +69,36 @@
                 <p class="title is-4"><?= $event['title'] ?></p>
                 <p class="subtitle is-6">Créer le <?= $event['created_date'] ?></p>
                 <div class="content">
-                  <p><?= $event['content'] ?></p>
-                </div>                
-              </div>
+                  <p<div class="columns"> $event['content'] ?></p>
+                </di<div class="columns">              
+              </div><div class="columns">
             </div>
             <?php } ?>      
           </div>
         </div>        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section has-background-primary">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6 has-text-centered">
+        <?php include('./views/helpers/notifications.php') ?>
+        <p class="subtitle is-4 has-text-white">S'inscrire à la newsletter</p>
+        <form method="POST" action="<?= $helper->base_url('newsletter/subscribe') ?>">
+          <div class="field has-addons has-addons-centered">
+            <div class="control">
+              <input class="input" type="email" placeholder="Votre e-mail" name="email">
+            </div>
+            <div class="control">
+              <button class="button" type="submit">
+                Inscription
+              </button>
+            </div>
+          </div> 
+        </form>
       </div>
     </div>
   </div>

@@ -34,8 +34,14 @@ Class OffersController extends Controller
     public function edit($id)
     {
         $dao = new DAOOffer();
-        $data = array("offer" => $dao->retrieve($id));
-        $this->render('offers/edit', $data);
+        $dao_employments = new DAOEmployment();
+        $dao_activities = new DAOActivitie();
+
+        $this->render('offers/edit', [
+            'offer' => $dao->retrieve($id),
+            'employments' => $dao_employments->getAll(),
+            'activities' => $dao_activities->getAll()
+        ]);
     }
 
     public function update($id)
