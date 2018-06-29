@@ -107,7 +107,7 @@
                   Mes offres
                 </a>
                 <?php } else { ?>
-                <a href="<?= $helper->base_url('/profile'); ?>" class="navbar-item">
+                <a href="<?= $helper->base_url('profile'); ?>" class="navbar-item">
                   Mon profil
                 </a>
                 <?php } ?>              

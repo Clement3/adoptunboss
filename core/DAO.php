@@ -55,6 +55,11 @@ abstract class DAO implements CRUDInterface, RepositoryInterface{
         return DAO::$pdo;
     }
 
+    /**
+     * @param string $table
+     * @param string $field
+     * @param string $value
+     */
     public function exist(String $table, String $field, String $value)
     {
         $sql = $this->getPdo()->prepare('SELECT count(*) FROM '. $table .' WHERE '. $field .' = :'. $field.'');
