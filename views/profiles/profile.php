@@ -28,13 +28,10 @@
               </p>
             </div>            
             <div class="field is-grouped">
+              <label class="label">Salaire par /an</label>
               <p class="control is-expanded">
-                <label class="label">Salaire minimum /an</label>
+                <label class="label">Salaire par /an</label>
                 <input class="input" type="number" name="salary_min" placeholder="35000">
-              </p>
-              <p class="control is-expanded">
-                <label class="label">Salaire maximum /an</label>
-                <input class="input" type="number" name="salary_max" placeholder="40000">
               </p>
             </div> 
             <div class="field">
