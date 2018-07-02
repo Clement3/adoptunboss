@@ -122,4 +122,13 @@ Class EventsController extends Controller
             ])->redirect('events');            
         }
     }
+
+    public function adminEvents() 
+    {
+        $dao = new DAOEvent();
+        
+        $this->render('events/admin_events', [
+            'events' => $dao->getAll()
+        ]);
+    }
 }

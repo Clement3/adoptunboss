@@ -84,6 +84,8 @@
         "POST":"UsersController:update"
     },
     "/admin/users/(:)/delete": "UsersController:delete",
+    "/admin/news": "NewsController:adminNews",
+    "/admin/events": "EventsController:adminEvents",
     "/admin/offers": "OffersController:index",
     "/admin/offers/(:)/edit": {
         "GET": "OffersController:edit",

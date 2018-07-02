@@ -12,7 +12,7 @@
   <div class="columns is-multiline">
     <div class="column is-6">
       <div class="box">
-        <h6 class="title is-6">Dernières recruteurs <a href="<?= $helper->base_url('admin/users') ?>" class="is-pulled-right">Voir tous</a></h6>
+        <h6 class="title is-6">Dernières recruteurs <a href="<?= $helper->base_url('admin/users') ?>" class="is-pulled-right">Voir tout</a></h6>
         <?php if (empty($recruiters)) { ?>
         <div class="has-text-centered">
           <p>Aucun recruteur.</p>
@@ -41,7 +41,7 @@
     </div>  
     <div class="column is-6">
       <div class="box">
-        <h6 class="title is-6">Dernières candidats <a href="<?= $helper->base_url('admin/users') ?>" class="is-pulled-right">Voir tous</a></h6>
+        <h6 class="title is-6">Dernières candidats <a href="<?= $helper->base_url('admin/users') ?>" class="is-pulled-right">Voir tout</a></h6>
         <?php if (empty($candidats)) { ?>
         <div class="has-text-centered">
           <p>Aucun candidat.</p>
@@ -68,7 +68,7 @@
     </div>      
     <div class="column is-6">
       <div class="box">
-        <h6 class="title is-6">Dernières actualités</h6>
+        <h6 class="title is-6">Dernières actualités<a href="<?= $helper->base_url('admin/news') ?>" class="is-pulled-right">Voir tout</a></h6>
         <?php if (empty($news)) { ?>
         <div class="has-text-centered">
           <p>Aucune actualités.</p>
@@ -93,7 +93,7 @@
     </div>
     <div class="column is-6">
       <div class="box">
-        <h6 class="title is-6">Dernières évènement</h6>
+        <h6 class="title is-6">Derniers évènements<a href="<?= $helper->base_url('admin/events') ?>" class="is-pulled-right">Voir tout</a></h6>
         <?php if (empty($events)) { ?>
         <div class="has-text-centered">
           <p>Aucun evènement.</p>
