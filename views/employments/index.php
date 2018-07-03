@@ -26,19 +26,25 @@
           <tr>
             <th><abbr title="Identifiant"># ID</abbr></th>
             <th>Nom</th>
+            <th>Durée</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($employments as $employments) { ?>
+          <?php foreach ($employments as $employment) { ?>
             <tr>
-              <th><?= $employments['id'] ?></th>
-              <td><?= $employments['name'] ?></td>
+              <th><?= $employment['id'] ?></th>
+              <td><?= $employment['name'] ?></td>
               <td>
-                <a href="<?= $helper->base_url('admin/employments/'. $employments['id'] .'/edit') ?>" class="icon has-text-info">
+              <?php if ($employment['has_period']) { ?>
+                <span class="tag is-info">Oui</span>
+              <?php } ?>
+              </td>              
+              <td>
+                <a href="<?= $helper->base_url('admin/employments/'. $employment['id'] .'/edit') ?>" class="icon has-text-info">
                   <i class="fas fa-edit"></i>
                 </a>
-                <a href="<?= $helper->base_url('admin/employments/'. $employments['id'] .'/delete') ?>" class="icon has-text-danger">
+                <a href="<?= $helper->base_url('admin/employments/'. $employment['id'] .'/delete') ?>" class="icon has-text-danger">
                   <i class="fas fa-trash-alt"></i>
                 </a>
               </td>              

@@ -24,6 +24,12 @@
                 <input class="input" type="text" name="name" value="<?= $employment['name'] ?>">
               </div>          
             </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" name="period" <?php if ($employment['has_period']) { ?>checked<?php } ?>>
+                Ce type de contrat à t'il une durée ?
+              </label>
+            </div>            
             <button type="submit" class="button is-primary full-width">Editer</button>                  
           </form>
         </div>      

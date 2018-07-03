@@ -139,5 +139,7 @@
         "POST": "EmploymentsController:store"
     },
     "/admin/employments/(:)/delete": "EmploymentsController:delete",
-    "/ajax/skills/(:)": "AjaxController:getSkills"   
+    "/ajax/skills/(:)": "AjaxController:getSkills",
+    "/ajax/skills/profile/(:)": "AjaxController:getSkillsForProfile",
+    "/ajax/skills/offer/(:)": "AjaxController:getSkillsForOffer"   
 }

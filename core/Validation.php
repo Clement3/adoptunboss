@@ -132,6 +132,17 @@ class Validation {
         return $this;
     }
 
+    public function isInt()
+    {
+        if (isset($this->post[$this->field]) && is_numeric($this->post[$this->field])) {
+            return $this;
+        }
+
+        $this->error[] = 'Le champ ' . $this->field_name . ' doit être de type numéric.';
+
+        return $this;
+    }
+
     /**
      * Si le champ est un boolean
      */

@@ -46,14 +46,20 @@
               <p class="control">
                 <label class="label">Type de contrat</label>
                 <div class="select full-width">
-                  <select class="full-width" name="employment">
+                  <select class="full-width" name="employment" id="employments">
                     <?php foreach ($employments as $employment) { ?>
-                      <option value="<?= $employment['id'] ?>"><?= $employment['name'] ?></option>
+                      <option value="<?= $employment['id'] ?>" data-period="<?= $employment['has_period'] ?>"><?= $employment['name'] ?></option>
                     <?php } ?>
                   </select>
                 </div>                
               </p>              
-            </div>            
+            </div>
+            <div class="field hidden" id="period-field">
+              <label class="label">Durée du contrat (en mois)</label>
+              <p class="control">
+                <input class="input" type="number" name="period" placeholder="12">
+              </p>
+            </div>                         
             <div class="field">
               <p class="control">
                 <label class="label">Activités</label>
@@ -65,7 +71,13 @@
                   </select>
                 </div>                
               </p> 
-            </div>             
+            </div>
+            <div class="field">
+              <label class="label">Expérience</label>
+              <p class="control">                
+                <input type="number" class="input" name="exp" placeholder="L'expérience que vous avez dans ce secteur">              
+              </p>
+            </div>                          
             <div class="field">
               <select multiple="multiple" id="skills" name="skills[]">
               </select>
@@ -76,7 +88,7 @@
               <textarea class="textarea" name="content" cols="30" rows="10" placeholder="Décrivez votre annonce"></textarea>
               </div>
             </div>             
-            <button type="submit" class="button is-primary full-width">Envoyer</button>                     
+            <button type="submit" class="button is-primary full-width">Créer une offre</button>                     
           </form>
         </div>
       </div>

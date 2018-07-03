@@ -17,4 +17,26 @@ class AjaxController extends Controller
 
         echo json_encode($skills);
     }
+
+    public function getSkillsForOffer($id)
+    {
+        $dao = new DAOSkill();
+
+        $skills = $dao->allSkillsForOffer($id);
+
+        header('Content-Type: application/json');
+
+        echo json_encode($skills);        
+    }
+
+    public function getSkillsForProfile($id)
+    {
+        $dao = new DAOSkill();
+
+        $skills = $dao->allSkillsForProfile($id);
+
+        header('Content-Type: application/json');
+
+        echo json_encode($skills);   
+    }
 }

@@ -74,4 +74,40 @@ class DAOSkill extends DAO
 
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function allSkillsForProfile($id)
+    {
+        $sql = '
+            SELECT s.id, s.name 
+            FROM profiles_has_skills AS p 
+            INNER JOIN skills AS s 
+            ON s.id = p.skills_id
+            WHERE p.profiles_id = :profiles_id
+        ';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':profiles_id', $id);
+
+        $req->execute();
+
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function allSkillsForOffer($id)
+    {
+        $sql = '
+            SELECT s.id, s.name 
+            FROM offers_has_skills AS o 
+            INNER JOIN skills AS s 
+            ON s.id = o.skills_id
+            WHERE o.offers_id = :offers_id
+        ';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':offers_id', $id);
+
+        $req->execute();
+
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

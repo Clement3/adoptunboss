@@ -39,8 +39,15 @@ Class EmploymentsController extends Controller
 
         if ($validation->isValid()) {
 
+            $period = 0;
+
+            if (isset($_POST['period']) && $_POST['period'] === 'on') {
+                $period = 1;
+            }
+
             $employments = $this->dao->create([
-                'name' => $_POST['name']
+                'name' => $_POST['name'],
+                'period' => $period
             ]);
 
             if ($employments) {
@@ -66,12 +73,20 @@ Class EmploymentsController extends Controller
     {
         $validation = new Validation($_POST, $this->dao);
 
-        $validation->field('name', 'nom')->notEmpty()->isUnique('employments');
+        $validation->field('name', 'nom')->notEmpty();
 
         if ($validation->isValid()) {
+
+            $period = 0;
+
+            if (isset($_POST['period']) && $_POST['period'] === 'on') {
+                $period = 1;
+            }
+
             $employments = $this->dao->update([
                 'id' => $id,
-                'name' => $_POST['name']
+                'name' => $_POST['name'],
+                'period' => $period
             ]);
 
             if ($employments) {
