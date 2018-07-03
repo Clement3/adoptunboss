@@ -18,6 +18,16 @@ class DAOOffer extends DAO
         $req->execute();
     }
 
+    public function deleteAllSkills($offer)
+    {
+        $sql = 'DELETE FROM offers_has_skills WHERE offers_id = :offers_id';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':offers_id', $offer);
+
+        return $req->execute();
+    }
+
     public function create($array) 
     {        
         $sql = '
@@ -31,7 +41,9 @@ class DAOOffer extends DAO
             employments_id,
             latitude,
             longitude,
-            period
+            period,
+            experience,
+            place
         ) VALUES (
             :users_id, 
             :title, 
@@ -42,7 +54,9 @@ class DAOOffer extends DAO
             :employments_id,
             :latitude,
             :longitude,
-            :period
+            :period,
+            :experience,
+            :place
         )';
 
         $req = $this->getPDO()->prepare($sql);
@@ -57,7 +71,9 @@ class DAOOffer extends DAO
         $req->bindParam(':latitude', $array['latitude']);
         $req->bindParam(':longitude', $array['longitude']);
         $req->bindParam(':period', $array['period']);
-        
+        $req->bindParam(':experience', $array['experience']);
+        $req->bindParam(':place', $array['place']);
+
         $req->execute();
 
         $offer_id = $this->getPdo()->lastInsertId();
@@ -99,6 +115,7 @@ class DAOOffer extends DAO
             SELECT 
                 o.id, o.title, o.content, o.salary_min, o.salary_max, 
                 o.experience, o.latitude, o.longitude, o.created_date,
+                o.period, o.place,
                 e.name AS employment_name,
                 a.name AS activitie_name 
             FROM offers AS o
@@ -118,20 +135,47 @@ class DAOOffer extends DAO
     }
 
     public function update($array) {
-        $sql = $this->getPDO()->prepare('
-            UPDATE offers
-            SET
-                title = :title, 
-                content = :content, 
-                updated_date = NOW(), 
-                zip_code = :zip_code, 
-                salary_min = :salary_min, 
-                salary_max = :salary_max, 
-                experience = :experience, 
-                period = :period
-            WHERE id = :id
-        ');
-        $sql->execute($array);
+        $sql = '
+        UPDATE offers SET
+            title = :title, 
+            content = :content, 
+            salary_min = :salary_min, 
+            salary_max = :salary_max, 
+            latitude = :latitude,
+            longitude = :longitude,
+            period = :period,
+            experience = :experience,
+            place = :place,
+            activities_id = :activities_id, 
+            employments_id = :employments_id,
+            created_date = NOW()
+        WHERE id = :id            
+        ';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':title', $array['title']);
+        $req->bindParam(':content', $array['content']);
+        $req->bindParam(':salary_min', $array['salary_min']);
+        $req->bindParam(':salary_max', $array['salary_max']);
+        $req->bindParam(':activities_id', $array['activities_id']);
+        $req->bindParam(':employments_id', $array['employments_id']);
+        $req->bindParam(':latitude', $array['latitude']);
+        $req->bindParam(':longitude', $array['longitude']);
+        $req->bindParam(':period', $array['period']);
+        $req->bindParam(':experience', $array['experience']);
+        $req->bindParam(':place', $array['place']);
+        $req->bindParam(':id', $array['id']);
+
+        $req->execute();
+
+        $this->deleteAllSkills($array['id']);
+
+        foreach ($array['skills'] as $skill) {
+            $this->addSkill([
+                'offers_id' => $array['id'],
+                'skills_id' => $skill
+            ]);
+        }        
     }
 
     public function getAllByUserId($id)

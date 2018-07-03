@@ -57,7 +57,7 @@
             <div class="field hidden" id="period-field">
               <label class="label">Durée du contrat (en mois)</label>
               <p class="control">
-                <input class="input" type="number" name="period" placeholder="12">
+                <input id="period-input" class="input" type="number" name="period" placeholder="12">
               </p>
             </div>                         
             <div class="field">

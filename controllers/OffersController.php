@@ -47,24 +47,46 @@ Class OffersController extends Controller
     public function update($id)
     {  
         $dao = new DAOOffer();
-        
-        $offer = $dao->update([
-            'id' =>  $id,
-            'title' => $_POST['title'],
-            'content' => $_POST['content'],
-            'zip_code' => $_POST['zip_code'],
-            'salary_min' => $_POST['salary_min'],
-            'salary_max' => $_POST['salary_max'],
-            'experience' => $_POST['experience'],
-            'period' => $_POST['period']        
-        ]);
 
-        if ($offer) {
-            $this->helper()->with('flash', [
-                'class' => 'is-danger',
-                'message' => 'L\'évènement à bien été modifier !'
-            ])->redirect('admin/events/' . $id . '/edit');        
+        $validation  = new Validation($_POST, $dao);
+
+        $validation->field('title', 'titre')->notEmpty();
+        $validation->field('content', 'contenu')->notEmpty();
+        $validation->field('salary_min', 'salaire min')->notEmpty();
+        $validation->field('salary_max', 'salaire max')->notEmpty();
+        $validation->field('place', 'localisation')->notEmpty();
+        $validation->field('employment', 'type de contrat')->notEmpty();
+        $validation->field('activitie', 'activitie')->notEmpty();
+        $validation->field('skills', 'compétences')->notEmpty();
+        $validation->field('lat', 'latitude')->notEmpty();
+        $validation->field('lng', 'longitude')->notEmpty();
+
+        if ($validation->isValid()) {
+            $offer = $dao->update([
+                'id' =>  $id,
+                'title' => $_POST['title'],
+                'content' => $_POST['content'],
+                'salary_min' => $_POST['salary_min'],
+                'salary_max' => $_POST['salary_max'],
+                'experience' => $_POST['exp'],
+                'period' => $_POST['period'],
+                'place' => $_POST['place'],
+                'latitude' => $_POST['lat'],
+                'longitude' => $_POST['lng'],
+                'skills' => $_POST['skills'],
+                'activities_id' => $_POST['activitie'],
+                'employments_id' => $_POST['employment']
+            ]);
+
+            if ($offer) {
+                $this->helper()->with('flash', [
+                    'class' => 'is-success',
+                    'message' => 'Vous avez bien éditer l\'offre'
+                ])->redirect('offers/' . $id . '/edit');     
+            }
         }
+
+        $this->helper()->withErrors($validation->errors)->redirect('offers/'.$id.'/edit');
     }
 
     public function create() 
@@ -107,7 +129,9 @@ Class OffersController extends Controller
                 'employments_id' => $_POST['employment'],
                 'skills' => $_POST['skills'],
                 'latitude' => $_POST['lat'],
-                'longitude' => $_POST['lng']
+                'longitude' => $_POST['lng'],
+                'experience' => $_POST['exp'],
+                'place' => $_POST['place']
             ]);
             
             if ($offer) {

@@ -64,23 +64,29 @@ $(document).ready(function() {
                 setSkills(data, res);
             });
         } else if ($('#offer').length) {
-
-        }  
+            $.get('/ajax/skills/offer/' + $('#offer').val(), function (res) {
+                setSkills(data, res);
+            });
+        }
+        
+        setSkills(data);
     }
 
-    function setSkills(data, skills)
+    function setSkills(data, skills = null)
     {        
         for (var i = 0; i < data.length; i++) {
             $('#skills').append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
         }
 
-        for (var k = 0; k < skills.length; k++) {
-            $('#skills').append('<option value="' + skills[k].id + '" selected>' + skills[k].name + '</option>');
+        if (skills !== null) {
+            for (var k = 0; k < skills.length; k++) {
+                $('#skills').append('<option value="' + skills[k].id + '" selected>' + skills[k].name + '</option>');
+            }            
         }
 
         $('#skills option').each(function() {
             $(this).prevAll('option[value="' + this.value + '"]').remove();
-          });
+        });
 
         $('#skills').multiSelect('refresh'); 
     }

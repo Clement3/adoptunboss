@@ -54,6 +54,8 @@
         "POST": "OffersController:postApply"
     },
     "/offer/(:)": "OffersController:show",
+    "/offer/(:)/bookmark": "BookmarksController:create",
+    "/offer/(:)/unbookmark": "BookmarkController:delete",
     "/matchs": "MatchsController:matchs",
     "/dashboard": "UsersController:dashboard",
     "/settings": {

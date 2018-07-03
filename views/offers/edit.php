@@ -18,6 +18,7 @@
         <div class="box">
           <?php include('./views/helpers/notifications.php') ?>
           <form method="POST" action="<?= $helper->base_url('offers/'.$offer['id'].'/edit') ?>">
+            <input type="text" class="hidden" value="<?= $offer['id'] ?>" id="offer">
             <div class="field">
               <label class="label">Titre de l'offre</label>
               <div class="control">
@@ -27,9 +28,9 @@
             <div class="field">
               <label class="label">Localisation</label>
               <div class="control">
-                <input class="input" type="text" placeholder="Titre" name="place" id="place">
-                <input type="text" class="hidden" id="lat" name="lat">
-                <input type="text" class="hidden" id="lng" name="lat">
+                <input class="input" type="text" placeholder="Titre" name="place" id="place" value="<?= $offer['place'] ?>">
+                <input type="text" class="hidden" id="lat" name="lat" value="<?= $offer['latitude'] ?>">
+                <input type="text" class="hidden" id="lng" name="lng" value="<?= $offer['longitude'] ?>">
               </div>
             </div>
             <div class="field is-grouped">
