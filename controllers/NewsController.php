@@ -18,6 +18,15 @@ Class NewsController extends Controller{
         ]);
     }
 
+    public function show($id)
+    {
+        $dao = new DAONews();
+
+        $this->render('news/show', [
+            'new' => $dao->retrieve($id)
+        ]);
+    }
+
     //permet d'afficher le formulaire de modification des news
     public function edit($id)
     {
@@ -58,7 +67,7 @@ Class NewsController extends Controller{
                     $this->helper()->with('flash', [
                         'class' => 'is-success',
                         'message' => 'Cet actualité à bien été modifier.'
-                    ])->redirect('news/'. $id .'/edit');
+                    ])->redirect('news/'. $id);
                 }
             }
 
@@ -120,5 +129,14 @@ Class NewsController extends Controller{
                 'message' => 'Cet actualité à été supprimer avec succès.'
             ])->redirect('news');            
         }
+    }
+
+    public function adminNews() 
+    {
+        $dao = new DAONews();
+        
+        $this->render('news/admin_news', [
+            'news' => $dao->getAll()
+        ]);
     }
 }

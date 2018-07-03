@@ -64,10 +64,16 @@
                   Dashboard
                 </a>                
                 <a href="<?= $helper->base_url('admin/users'); ?>" class="navbar-item">
-                  Utilisateurs
+                  Gestion des Utilisateurs
                 </a>                
                 <a href="<?= $helper->base_url('admin/offers'); ?>" class="navbar-item">
-                  Offres
+                  Gestion des Offres
+                </a>
+                <a href="<?= $helper->base_url('admin/news'); ?>" class="navbar-item">
+                  Gestion des news
+                </a>
+                <a href="<?= $helper->base_url('admin/events'); ?>" class="navbar-item">
+                  Gestion des events
                 </a>
                 <a href="<?= $helper->base_url('admin/newsletters'); ?>" class="navbar-item">
                   Newsletters
