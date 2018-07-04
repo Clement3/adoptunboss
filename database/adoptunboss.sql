@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 29, 2018 at 03:59 PM
+-- Generation Time: Jul 04, 2018 at 10:07 AM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
 -- PHP Version: 7.2.4-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -36,8 +36,26 @@ CREATE TABLE `activities` (
 --
 
 INSERT INTO `activities` (`id`, `name`) VALUES
-(1, 'Informatiques'),
-(2, 'Vendeur');
+(1, 'Informatique'),
+(2, 'Restauration');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookmarks`
+--
+
+CREATE TABLE `bookmarks` (
+  `id` int(11) NOT NULL,
+  `offers_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `bookmarks`
+--
+
+INSERT INTO `bookmarks` (`id`, `offers_id`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -47,6 +65,7 @@ INSERT INTO `activities` (`id`, `name`) VALUES
 
 CREATE TABLE `contacts` (
   `id` int(11) NOT NULL,
+  `read` tinyint(1) DEFAULT NULL,
   `email` varchar(45) NOT NULL,
   `full_name` varchar(45) NOT NULL,
   `content` text NOT NULL,
@@ -71,8 +90,9 @@ CREATE TABLE `employments` (
 --
 
 INSERT INTO `employments` (`id`, `name`, `has_period`) VALUES
-(1, 'CDI', 0),
-(2, 'CDD', 0);
+(1, 'CDD', 1),
+(2, 'CDI', 0),
+(3, 'Intérim', 1);
 
 -- --------------------------------------------------------
 
@@ -121,8 +141,6 @@ CREATE TABLE `news` (
   `title` varchar(255) NOT NULL,
   `short_content` text NOT NULL,
   `content` text NOT NULL,
-  `longitude` varchar(45) DEFAULT NULL,
-  `latitude` varchar(45) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `updated_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -173,10 +191,18 @@ CREATE TABLE `offers` (
   `period` int(11) DEFAULT NULL,
   `latitude` varchar(45) DEFAULT NULL,
   `longitude` varchar(45) DEFAULT NULL,
+  `place` varchar(255) NOT NULL,
   `users_id` int(11) NOT NULL,
   `activities_id` int(11) NOT NULL,
   `employments_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `offers`
+--
+
+INSERT INTO `offers` (`id`, `title`, `content`, `created_date`, `updated_date`, `salary_min`, `salary_max`, `experience`, `closed`, `period`, `latitude`, `longitude`, `place`, `users_id`, `activities_id`, `employments_id`) VALUES
+(1, 'Hello', 'bgdfqgfgfhsg', '2018-07-04 09:46:56', NULL, 5456516, 5546456, 5, 0, 6, '48.8372728', '2.3353872999999794', 'Montparnasse, Paris, France', 1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -188,6 +214,14 @@ CREATE TABLE `offers_has_skills` (
   `offers_id` int(11) NOT NULL,
   `skills_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `offers_has_skills`
+--
+
+INSERT INTO `offers_has_skills` (`offers_id`, `skills_id`) VALUES
+(1, 3),
+(1, 5);
 
 -- --------------------------------------------------------
 
@@ -214,34 +248,21 @@ CREATE TABLE `profiles` (
   `longitude` varchar(45) DEFAULT NULL,
   `latitude` varchar(45) DEFAULT NULL,
   `radius` int(11) DEFAULT NULL,
-  `salary_min` int(11) DEFAULT NULL,
-  `salary_max` int(11) DEFAULT NULL,
+  `salary` int(11) DEFAULT NULL,
   `experience` int(11) DEFAULT NULL,
   `period` int(11) DEFAULT NULL,
-  `users_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `profiles_has_activities`
---
-
-CREATE TABLE `profiles_has_activities` (
-  `profiles_id` int(11) NOT NULL,
-  `activities_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `profiles_has_employments`
---
-
-CREATE TABLE `profiles_has_employments` (
-  `profiles_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `activities_id` int(11) NOT NULL,
   `employments_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `profiles`
+--
+
+INSERT INTO `profiles` (`id`, `longitude`, `latitude`, `radius`, `salary`, `experience`, `period`, `users_id`, `activities_id`, `employments_id`) VALUES
+(5, '', '', 400, 122552, 5, 6, 1, 1, 1),
+(6, '', '', 100, 45000, 7, 3, 2, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -251,9 +272,18 @@ CREATE TABLE `profiles_has_employments` (
 
 CREATE TABLE `profiles_has_skills` (
   `profiles_id` int(11) NOT NULL,
-  `skills_id` int(11) NOT NULL,
-  `skills_offers_id` int(11) NOT NULL
+  `skills_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `profiles_has_skills`
+--
+
+INSERT INTO `profiles_has_skills` (`profiles_id`, `skills_id`) VALUES
+(6, 2),
+(5, 3),
+(6, 3),
+(5, 5);
 
 -- --------------------------------------------------------
 
@@ -285,9 +315,11 @@ CREATE TABLE `skills` (
 --
 
 INSERT INTO `skills` (`id`, `name`, `activities_id`) VALUES
-(1, 'Pompage de bite', 2),
+(1, 'Faire le Kebab', 2),
 (2, 'PHP', 1),
-(3, 'Laravel', 1);
+(3, 'Laravel', 1),
+(4, 'Faire la vaiselle', 2),
+(5, 'Test', 1);
 
 -- --------------------------------------------------------
 
@@ -333,9 +365,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `is_premium`, `is_admin`, `is_recruiter`, `firstname`, `lastname`, `email`, `tel`, `password`, `company`, `created_date`, `updated_date`, `birthday`, `profil_picture`) VALUES
-(1, 0, 1, 0, 'Clément', 'Besse', 'clement.besse@gmail.com', NULL, '$2y$10$Ykn/S085J9m6nFKcC2Lr7.LgLA2LKDIWWR9.X5cMVhYYbbybOPpRu', NULL, '2018-06-29 10:57:12', '2018-06-29 14:05:54', NULL, NULL),
-(2, 0, 0, 0, 'Caca', 'caca', 'caca@caca.com', NULL, '$2y$10$X9La/Naedih6/kKeq.WMyuCsMpAuXkrTpTEaDT39GkNOmjGSgpxyW', NULL, '2018-06-29 11:53:04', NULL, NULL, NULL),
-(3, 0, 1, 0, 'Admin', 'admin', 'admin@admin.com', NULL, '$2y$10$KKqQoM4EOtxZfs89ZwFJ/ukaVs73GosiBr7xeduphNwvU/gFxGfGy', NULL, '2018-06-29 15:56:57', NULL, NULL, NULL);
+(1, 0, 1, 1, 'Clément', 'Besse', 'admin@admin.com', NULL, '$2y$10$c4hyjvIJRh42FgLe0HvDleaAIKrtYvZWKEyKdwnd2DZQAtKk/DlJa', NULL, '2018-07-02 13:36:56', '2018-07-03 13:45:29', NULL, NULL),
+(2, 0, 1, 0, 'Clément', 'Besse', 'clement.besse@gmail.com', NULL, '$2y$10$galhqL/fHqybJO1tTHbwIeSO39OJFIY8O5ivlv/Ng9jGNP1XD1bWK', NULL, '2018-07-04 09:33:56', '2018-07-04 09:34:08', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -399,6 +430,7 @@ ALTER TABLE `notifications`
 --
 ALTER TABLE `offers`
   ADD PRIMARY KEY (`id`,`users_id`,`activities_id`,`employments_id`),
+  ADD UNIQUE KEY `t` (`title`),
   ADD KEY `fk_offers_users_idx` (`users_id`),
   ADD KEY `fk_offers_activities1_idx` (`activities_id`),
   ADD KEY `fk_offers_employments1_idx` (`employments_id`);
@@ -424,32 +456,18 @@ ALTER TABLE `postulates`
 -- Indexes for table `profiles`
 --
 ALTER TABLE `profiles`
-  ADD PRIMARY KEY (`id`,`users_id`),
+  ADD PRIMARY KEY (`id`,`users_id`,`activities_id`,`employments_id`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`),
-  ADD KEY `fk_profiles_users1_idx` (`users_id`);
-
---
--- Indexes for table `profiles_has_activities`
---
-ALTER TABLE `profiles_has_activities`
-  ADD PRIMARY KEY (`profiles_id`,`activities_id`),
-  ADD KEY `fk_profiles_has_activities_activities1_idx` (`activities_id`),
-  ADD KEY `fk_profiles_has_activities_profiles1_idx` (`profiles_id`);
-
---
--- Indexes for table `profiles_has_employments`
---
-ALTER TABLE `profiles_has_employments`
-  ADD PRIMARY KEY (`profiles_id`,`employments_id`),
-  ADD KEY `fk_profiles_has_employments_employments1_idx` (`employments_id`),
-  ADD KEY `fk_profiles_has_employments_profiles1_idx` (`profiles_id`);
+  ADD KEY `fk_profiles_users1_idx` (`users_id`),
+  ADD KEY `fk_profiles_activities1_idx` (`activities_id`),
+  ADD KEY `fk_profiles_employments1_idx` (`employments_id`);
 
 --
 -- Indexes for table `profiles_has_skills`
 --
 ALTER TABLE `profiles_has_skills`
-  ADD PRIMARY KEY (`profiles_id`,`skills_id`,`skills_offers_id`),
-  ADD KEY `fk_profiles_has_skills_skills1_idx` (`skills_id`,`skills_offers_id`),
+  ADD PRIMARY KEY (`profiles_id`,`skills_id`),
+  ADD KEY `fk_profiles_has_skills_skills1_idx` (`skills_id`),
   ADD KEY `fk_profiles_has_skills_profiles1_idx` (`profiles_id`);
 
 --
@@ -501,12 +519,12 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT for table `employments`
 --
 ALTER TABLE `employments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `messages`
 --
@@ -531,7 +549,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `postulates`
 --
@@ -541,7 +559,7 @@ ALTER TABLE `postulates`
 -- AUTO_INCREMENT for table `profiles`
 --
 ALTER TABLE `profiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `reset_password`
 --
@@ -551,7 +569,7 @@ ALTER TABLE `reset_password`
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `threads`
 --
@@ -561,7 +579,7 @@ ALTER TABLE `threads`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
@@ -577,9 +595,7 @@ ALTER TABLE `messages`
 -- Constraints for table `offers`
 --
 ALTER TABLE `offers`
-  ADD CONSTRAINT `fk_offers_activities1` FOREIGN KEY (`activities_id`) REFERENCES `activities` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_offers_employments1` FOREIGN KEY (`employments_id`) REFERENCES `employments` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_offers_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_offers_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `offers_has_skills`
@@ -599,21 +615,9 @@ ALTER TABLE `postulates`
 -- Constraints for table `profiles`
 --
 ALTER TABLE `profiles`
+  ADD CONSTRAINT `fk_profiles_activities1` FOREIGN KEY (`activities_id`) REFERENCES `activities` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_profiles_employments1` FOREIGN KEY (`employments_id`) REFERENCES `employments` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_profiles_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `profiles_has_activities`
---
-ALTER TABLE `profiles_has_activities`
-  ADD CONSTRAINT `fk_profiles_has_activities_activities1` FOREIGN KEY (`activities_id`) REFERENCES `activities` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_profiles_has_activities_profiles1` FOREIGN KEY (`profiles_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `profiles_has_employments`
---
-ALTER TABLE `profiles_has_employments`
-  ADD CONSTRAINT `fk_profiles_has_employments_employments` FOREIGN KEY (`employments_id`) REFERENCES `employments` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_profiles_has_employments_profiles` FOREIGN KEY (`profiles_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `profiles_has_skills`

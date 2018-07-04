@@ -3,6 +3,7 @@
 namespace BWB\Framework\mvc\dao;
 
 use BWB\Framework\mvc\DAO;
+use PDO;
 
 class DAOProfile extends DAO
 {
@@ -102,8 +103,10 @@ class DAOProfile extends DAO
                 p.salary,
                 p.experience,
                 p.period,
+                p.activities_id,
+                p.employments_id,
                 e.name AS employment_name,
-                a.name AS activitie_name 
+                a.name AS activitie_name
             FROM profiles as p 
             INNER JOIN employments AS e
             ON e.id = p.employments_id
@@ -116,7 +119,7 @@ class DAOProfile extends DAO
         $req->bindParam(':user_id', $id);
         $req->execute();
 
-        return $req->fetch();
+        return $req->fetch(PDO::FETCH_ASSOC);
     }
 
     public function update($array)

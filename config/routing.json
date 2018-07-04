@@ -56,7 +56,7 @@
     "/offer/(:)": "OffersController:show",
     "/offer/(:)/bookmark": "BookmarksController:create",
     "/offer/(:)/unbookmark": "BookmarkController:delete",
-    "/matchs": "MatchsController:matchs",
+    "/matchs": "MatchsController:index",
     "/dashboard": "UsersController:dashboard",
     "/settings": {
         "GET": "UsersController:getSettings",
