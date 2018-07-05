@@ -48,8 +48,8 @@ class ProfilesController extends Controller
         if ($validation->isValid()) {
 
             $fields = [
-                'longitude' => $_POST['lat'],
-                'latitude' => $_POST['lng'],
+                'longitude' => $_POST['lng'],
+                'latitude' => $_POST['lat'],
                 'radius' => !empty($_POST['radius']) ? $_POST['radius'] : null,
                 'salary' => !empty($_POST['salary']) ? $_POST['salary'] : null,
                 'experience' => !empty($_POST['exp']) ? $_POST['exp'] : null,
@@ -57,7 +57,8 @@ class ProfilesController extends Controller
                 'users_id' => $_SESSION['user']['id'],
                 'activities_id' => $_POST['activitie'],
                 'employments_id' => $_POST['employment'],
-                'skills' => $_POST['skills']
+                'skills' => $_POST['skills'],
+                'place' => $_POST['place']
             ];
         
             // Si le profile existe

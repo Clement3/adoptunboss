@@ -60,6 +60,7 @@ Class OffersController extends Controller
         $validation->field('skills', 'compétences')->notEmpty();
         $validation->field('lat', 'latitude')->notEmpty();
         $validation->field('lng', 'longitude')->notEmpty();
+        $validation->field('exp', 'experience')->notEmpty();
 
         if ($validation->isValid()) {
             $offer = $dao->update([
@@ -116,7 +117,8 @@ Class OffersController extends Controller
         $validation->field('skills', 'compétences')->notEmpty();
         $validation->field('lat', 'latitude')->notEmpty();
         $validation->field('lng', 'longitude')->notEmpty();
-
+        $validation->field('exp', 'experience')->notEmpty();
+        
         if ($validation->isValid()) {
 
             $offer = $dao->create([

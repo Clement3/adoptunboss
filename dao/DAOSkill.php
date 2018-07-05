@@ -110,4 +110,20 @@ class DAOSkill extends DAO
 
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function skillsSameAsOffer($offer_id, $skill_id)
+    {
+        $sql = 'SELECT count(*) FROM offers_has_skills WHERE offers_id = :offers_id AND skills_id = :skills_id';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':offers_id', $offer_id);
+        $req->bindParam(':skills_id', $skill_id);
+        $req->execute();
+
+        if ($req->fetchColumn() >= 1) {
+            return true;
+        }
+
+        return false;
+    }
 }

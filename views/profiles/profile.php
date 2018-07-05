@@ -21,7 +21,7 @@
             <div class="field is-grouped">
               <p class="control is-expanded">
                 <label class="label">Localisation</label>
-                <input class="input" type="text" placeholder="ex: Montpellier" name="place" id="place">
+                <input class="input" type="text" placeholder="ex: Montpellier" name="place" id="place" value="<?= $profile['place'] ?>">
                 <input type="text" class="hidden" id="lat" name="lat">
                 <input type="text" class="hidden" id="lng" name="lng">
               </p>

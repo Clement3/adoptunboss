@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 04, 2018 at 10:07 AM
+-- Generation Time: Jul 05, 2018 at 01:31 PM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
 -- PHP Version: 7.2.4-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -36,8 +36,10 @@ CREATE TABLE `activities` (
 --
 
 INSERT INTO `activities` (`id`, `name`) VALUES
-(1, 'Informatique'),
-(2, 'Restauration');
+(3, 'BTP'),
+(2, 'Hotellerie'),
+(1, 'Informatiques'),
+(4, 'Restauration');
 
 -- --------------------------------------------------------
 
@@ -47,15 +49,10 @@ INSERT INTO `activities` (`id`, `name`) VALUES
 
 CREATE TABLE `bookmarks` (
   `id` int(11) NOT NULL,
-  `offers_id` int(11) NOT NULL
+  `offers_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `created_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `bookmarks`
---
-
-INSERT INTO `bookmarks` (`id`, `offers_id`) VALUES
-(1, 1);
 
 -- --------------------------------------------------------
 
@@ -112,6 +109,29 @@ CREATE TABLE `events` (
   `created_date` datetime DEFAULT NULL,
   `updated_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `matchs`
+--
+
+CREATE TABLE `matchs` (
+  `id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `offers_id` int(11) NOT NULL,
+  `indice` int(11) NOT NULL,
+  `view` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `matchs`
+--
+
+INSERT INTO `matchs` (`id`, `users_id`, `offers_id`, `indice`, `view`) VALUES
+(3, 2, 2, 75, NULL),
+(4, 2, 3, 74, NULL),
+(6, 2, 4, 95, NULL);
 
 -- --------------------------------------------------------
 
@@ -191,7 +211,7 @@ CREATE TABLE `offers` (
   `period` int(11) DEFAULT NULL,
   `latitude` varchar(45) DEFAULT NULL,
   `longitude` varchar(45) DEFAULT NULL,
-  `place` varchar(255) NOT NULL,
+  `place` varchar(255) DEFAULT NULL,
   `users_id` int(11) NOT NULL,
   `activities_id` int(11) NOT NULL,
   `employments_id` int(11) NOT NULL
@@ -202,7 +222,10 @@ CREATE TABLE `offers` (
 --
 
 INSERT INTO `offers` (`id`, `title`, `content`, `created_date`, `updated_date`, `salary_min`, `salary_max`, `experience`, `closed`, `period`, `latitude`, `longitude`, `place`, `users_id`, `activities_id`, `employments_id`) VALUES
-(1, 'Hello', 'bgdfqgfgfhsg', '2018-07-04 09:46:56', NULL, 5456516, 5546456, 5, 0, 6, '48.8372728', '2.3353872999999794', 'Montparnasse, Paris, France', 1, 1, 3);
+(1, 'Cherche BTP Portugais', 'Portugais bienvenue.', NULL, NULL, 25000, 34000, 2, 0, NULL, '48.85661400000001', '2.3522219000000177', 'Paris, France', 1, 3, 3),
+(2, 'Développeur Web Paris Intramunos', 'Hello From Darkness.', NULL, NULL, 35000, 40000, 4, 0, NULL, '48.85661400000001', '2.3522219000000177', 'Paris, France', 1, 1, 2),
+(3, 'Webdesigneur Montpel', 'Caca.', NULL, NULL, 27000, 31000, 2, 0, NULL, '43.610769', '3.8767159999999876', 'Montpellier, France', 1, 1, 2),
+(4, 'Dev web montpellier', 'Hello', NULL, NULL, 35000, 40000, 3, 0, NULL, '43.610769', '3.8767159999999876', 'Montpellier, France', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -220,8 +243,33 @@ CREATE TABLE `offers_has_skills` (
 --
 
 INSERT INTO `offers_has_skills` (`offers_id`, `skills_id`) VALUES
-(1, 3),
-(1, 5);
+(2, 5),
+(4, 5),
+(2, 6),
+(4, 6),
+(2, 7),
+(4, 7),
+(3, 8),
+(3, 9),
+(3, 10),
+(2, 11),
+(4, 11),
+(1, 13),
+(1, 14),
+(1, 15);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `passwords_reset`
+--
+
+CREATE TABLE `passwords_reset` (
+  `id` int(11) NOT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `token` varchar(45) DEFAULT NULL,
+  `created_date` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -251,6 +299,7 @@ CREATE TABLE `profiles` (
   `salary` int(11) DEFAULT NULL,
   `experience` int(11) DEFAULT NULL,
   `period` int(11) DEFAULT NULL,
+  `place` varchar(255) DEFAULT NULL,
   `users_id` int(11) NOT NULL,
   `activities_id` int(11) NOT NULL,
   `employments_id` int(11) NOT NULL
@@ -260,9 +309,8 @@ CREATE TABLE `profiles` (
 -- Dumping data for table `profiles`
 --
 
-INSERT INTO `profiles` (`id`, `longitude`, `latitude`, `radius`, `salary`, `experience`, `period`, `users_id`, `activities_id`, `employments_id`) VALUES
-(5, '', '', 400, 122552, 5, 6, 1, 1, 1),
-(6, '', '', 100, 45000, 7, 3, 2, 1, 3);
+INSERT INTO `profiles` (`id`, `longitude`, `latitude`, `radius`, `salary`, `experience`, `period`, `place`, `users_id`, `activities_id`, `employments_id`) VALUES
+(1, '3.8767159999999876', '43.610769', 100, 34000, 3, NULL, 'Montpellier, France', 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -280,23 +328,10 @@ CREATE TABLE `profiles_has_skills` (
 --
 
 INSERT INTO `profiles_has_skills` (`profiles_id`, `skills_id`) VALUES
-(6, 2),
-(5, 3),
-(6, 3),
-(5, 5);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `reset_password`
---
-
-CREATE TABLE `reset_password` (
-  `id` int(11) NOT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `token` varchar(45) DEFAULT NULL,
-  `created_date` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+(1, 5),
+(1, 6),
+(1, 8),
+(1, 11);
 
 -- --------------------------------------------------------
 
@@ -315,11 +350,21 @@ CREATE TABLE `skills` (
 --
 
 INSERT INTO `skills` (`id`, `name`, `activities_id`) VALUES
-(1, 'Faire le Kebab', 2),
-(2, 'PHP', 1),
-(3, 'Laravel', 1),
-(4, 'Faire la vaiselle', 2),
-(5, 'Test', 1);
+(1, 'Prendre une commande', 4),
+(2, 'Faire la plonge', 4),
+(3, 'Préparer des entrées', 4),
+(4, 'Accueil des clients', 4),
+(5, 'PHP', 1),
+(6, 'Laravel', 1),
+(7, 'Mysql', 1),
+(8, 'Web Design', 1),
+(9, 'Photoshop', 1),
+(10, 'ReactJS', 1),
+(11, 'VueJS', 1),
+(12, 'Faire les lits', 2),
+(13, 'Faire du ciment', 3),
+(14, 'Casser des murs', 3),
+(15, 'Faire des murs (Florian)', 3);
 
 -- --------------------------------------------------------
 
@@ -365,8 +410,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `is_premium`, `is_admin`, `is_recruiter`, `firstname`, `lastname`, `email`, `tel`, `password`, `company`, `created_date`, `updated_date`, `birthday`, `profil_picture`) VALUES
-(1, 0, 1, 1, 'Clément', 'Besse', 'admin@admin.com', NULL, '$2y$10$c4hyjvIJRh42FgLe0HvDleaAIKrtYvZWKEyKdwnd2DZQAtKk/DlJa', NULL, '2018-07-02 13:36:56', '2018-07-03 13:45:29', NULL, NULL),
-(2, 0, 1, 0, 'Clément', 'Besse', 'clement.besse@gmail.com', NULL, '$2y$10$galhqL/fHqybJO1tTHbwIeSO39OJFIY8O5ivlv/Ng9jGNP1XD1bWK', NULL, '2018-07-04 09:33:56', '2018-07-04 09:34:08', NULL, NULL);
+(1, 0, 1, 1, 'Admin', 'admin', 'admin@admin.com', NULL, '$2y$10$AlWa6ts2aG.S2EtcWZ5P4.tYmX25PYOAXCDoBtQsyuLX.cRPundW6', NULL, '2018-07-05 11:11:23', NULL, NULL, NULL),
+(2, 0, 0, 0, 'Clément', 'Besse', 'clement.besse@gmail.com', NULL, '$2y$10$7xeY5Xaza6tB1R9hqKlYh.tIq/NtW8n0TffjKq1bbysB8OQCqe2DG', NULL, '2018-07-05 11:26:51', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -378,6 +423,14 @@ INSERT INTO `users` (`id`, `is_premium`, `is_admin`, `is_recruiter`, `firstname`
 ALTER TABLE `activities`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name_UNIQUE` (`name`);
+
+--
+-- Indexes for table `bookmarks`
+--
+ALTER TABLE `bookmarks`
+  ADD PRIMARY KEY (`id`,`offers_id`,`users_id`),
+  ADD KEY `fk_bookmarks_offers1_idx` (`offers_id`),
+  ADD KEY `fk_bookmarks_users1_idx` (`users_id`);
 
 --
 -- Indexes for table `contacts`
@@ -397,6 +450,14 @@ ALTER TABLE `employments`
 --
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `matchs`
+--
+ALTER TABLE `matchs`
+  ADD PRIMARY KEY (`id`,`users_id`,`offers_id`),
+  ADD KEY `fk_matchs_users2_idx` (`users_id`),
+  ADD KEY `fk_matchs_offers2_idx` (`offers_id`);
 
 --
 -- Indexes for table `messages`
@@ -430,7 +491,6 @@ ALTER TABLE `notifications`
 --
 ALTER TABLE `offers`
   ADD PRIMARY KEY (`id`,`users_id`,`activities_id`,`employments_id`),
-  ADD UNIQUE KEY `t` (`title`),
   ADD KEY `fk_offers_users_idx` (`users_id`),
   ADD KEY `fk_offers_activities1_idx` (`activities_id`),
   ADD KEY `fk_offers_employments1_idx` (`employments_id`);
@@ -442,6 +502,12 @@ ALTER TABLE `offers_has_skills`
   ADD PRIMARY KEY (`offers_id`,`skills_id`),
   ADD KEY `fk_offers_has_skills_skills1_idx` (`skills_id`),
   ADD KEY `fk_offers_has_skills_offers1_idx` (`offers_id`);
+
+--
+-- Indexes for table `passwords_reset`
+--
+ALTER TABLE `passwords_reset`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `postulates`
@@ -469,12 +535,6 @@ ALTER TABLE `profiles_has_skills`
   ADD PRIMARY KEY (`profiles_id`,`skills_id`),
   ADD KEY `fk_profiles_has_skills_skills1_idx` (`skills_id`),
   ADD KEY `fk_profiles_has_skills_profiles1_idx` (`profiles_id`);
-
---
--- Indexes for table `reset_password`
---
-ALTER TABLE `reset_password`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `skills`
@@ -509,7 +569,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `bookmarks`
+--
+ALTER TABLE `bookmarks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `contacts`
 --
@@ -525,6 +590,11 @@ ALTER TABLE `employments`
 --
 ALTER TABLE `events`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `matchs`
+--
+ALTER TABLE `matchs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `messages`
 --
@@ -549,7 +619,12 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `passwords_reset`
+--
+ALTER TABLE `passwords_reset`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `postulates`
 --
@@ -559,17 +634,12 @@ ALTER TABLE `postulates`
 -- AUTO_INCREMENT for table `profiles`
 --
 ALTER TABLE `profiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `reset_password`
---
-ALTER TABLE `reset_password`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `threads`
 --
@@ -585,6 +655,20 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `bookmarks`
+--
+ALTER TABLE `bookmarks`
+  ADD CONSTRAINT `fk_bookmarks_offers1` FOREIGN KEY (`offers_id`) REFERENCES `offers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_bookmarks_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `matchs`
+--
+ALTER TABLE `matchs`
+  ADD CONSTRAINT `fk_matchs_offers2` FOREIGN KEY (`offers_id`) REFERENCES `offers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_matchs_users2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `messages`
 --
 ALTER TABLE `messages`
@@ -595,7 +679,9 @@ ALTER TABLE `messages`
 -- Constraints for table `offers`
 --
 ALTER TABLE `offers`
-  ADD CONSTRAINT `fk_offers_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_offers_activities1` FOREIGN KEY (`activities_id`) REFERENCES `activities` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_offers_employments1` FOREIGN KEY (`employments_id`) REFERENCES `employments` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_offers_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `offers_has_skills`

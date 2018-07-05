@@ -37,6 +37,7 @@ class DAOProfile extends DAO
             salary,
             experience,
             period,
+            place,
             users_id,
             activities_id,
             employments_id
@@ -59,6 +60,7 @@ class DAOProfile extends DAO
         $req->bindParam(':salary', $array['salary']);
         $req->bindParam(':experience', $array['experience']);
         $req->bindParam(':period', $array['period']);
+        $req->bindParam(':place', $array['place']);
         $req->bindParam(':users_id', $array['users_id']);
         $req->bindParam(':activities_id', $array['activities_id']);
         $req->bindParam(':employments_id', $array['employments_id']);
@@ -103,8 +105,10 @@ class DAOProfile extends DAO
                 p.salary,
                 p.experience,
                 p.period,
+                p.place,
                 p.activities_id,
                 p.employments_id,
+                p.users_id,
                 e.name AS employment_name,
                 a.name AS activitie_name
             FROM profiles as p 
@@ -132,6 +136,7 @@ class DAOProfile extends DAO
             salary = :salary,
             experience = :experience,
             period = :period,
+            place = :place,
             activities_id = :activities_id,
             employments_id = :employments_id
         WHERE users_id = :users_id';
@@ -146,6 +151,7 @@ class DAOProfile extends DAO
         $req->bindParam(':users_id', $array['users_id']);
         $req->bindParam(':activities_id', $array['activities_id']);
         $req->bindParam(':employments_id', $array['employments_id']);
+        $req->bindParam(':place', $array['place']);
 
         $req->execute();
 

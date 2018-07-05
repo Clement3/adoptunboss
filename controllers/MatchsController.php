@@ -5,6 +5,8 @@ namespace BWB\Framework\mvc\controllers;
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\dao\DAOOffer;
 use BWB\Framework\mvc\dao\DAOProfile;
+use BWB\Framework\mvc\dao\DAOSkill;
+use BWB\Framework\mvc\dao\DAOMatch;
 use BWB\Framework\mvc\MatchAlgo;
 
 class MatchsController extends Controller
@@ -23,15 +25,13 @@ class MatchsController extends Controller
     {
         $dao_offer = new DAOOffer();
         $dao_profile = new DAOProfile();
+        $dao_skill = new DAOSkill();
+        $dao_match = new DAOMatch();
 
         $offers = $dao_offer->getAll();
         $profile = $dao_profile->retrieve($_SESSION['user']['id']);
 
-        $algo = new MatchAlgo($profile, $offers);
-
+        $algo = new MatchAlgo($profile, $offers, $dao_skill, $dao_match);
         $algo->execute();
-        
-        return var_dump($algo->period());
-
     }
 }
