@@ -146,5 +146,8 @@
     "/admin/employments/(:)/delete": "EmploymentsController:delete",
     "/ajax/skills/(:)": "AjaxController:getSkills",
     "/ajax/skills/profile/(:)": "AjaxController:getSkillsForProfile",
-    "/ajax/skills/offer/(:)": "AjaxController:getSkillsForOffer"   
+    "/ajax/skills/offer/(:)": "AjaxController:getSkillsForOffer",
+    "/offer/(:)/postulate" : "PostulateController:store",
+    "/offer/(:)/acceptCandidate" : "PostulateController:acceptCandidate",
+    "/offer/match/postulate/index" : "PostulateController:index"
 }
