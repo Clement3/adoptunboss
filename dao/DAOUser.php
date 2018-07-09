@@ -52,7 +52,7 @@ class DAOUser extends DAO
 
     public function retrieve($id) 
     {
-        $sql = 'SELECT id, email, firstname, lastname, tel, birthday, is_admin, is_recruiter FROM users WHERE id = :id';
+        $sql = 'SELECT id, email, firstname, lastname, tel, birthday, is_admin, is_recruiter, created_date FROM users WHERE id = :id';
         $req = $this->getPdo()->prepare($sql);
         $req->bindParam(':id', $id);
         $req->execute();

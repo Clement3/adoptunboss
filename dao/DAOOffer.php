@@ -43,7 +43,8 @@ class DAOOffer extends DAO
             longitude,
             period,
             experience,
-            place
+            place,
+            created_date
         ) VALUES (
             :users_id, 
             :title, 
@@ -56,7 +57,8 @@ class DAOOffer extends DAO
             :longitude,
             :period,
             :experience,
-            :place
+            :place,
+            NOW()
         )';
 
         $req = $this->getPDO()->prepare($sql);
@@ -148,7 +150,7 @@ class DAOOffer extends DAO
             place = :place,
             activities_id = :activities_id, 
             employments_id = :employments_id,
-            created_date = NOW()
+            updated_date = NOW()
         WHERE id = :id            
         ';
 

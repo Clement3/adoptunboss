@@ -2,6 +2,8 @@
 
 namespace BWB\Framework\mvc;
 
+use BWB\Framework\mvc\dao\DAOMatch;
+
 class Helpers 
 {
     public $session = [];
@@ -134,5 +136,12 @@ class Helpers
     public function is_admin(): Bool
     {
         return isset($_SESSION['user']['is_admin']) && $_SESSION['user']['is_admin'];
+    }
+
+    public function countMatchs()
+    {
+        $dao = new DAOMatch();
+
+        echo $dao->countMatchs($_SESSION['user']['id']);
     }
 }

@@ -36,3 +36,12 @@
 .offer .offer-list dt {
     font-weight: bold;
 }
+
+
+.offers .indice {
+    font-size: 20px;
+}
+
+.offers .watch {
+    margin-top: 1rem;
+}

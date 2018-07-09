@@ -33,5 +33,22 @@ class MatchsController extends Controller
 
         $algo = new MatchAlgo($profile, $offers, $dao_skill, $dao_match);
         $algo->execute();
+
+        $this->render('matchs/index', [
+            'offers' => $dao_match->getAllBy($_SESSION['user']['id'])
+        ]);
+    }
+
+    public function show($id)
+    {
+        $dao = new DAOMatch();
+
+        $dao->view($id);
+
+        $match = $dao->retrieve($id);
+        
+        if ($match) {
+            $this->helper()->redirect('offer/'.$match['offers_id']);              
+        }
     }
 }

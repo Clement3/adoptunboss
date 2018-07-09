@@ -50,7 +50,7 @@
             </p> 
             <?php } else { ?>
             <p class="control">
-              <a class="button is-danger">Match</a>
+              <a href="<?= $helper->base_url('matchs') ?>" class="button is-danger">Match (<?= $helper->countMatchs() ?>)</a>
             </p> 
             <?php } ?>                   
             <?php if ($helper->is_admin()) { ?>
@@ -89,13 +89,7 @@
                 </a>                
                 <a href="<?= $helper->base_url('admin/skills'); ?>" class="navbar-item">
                   Compétences
-                </a>
-                <a href="<?= $helper->base_url('admin/events/create'); ?>" class="navbar-item">
-                  Créer un évènement
-                </a>
-                <a href="<?= $helper->base_url('admin/news/create'); ?>" class="navbar-item">
-                  Créer une actualité
-                </a>                                
+                </a>                         
               </div>            
             </div>
             <?php } ?>

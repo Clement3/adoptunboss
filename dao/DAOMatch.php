@@ -39,16 +39,56 @@ class DAOMatch extends DAO
 
     public function getAllBy($filter) 
     {
-        
+        $sql = '
+            SELECT o.*, m.indice, m.id AS match_id
+            FROM matchs AS m
+            INNER JOIN offers AS o
+            ON o.id = m.offers_id
+            WHERE m.users_id = :users_id
+            ORDER BY m.indice DESC
+        ';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':users_id', $filter);
+        $req->execute();
+
+        return $req->fetchAll();
     }
 
     public function retrieve($id) 
     {
+        $sql = 'SELECT * FROM matchs WHERE id = :id';
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':id', $id);
+        $req->execute();
 
+        return $req->fetch();
     }
 
     public function update($array)
     {
        
+    }
+
+    public function view($id)
+    {
+        $bool = true;
+
+        $sql = 'UPDATE matchs SET view = :view WHERE id = :id';
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':id', $id);
+        $req->bindParam(':view', $bool);
+        $req->execute();
+    }
+
+    public function countMatchs($id)
+    {
+        $sql = 'SELECT count(*) FROM matchs WHERE users_id = :users_id';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':users_id', $id);
+        $req->execute();
+
+        return $req->fetchColumn();
     }
 }

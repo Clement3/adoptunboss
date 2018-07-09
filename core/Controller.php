@@ -3,6 +3,7 @@ namespace BWB\Framework\mvc;
 
 use BWB\Framework\mvc\SecurityMiddleware;
 use BWB\Framework\mvc\Helpers;
+use BWB\Framework\mvc\PrettyDate;
 
 /**
  * 
@@ -97,6 +98,7 @@ abstract class Controller {
     final protected function render($pathToView,$datas=null) {
 
         $helper = new Helpers();
+        $date = new PrettyDate();
 
         if(is_array($datas)){
             foreach ($datas as $key => $value) {

@@ -100,8 +100,10 @@ class UsersController extends Controller
 
     public function dashboard()
     {
-        $this->render('users/dashboard', [
-            'users' => $this->dao_user->getAll()
+        $user = $_SESSION['user']['id'];
+
+        $this->render('users/dashboard', [  
+            'user' => $this->dao_user->retrieve($user)
         ]);
     }
 
