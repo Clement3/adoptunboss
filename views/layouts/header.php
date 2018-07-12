@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AdoptUnBoss</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" href="<?= $helper->base_url('assets/css/bulma.css') ?>">
     <link rel="stylesheet" href="<?= $helper->base_url('assets/css/multi-select.css') ?>">
     <link rel="stylesheet" href="<?= $helper->base_url('assets/css/app.css') ?>">
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
@@ -37,7 +37,10 @@
         </a>
         <a class="navbar-item" href="<?= $helper->base_url('news') ?>">
           News
-        </a>        
+        </a>
+        <a class="navbar-item" href="<?= $helper->base_url('offers/views') ?>">
+          Offres d'emploi
+        </a>                 
       </div>
 
       <div class="navbar-end">

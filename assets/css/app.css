@@ -37,6 +37,31 @@
     font-weight: bold;
 }
 
+.hero {
+    background-color:#FA745E;
+    
+}
+
+.hero h1, .hero h2{
+
+    color:white;
+}
+
+
+/* .navbar{
+    background-color:#00FF8E;
+}
+ */
+.footer {
+    background-color: #FF7660;
+    color: #fff;
+}
+.footer a {
+    color: #fff;
+}
+.message-header{
+    background-color:#7F5C56;
+}
 
 .offers .indice {
     font-size: 20px;
@@ -44,4 +69,8 @@
 
 .offers .watch {
     margin-top: 1rem;
+}
+
+footer {
+    padding: 3rem 1.5rem 3rem !important;
 }

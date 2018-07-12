@@ -1,0 +1,15 @@
+// 1. Import the initial variables
+@import "../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../node_modules/bulma/sass/utilities/functions";
+
+$app-primary-color: #fa745e;
+
+$font: "Open Sans", sans-serif;
+$family-primary: $font;
+
+$primary: $app-primary-color;
+$primary-invert: findColorInvert($app-primary-color);
+$link: $app-primary-color;
+
+// 6. Import the rest of Bulma
+@import "../../node_modules/bulma/bulma";

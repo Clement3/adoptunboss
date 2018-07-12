@@ -47,7 +47,7 @@ class DAONews extends DAO
 
     public function update($array) 
     {
-        $sql = $this->getPdo()->prepare('UPDATE news SET title = :title, short_content = :short_content content = :content, updated_date = NOW() WHERE id = :id');
+        $sql = $this->getPdo()->prepare('UPDATE news SET title = :title, short_content = :short_content, content = :content, updated_date = NOW() WHERE id = :id');
         $sql->execute($array);
     }
 

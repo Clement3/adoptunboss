@@ -1,2 +1,4 @@
 /vendor
 /config/database.json
+/node_modules
+/.sass-cache

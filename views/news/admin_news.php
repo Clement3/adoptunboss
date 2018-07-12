@@ -2,8 +2,11 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
-        Gestion des news
+        Gestion des actualités
       </h1>
+      <h2 class="subtitle">
+        <a href="<?= $helper->base_url('admin/news/create')?>"><i class="fas fa-angle-right"></i> Créer une actualité</a>
+      </h2>      
     </div>
   </div>
 </section>
@@ -12,14 +15,20 @@
   <section class="section">
     <div class="box">
       <?php include('./views/helpers/notifications.php') ?>
+      <?php if (empty($news)) { ?>
+      <div class="has-text-centered">
+        <p>Vous n'avez pas encore créer d'actualité.</p>
+        <a href="<?= $helper->base_url('admin/news/create') ?>">Créer une actualité.</a>
+      </div>
+      <?php } else { ?>        
       <table class="table is-fullwidth">
         <thead>
           <tr>
             <th><abbr title="Identifiant"># ID</abbr></th>
             <th>Titre</th>
             <th>Résumé</th>
-            <th>Date de modification</th>
             <th>Date de création</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -28,8 +37,7 @@
             <th><?= $new['id'] ?></th>
             <td><?= $new['title'] ?></td>
             <td><?= substr($new['content'], 0, 50). "...." ?></td>
-            <td><?= $new['updated_date'] ?></td>
-            <td><?= $new['created_date'] ?></td>
+            <td><?= $date->format($new['created_date']) ?></td>
             <td>
               <a href="<?= $helper->base_url('admin/news/'. $new['id'] .'/edit') ?>" class="icon has-text-info">
                 <i class="fas fa-edit"></i>
@@ -41,7 +49,8 @@
           </tr>
           <?php } ?>          
         </tbody>
-      </table>      
+      </table>   
+      <?php } ?>   
     </div>
   </section>
 </div>

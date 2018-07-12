@@ -90,21 +90,36 @@ class DAOOffer extends DAO
         return true;
     }
 
-    public function delete($id) {
-        $sql = $this->getPDO()->exec('
-        DELETE FROM offers 
-        WHERE id = '. $id .'
-        ');
+    public function delete($id) 
+    {
+        $bool = true;
+
+        $sql = 'UPDATE offers SET closed = :closed WHERE id = :id';
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':id', $id);
+        $req->bindParam(':closed', $bool);
+        $req->execute();
     }
 
     public function getAll() 
     {
         $sql = $this->getPdo()->query('
-        SELECT * 
-        FROM offers
-        ORDER BY created_date DESC
+        SELECT 
+            o.id, o.title, o.content, o.salary_min, o.salary_max, 
+            o.experience, o.latitude, o.longitude, o.created_date,
+            o.period, o.place, o.closed,
+            e.name AS employment_name,
+            a.name AS activitie_name,
+            u.email AS email
+        FROM offers AS o
+        INNER JOIN employments AS e
+        ON e.id = o.employments_id
+        INNER JOIN activities AS a
+        ON a.id = o.activities_id
+        INNER JOIN users AS u
+        ON u.id = o.users_id
         ');
-        return $sql->fetchAll();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getAllBy($filter) {
@@ -125,8 +140,7 @@ class DAOOffer extends DAO
             ON e.id = o.employments_id
             INNER JOIN activities AS a
             ON a.id = o.activities_id
-            WHERE o.id = :id 
-            AND closed = 0        
+            WHERE o.id = :id      
         ';
 
         $req = $this->getPdo()->prepare($sql);

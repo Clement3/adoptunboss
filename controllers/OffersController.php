@@ -12,13 +12,19 @@ Class OffersController extends Controller
 {
     public function index()
     {
-        if ($this->helper()->is_recruiter()) {
-            $dao = new DAOOffer();
-
+        $dao = new DAOOffer();
+    
+        if ($this->helper()->is_admin()) {
             $this->render('offers/index', [
-                'offers' => $dao->getAllByUserId($_SESSION['user']['id'])
-            ]);            
-        }
+                'offers' => $dao->getAll()
+            ]);   
+        } else {
+            if ($this->helper()->is_recruiter()) {
+                $this->render('offers/index', [
+                    'offers' => $dao->getAllByUserId($_SESSION['user']['id'])
+                ]);            
+            } 
+        }      
     }
 
     public function show($id) 
@@ -150,7 +156,34 @@ Class OffersController extends Controller
     public function delete($id) 
     {
         $dao = new DAOOffer();
-        $dao->delete($id);
-        header('Location: /dashboard/offers');
+
+        if ($this->helper()->is_auth()) {
+            $offer = $dao->retrieve($id);
+
+            if (!empty($offer) && $offer['user_id'] === $_SESSION['user']['id'] || $this->helper()->is_admin()) {
+                $dao->delete($id);
+
+                if ($this->helper()->is_admin()) {
+                    $this->helper()->with('flash', [
+                        'class' => 'is-success',
+                        'message' => 'L\'offre à bien été supprimer !'
+                    ])->redirect('admin/offers');                      
+                }
+
+                $this->helper()->with('flash', [
+                    'class' => 'is-success',
+                    'message' => 'L\'offre à bien été supprimer !'
+                ])->redirect('offers');                   
+            }
+        }
+    }
+
+    public function views()
+    {
+        $dao = new DAOOffer();
+
+        $this->render('offers/views', [
+            'offers' => $dao->getAll()
+        ]);      
     }
 }

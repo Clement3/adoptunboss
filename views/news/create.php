@@ -4,6 +4,9 @@
       <h1 class="title">
         Créer une actualité
       </h1>
+      <h2 class="subtitle">
+        <a href="<?= $helper->base_url('admin/news')?>"><i class="fas fa-angle-right"></i> Toutes les actualités</a>
+      </h2>      
     </div>
   </div>
 </section>

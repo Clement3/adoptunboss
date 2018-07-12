@@ -67,11 +67,11 @@ Class NewsController extends Controller{
                     $this->helper()->with('flash', [
                         'class' => 'is-success',
                         'message' => 'Cet actualité à bien été modifier.'
-                    ])->redirect('news/'. $id);
+                    ])->redirect('admin/news/'. $id .'/edit');
                 }
             }
 
-            $this->helper()->withErrors($validation->errors)->redirect('news/'. $id .'/edit');
+            $this->helper()->withErrors($validation->errors)->redirect('admin/news/'. $id .'/edit');
         }
     }
 
@@ -98,21 +98,19 @@ Class NewsController extends Controller{
 
             if ($validation->isValid()) {
 
-                $store = $dao->create([
+                $dao->create([
                     'title' => $_POST['title'],
                     'short_content' => $_POST['short_content'],
                     'content' => $_POST['content']
                 ]);
 
-                if ($store) {
-                    $this->helper()->with('flash', [
-                        'class' => 'is-success',
-                        'message' => 'Cet actualité à bien été modifier.'
-                    ])->redirect('news');
-                }
+                $this->helper()->with('flash', [
+                    'class' => 'is-success',
+                    'message' => 'Vous avez bien créer une nouvelle actualité.'
+                ])->redirect('admin/news');
             }
 
-            $this->helper()->withErrors($validation->errors)->redirect('news');            
+            $this->helper()->withErrors($validation->errors)->redirect('admin/news/create');            
         }
     }
 
@@ -127,16 +125,18 @@ Class NewsController extends Controller{
             $this->helper()->with('flash', [
                 'class' => 'is-success',
                 'message' => 'Cet actualité à été supprimer avec succès.'
-            ])->redirect('news');            
+            ])->redirect('admin/news');            
         }
     }
 
     public function adminNews() 
     {
-        $dao = new DAONews();
+        if ($this->helper()->is_admin()) {
+            $dao = new DAONews();
         
-        $this->render('news/admin_news', [
-            'news' => $dao->getAll()
-        ]);
+            $this->render('news/admin_news', [
+                'news' => $dao->getAll()
+            ]);
+        }
     }
 }
