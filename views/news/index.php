@@ -26,7 +26,7 @@
           <p class="subtitle is-7">Créer le <?= $date->format($new['created_date']) ?></p>
           <p><?= $new['short_content']?></p>
           <br>
-          <a class="button is-primary" href="<?= $helper->base_url('events/'. $new['id'] .'') ?>">Voir l'actualité</a>
+          <a class="button is-primary" href="<?= $helper->base_url('news/'. $new['id'] .'') ?>">Voir l'actualité</a>
         </div>
       </div>
       <?php } ?>

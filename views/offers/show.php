@@ -33,8 +33,13 @@
                   <div class="level-right">
                     <div class="level-item">
                       <?php if (!$helper->is_recruiter()) { ?>
-                      <a class="button is-primary is-small" href="">Postuler</a>
-                      <?php } else { ?>
+                        <?php if ($postulate) { ?>
+                          <a class="button is-primary is-small" href="<?= $helper->base_url('offers/'. $offer['id'] .'/postulate') ?>">Postuler</a>
+                        <?php } else { ?>
+                          <a class="button is-primary is-static">Vous avez déjà postuler</a>
+                        <?php } ?>
+                      <?php } ?>
+                      <?php if ($offer['users_id'] === $_SESSION['user']['id'] || $helper->is_admin()) { ?>
                       <a class="button is-info is-small" href="<?= $helper->base_url('offers/'.$offer['id'].'/edit') ?>">Editer</a>    
                       <?php } ?>
                     </div>
@@ -49,7 +54,7 @@
                       <dd><?= $offer['activitie_name'] ?></dd>
                     <dt>Type de contrat</dt>
                       <dd><?= $offer['employment_name'] ?></dd>
-                    <?php if ($offer['employment_name'] !== 'CDI') { ?>
+                    <?php if ($offer['has_period']) { ?>
                     <dt>Durée du contrat</dt>
                       <dd><?= $offer['period'] ?></dd>
                     <?php } ?>
@@ -57,6 +62,10 @@
                     <dt>Expérience minimun</dt>
                       <dd><?= $offer['experience'] ?></dd>
                     <?php } ?>
+                    <dt>Compétences</dt>
+                      <?php foreach ($skills as $skill) { ?>
+                        <?= $skill['name'] ?>
+                      <?php } ?>
                   </dl>
                 </div>
                 <p class="offer-content">

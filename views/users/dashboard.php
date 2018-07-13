@@ -21,47 +21,50 @@
             <span class="tag is-primary">Candidat</span>
             <?php } ?>
           </p>
-          <figure class="image is-128x128">
-            <img src="https://bulma.io/images/placeholders/128x128.png">
-          </figure><br>
-    
-          <div class="file">
-            <label class="file-label">
-              <input class="file-input" type="file" name="resume">
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
-                </span>
-                <span class="file-label">
-                  Importer
-                </span>
-              </span>
-            </label>
-          </div>
-          <br>
-
           <p class="subtitle is-6">Inscrit depuis le : <?= $date->formatWithoutTime($user['created_date']) ?></p>
         </div>
       </div>
       <div class="column">
+        <?php include('./views/helpers/notifications.php') ?>       
         <?php if ($helper->is_recruiter()) { ?>
-          <h3 class="title is-3">Ces recruteurs souhaitent vous rencontrez</h3>
-        <?php } else { ?>
-          <h5 class="title is-5">Ces recruteurs souhaitent vous rencontrez</h5>
-          <div class="columns">
+          <h5 class="title is-5">Les candidats qui ont postulé</h5>
+          <?php foreach ($postulates as $postulate) { ?>
             <div class="column is-4">
               <div class="card">
                 <header class="card-header">
                   <p class="card-header-title">
-                    Component
+                    <?= $postulate['title'] ?>
                   </p>
                 </header>
                 <footer class="card-footer">
-                  <a href="#" class="card-footer-item">Voir</a>
+                  <a href="<?= $helper->base_url('offer/'. $postulate['offers_id']) ?>" class="card-footer-item">Voir</a>
+                  <?php if ($postulate['accepted']) { ?>
+                  <a href="#" class="card-footer-item">Chat</a>
+                  <?php } else { ?>
+                  <a href="<?= $helper->base_url('postulates/'. $postulate['id'] .'/accept') ?>" class="card-footer-item has-text-success">Accepter</a>
+                  <?php } ?>
+                </footer>
+              </div>
+            </div>
+          <?php } ?>
+        <?php } else { ?>
+          <h5 class="title is-5">Ces recruteurs souhaitent vous rencontrez</h5>
+          <div class="columns">
+            <?php foreach ($postulates as $postulate) { ?>
+            <div class="column is-4">
+              <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title">
+                    <?= $postulate['title'] ?>
+                  </p>
+                </header>
+                <footer class="card-footer">
+                  <a href="<?= $helper->base_url('offer/'. $postulate['id']) ?>" class="card-footer-item">Voir</a>
                   <a href="#" class="card-footer-item">Chat</a>
                 </footer>
               </div>
             </div>
+            <?php } ?>
           </div>
         <?php } ?>
 

@@ -107,7 +107,7 @@ class DAOOffer extends DAO
         SELECT 
             o.id, o.title, o.content, o.salary_min, o.salary_max, 
             o.experience, o.latitude, o.longitude, o.created_date,
-            o.period, o.place, o.closed,
+            o.period, o.place, o.closed, o.activities_id, o.employments_id,
             e.name AS employment_name,
             a.name AS activitie_name,
             u.email AS email
@@ -132,9 +132,10 @@ class DAOOffer extends DAO
             SELECT 
                 o.id, o.title, o.content, o.salary_min, o.salary_max, 
                 o.experience, o.latitude, o.longitude, o.created_date,
-                o.period, o.place,
+                o.period, o.place, o.users_id,
                 e.name AS employment_name,
-                a.name AS activitie_name 
+                a.name AS activitie_name,
+                e.has_period 
             FROM offers AS o
             INNER JOIN employments AS e
             ON e.id = o.employments_id
@@ -235,5 +236,22 @@ class DAOOffer extends DAO
         return $skills = [
             'skills' => $req->fetchAll(PDO::FETCH_ASSOC)
         ];
+    }
+
+    public function getSkillsForOffer($id)
+    {
+        $sql = '
+            SELECT s.name 
+            FROM offers_has_skills AS os 
+            INNER JOIN skills AS s 
+            ON s.id = os.skills_id 
+            WHERE os.offers_id = :offer_id
+        ';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':offer_id', $id);
+        $req->execute();
+        
+        return $req->fetchAll(PDO::FETCH_ASSOC);      
     }
 }

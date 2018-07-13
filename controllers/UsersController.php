@@ -5,6 +5,7 @@ namespace BWB\Framework\mvc\controllers;
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\Helper;
 use BWB\Framework\mvc\dao\DAOUser;
+use BWB\Framework\mvc\dao\DAOPostulate;
 use BWB\Framework\mvc\Validation;
 
 class UsersController extends Controller 
@@ -100,10 +101,12 @@ class UsersController extends Controller
 
     public function dashboard()
     {
+        $dao_postulate = new DAOPostulate();
         $user = $_SESSION['user']['id'];
 
         $this->render('users/dashboard', [  
-            'user' => $this->dao_user->retrieve($user)
+            'user' => $this->dao_user->retrieve($user),
+            'postulates' => $this->helper()->is_recruiter() ? $dao_postulate->getAllPostulates($user) : $dao_postulate->getAllAccepted($user)
         ]);
     }
 

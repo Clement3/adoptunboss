@@ -56,11 +56,14 @@ abstract class DAO implements CRUDInterface, RepositoryInterface{
     }
 
     /**
+     * Retourne vrai si la colone existe 
+     * 
      * @param string $table
      * @param string $field
      * @param string $value
+     * @return bool
      */
-    public function exist(String $table, String $field, String $value)
+    public function exist(String $table, String $field, String $value): Bool
     {
         $sql = $this->getPdo()->prepare('SELECT count(*) FROM '. $table .' WHERE '. $field .' = :'. $field.'');
         $sql->bindParam(':'. $field .'', $value);
@@ -73,7 +76,15 @@ abstract class DAO implements CRUDInterface, RepositoryInterface{
         return false;
     }
 
-    public function unique(String $table, String $field, String $value)
+    /**
+     * Return vrai si la colone est unique
+     * 
+     * @param string $table
+     * @param string $field
+     * @param string $value
+     * @return bool
+     */
+    public function unique(String $table, String $field, String $value): Bool
     {
         $sql = $this->getPdo()->prepare('SELECT count(*) FROM '. $table .' WHERE '. $field .' = :'. $field.'');
         $sql->bindParam(':'. $field .'', $value);
@@ -84,5 +95,5 @@ abstract class DAO implements CRUDInterface, RepositoryInterface{
         }
 
         return false;
-    }    
+    }
 }

@@ -27,7 +27,13 @@ class DAOPostulate extends DAO
     
     public function retrieve($id)
     {
-        
+        $sql = 'SELECT * FROM postulates WHERE id = :id';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':id', $id);
+        $req->execute();
+
+        return $req->fetch();
     }
     
     public function update($array)
@@ -58,23 +64,69 @@ class DAOPostulate extends DAO
 
     public function acceptCandidate($array)
     {
-        $sql = $this->getPDO()->prepare('
+        $sql = '
             UPDATE postulates 
             SET accepted = 1
-            WHERE offers_id = :offers_id 
+            WHERE offers_id = :offers_id
             AND users_id = :users_id
-        ');
-        $sql->execute($array);
+        ';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':users_id', $array['users_id']);
+        $req->bindParam(':offers_id', $array['offers_id']);
+        $req->execute();
     }
 
-    public function postulateExist($userId)
+    public function postulateNotExist($array)
     {
-        $sql = $this->getPDO()->query('
-            SELECT users_id 
-            FROM Postulates 
-            WHERE users_id = '. $userId .'
-        ');
-        return $sql->fetch();
+        $sql = 'SELECT count(*) FROM postulates WHERE users_id = :users_id AND offers_id = :offers_id';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':users_id', $array['users_id']);
+        $req->bindParam(':offers_id', $array['offers_id']);
+        $req->execute();
+
+        if ($req->fetchColumn() <= 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getAllAccepted($users_id)
+    {
+        $sql = '
+            SELECT 
+                o.id, o.title
+            FROM postulates AS p
+            INNER JOIN offers AS o
+            ON o.id = p.offers_id
+            WHERE p.users_id = :users_id AND accepted = 1
+        ';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':users_id', $users_id);
+        $req->execute();
+
+        return $req->fetchAll();
+    }
+
+    public function getAllPostulates($users_id)
+    {
+        $sql = '
+            SELECT 
+                o.id AS offers_id, o.title, p.accepted, p.id
+            FROM postulates AS p
+            INNER JOIN offers AS o
+            ON o.id = p.offers_id
+            WHERE o.users_id = :users_id
+        ';
+
+        $req = $this->getPdo()->prepare($sql);
+        $req->bindParam(':users_id', $users_id);
+        $req->execute();
+
+        return $req->fetchAll();
     }
 }
  

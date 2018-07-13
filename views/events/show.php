@@ -1,9 +1,8 @@
 <section class="hero is-primary">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title"><?= $event['title'] ?>
-      </h1>
-      <h2 class="subtitle"><a href="<?= $helper->base_url('events') ?>"><i class="fas fa-angle-left"></i> Retour aux évènements</a></h2><span class="hidden" id="lat"><?= $event['latitude'] ?>
+      <h1 class="title"><?= $event['title'] ?></h1>
+      <h2 class="subtitle"><a href="<?= $helper->base_url('events') ?>"><i class="fas fa-angle-left"></i> Retour aux évènements</a></h2>
     </div>
   </div>
 </section>

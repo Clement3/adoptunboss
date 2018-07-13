@@ -55,6 +55,7 @@
 .footer {
     background-color: #fa745e;
     color: #fff;
+    padding: 3rem 1.5rem 3rem !important;
 }
 .footer a {
     color: #fff;
@@ -69,8 +70,4 @@
 
 .offers .watch {
     margin-top: 1rem;
-}
-
-footer {
-    padding: 3rem 1.5rem 3rem !important;
 }

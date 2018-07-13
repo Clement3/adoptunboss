@@ -6,6 +6,7 @@ use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\dao\DAOOffer;
 use BWB\Framework\mvc\dao\DAOEmployment;
 use BWB\Framework\mvc\dao\DAOActivitie;
+use BWB\Framework\mvc\dao\DAOPostulate;
 use BWB\Framework\mvc\Validation;
 
 Class OffersController extends Controller 
@@ -30,10 +31,15 @@ Class OffersController extends Controller
     public function show($id) 
     {
         $dao = new DAOOffer();
+        $dao_postulate = new DAOPostulate();
 
         $this->render('offers/show', [
             'offer' => $dao->retrieve($id),
-            'skills' => $dao->getSkillsByOfferId($id)
+            'skills' => $dao->getSkillsForOffer($id),
+            'postulate' => $dao_postulate->postulateNotExist([
+                'users_id' => $_SESSION['user']['id'],
+                'offers_id' => $id
+            ])
         ]);
     }
 
