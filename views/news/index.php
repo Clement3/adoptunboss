@@ -8,37 +8,28 @@
   </div>
 </section>
 
-<div class="container">
-  <section class="section">
-    <div class="columns">
-      <div class="column">
-        <?php include('./views/helpers/notifications.php') ?>
-        <?php if (empty($news)) { ?>
-          <div class="column">
-            <div class="has-text-centered">
-              <h4 class="title is-4">Il y à aucune actualités</h4>
-              <h1 class="title is-1"><i class="far fa-frown fa-3x"></i></h1>
-            </div>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <?php if (empty($news)) { ?>
+        <div class="column">
+          <div class="has-text-centered">
+            <h4 class="title is-4">Il y à aucune actualités</h4>
+            <h1 class="title is-1"><i class="far fa-frown fa-3x"></i></h1>
           </div>
-        <?php } ?>
-        <?php foreach ($news as $new) { ?>
-        <article class="message is-dark">
-          <div class="message-header">
-            <p><?= $new['title']; ?></p>
-            <span class="has-text-right">
-              <span class="has-text-weight-light"><?= $new['created_date']; ?></span>
-              <?php if ($helper->is_admin()) { ?>
-              <a href="<?= $helper->base_url('admin/news/'. $new['id'].'/edit') ?>"><i class="fas fa-edit"></i></a>
-              <a href="<?= $helper->base_url('admin/news/'. $new['id'].'/delete') ?>"><i class="fas fa-trash-alt"></i></a>
-              <?php } ?>
-            </span>
-          </div>
-          <div class="message-body">
-            <?= $new['content']; ?>
-          </div>
-        </article>
-        <?php } ?>
+        </div>
+      <?php } ?>
+      <?php foreach ($news as $new) { ?>
+      <div class="column is-6">
+        <div class="box">
+          <h3 class="title is-h3"><?= $new['title'] ?></h3>
+          <p class="subtitle is-7">Créer le <?= $date->format($new['created_date']) ?></p>
+          <p><?= $new['short_content']?></p>
+          <br>
+          <a class="button is-primary" href="<?= $helper->base_url('events/'. $new['id'] .'') ?>">Voir l'actualité</a>
+        </div>
       </div>
+      <?php } ?>
     </div>
-  </section>
-</div>
+  </div>
+</section>

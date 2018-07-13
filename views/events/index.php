@@ -10,7 +10,7 @@
 
 <section class="section">
   <div class="container">
-    <div class="columns">
+    <div class="columns is-centered">
       <?php if (empty($events)) { ?>
         <div class="column">
           <div class="has-text-centered">
@@ -23,11 +23,13 @@
       <div class="column is-6">
         <div class="box">
           <h3 class="title is-h3"><?= $event['title'] ?></h3>
-          <p class="subtitle is-6">Commence le <?= $event['start_date'] ?> et ce termine le <?= $event['end_date']?></p>
-          <p><?= $event['content']?></p>
-          <a href="<?= $helper->base_url('events/'. $event['id'] .'') ?>">Voir l'évènement</a>
+          <p class="subtitle is-7">Commence le <?= $date->format($event['start_date']) ?> et ce termine le <?= $date->format($event['end_date']) ?></p>
+          <p><?= $event['short_content']?></p>
+          <br>
+          <a class="button is-primary" href="<?= $helper->base_url('events/'. $event['id'] .'') ?>">Voir l'évènement</a>
         </div>
       </div>
       <?php } ?>
+    </div>
   </div>
 </section>
