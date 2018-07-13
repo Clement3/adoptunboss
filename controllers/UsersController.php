@@ -130,6 +130,8 @@ class UsersController extends Controller
                 'email' => $_POST['email'],
                 'firstname' => $_POST['firstname'],
                 'lastname' => $_POST['lastname'],
+                'is_admin' => $_SESSION['user']['is_admin'],
+                'is_recruiter' => $_SESSION['user']['is_recruiter']
             ]);
                 
             if ($request) {

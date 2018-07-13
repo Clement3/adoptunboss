@@ -28,15 +28,22 @@ class MatchsController extends Controller
         $dao_skill = new DAOSkill();
         $dao_match = new DAOMatch();
 
-        $offers = $dao_offer->getAll();
-        $profile = $dao_profile->retrieve($_SESSION['user']['id']);
+        if ($dao_profile->exist('profiles', 'users_id', $_SESSION['user']['id'])) {
+            $offers = $dao_offer->getAll();
+            $profile = $dao_profile->retrieve($_SESSION['user']['id']);
 
-        $algo = new MatchAlgo($profile, $offers, $dao_skill, $dao_match);
-        $algo->execute();
+            $algo = new MatchAlgo($profile, $offers, $dao_skill, $dao_match);
+            $algo->execute();
 
-        $this->render('matchs/index', [
-            'offers' => $dao_match->getAllBy($_SESSION['user']['id'])
-        ]);
+            $this->render('matchs/index', [
+                'offers' => $dao_match->getAllBy($_SESSION['user']['id'])
+            ]);        
+        } else {
+            $this->helper()->with('flash', [
+                'class' => 'is-danger',
+                'message' => 'Vous devez créer votre profil !'
+            ])->redirect('profile'); 
+        }
     }
 
     public function show($id)

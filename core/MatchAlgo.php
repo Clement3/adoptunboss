@@ -21,14 +21,17 @@ class MatchAlgo
 
     public function execute()
     {
+        // On parcours les offres
         foreach ($this->offers as $offer) {
             $this->offer = $offer;
             // Activité [Strict]
             if ($this->activity()) {
                 // Type de contrat [Strict]
                 if ($this->employment()) {
+                    // On calcul le score final
                     $this->salary()->experience()->radius()->skills()->period();
-
+                    
+                    // Si l'indice est supérieur 60 on le sauvegarde
                     if ($this->indice >= 60) {
                         $this->dao_match->create([
                             'offers_id' => $this->offer['id'],
