@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 05, 2018 at 01:31 PM
+-- Generation Time: Jul 13, 2018 at 11:41 AM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
 -- PHP Version: 7.2.4-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -110,6 +110,13 @@ CREATE TABLE `events` (
   `updated_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `title`, `short_content`, `content`, `latitude`, `longitude`, `start_date`, `end_date`, `created_date`, `updated_date`) VALUES
+(1, 'Montpellier Play Weeks', 'Lorem ipsum Lorem ipsumLorem ipsumLorem ipsum', 'Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum', '43.610769', '3.8767159999999876', '2018-07-11 00:00:00', '2018-07-13 00:00:00', '2018-07-12 16:08:38', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -129,9 +136,9 @@ CREATE TABLE `matchs` (
 --
 
 INSERT INTO `matchs` (`id`, `users_id`, `offers_id`, `indice`, `view`) VALUES
-(3, 2, 2, 75, NULL),
-(4, 2, 3, 74, NULL),
-(6, 2, 4, 95, NULL);
+(3, 2, 2, 75, 1),
+(4, 2, 3, 74, 1),
+(6, 2, 4, 95, 1);
 
 -- --------------------------------------------------------
 
@@ -165,6 +172,14 @@ CREATE TABLE `news` (
   `updated_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`id`, `title`, `short_content`, `content`, `created_date`, `updated_date`) VALUES
+(2, 'dhgjh', 'hgdjhdg', 'hgdjhgdj', '2018-07-12 15:58:49', NULL),
+(3, 'hdgj', 'gdjd', 'hdgjhgj', '2018-07-12 15:59:09', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -177,6 +192,13 @@ CREATE TABLE `newsletters` (
   `unsubscribe` tinyint(1) DEFAULT '0',
   `created_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `newsletters`
+--
+
+INSERT INTO `newsletters` (`id`, `email`, `unsubscribe`, `created_date`) VALUES
+(1, 'clement.besse@gmail.com', 0, '2018-07-06 13:57:20');
 
 -- --------------------------------------------------------
 
@@ -222,10 +244,10 @@ CREATE TABLE `offers` (
 --
 
 INSERT INTO `offers` (`id`, `title`, `content`, `created_date`, `updated_date`, `salary_min`, `salary_max`, `experience`, `closed`, `period`, `latitude`, `longitude`, `place`, `users_id`, `activities_id`, `employments_id`) VALUES
-(1, 'Cherche BTP Portugais', 'Portugais bienvenue.', NULL, NULL, 25000, 34000, 2, 0, NULL, '48.85661400000001', '2.3522219000000177', 'Paris, France', 1, 3, 3),
-(2, 'Développeur Web Paris Intramunos', 'Hello From Darkness.', NULL, NULL, 35000, 40000, 4, 0, NULL, '48.85661400000001', '2.3522219000000177', 'Paris, France', 1, 1, 2),
-(3, 'Webdesigneur Montpel', 'Caca.', NULL, NULL, 27000, 31000, 2, 0, NULL, '43.610769', '3.8767159999999876', 'Montpellier, France', 1, 1, 2),
-(4, 'Dev web montpellier', 'Hello', NULL, NULL, 35000, 40000, 3, 0, NULL, '43.610769', '3.8767159999999876', 'Montpellier, France', 1, 1, 2);
+(1, 'Cherche BTP Portugaise', 'Portugais bienvenue.', '2018-07-01 07:34:40', '2018-07-12 14:33:23', 25000, 34000, 2, 1, 1, '48.85661400000001', '2.3522219000000177', 'Paris, France', 1, 3, 3),
+(2, 'Développeur Web Paris Intramunos', 'Hello From Darkness.', '2018-07-05 06:00:00', NULL, 35000, 40000, 4, 0, NULL, '48.85661400000001', '2.3522219000000177', 'Paris, France', 1, 1, 2),
+(3, 'Webdesigneur Montpel', 'Caca.', '2018-07-07 06:20:38', NULL, 27000, 31000, 2, 0, NULL, '43.610769', '3.8767159999999876', 'Montpellier, France', 1, 1, 2),
+(4, 'Dev web montpellier', 'Hello', '2018-07-04 10:22:00', NULL, 35000, 40000, 3, 0, NULL, '43.610769', '3.8767159999999876', 'Montpellier, France', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -284,6 +306,13 @@ CREATE TABLE `postulates` (
   `accepted` tinyint(1) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `postulates`
+--
+
+INSERT INTO `postulates` (`id`, `users_id`, `offers_id`, `accepted`, `created_date`) VALUES
+(3, 2, 4, 1, '2018-07-13 11:04:39');
 
 -- --------------------------------------------------------
 
@@ -589,7 +618,7 @@ ALTER TABLE `employments`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `matchs`
 --
@@ -604,12 +633,12 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `newsletters`
 --
 ALTER TABLE `newsletters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `notifications`
 --
@@ -629,7 +658,7 @@ ALTER TABLE `passwords_reset`
 -- AUTO_INCREMENT for table `postulates`
 --
 ALTER TABLE `postulates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `profiles`
 --
