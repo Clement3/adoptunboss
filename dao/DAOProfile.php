@@ -48,6 +48,7 @@ class DAOProfile extends DAO
             :salary,
             :experience,
             :period,
+            :place,
             :users_id,
             :activities_id,
             :employments_id
@@ -64,16 +65,18 @@ class DAOProfile extends DAO
         $req->bindParam(':users_id', $array['users_id']);
         $req->bindParam(':activities_id', $array['activities_id']);
         $req->bindParam(':employments_id', $array['employments_id']);
-
+        var_dump($array);
         $req->execute();
-
+        
         $profile_id = $this->getPdo()->lastInsertId();
-
-        foreach ($array['skills'] as $skill) {
-            $this->addSkill([
-                'profiles_id' => $profile_id,
-                'skills_id' => $skill
-            ]);
+        
+        if ($array['skills']) {
+            foreach ($array['skills'] as $skill) {
+                $this->addSkill([
+                    'profiles_id' => $profile_id,
+                    'skills_id' => $skill
+                ]);
+            }            
         }       
 
         return true;
